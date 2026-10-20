@@ -20,7 +20,7 @@
 
 ### `plantuml_run` — PlantUML: нарисовать схему
 
-Нарисовать схему PlantUML (UML, C4, nwdiag, mindmap, Ганта, JSON…) в песочнице: PlantUML 1.2026.9 (сборка Apache-2.0, без <latex>), Graphviz, без сети. Стандартная библиотека иконок и C4 — !include <C4/C4_Container>, <aws/…>, <tupadr3/font-awesome-5/…>, <osa/…>; адреса в интернете не принимаются (известные ссылки C4-PlantUML подменяются на библиотеку). Ответ — тип схемы, предупреждения или ошибка со строкой, PNG первой страницы в ответе, ссылки на diagram.svg (страницы) и исходник. Чтобы показать в документе: блок ```plantuml build=<сборка> (строка fence из ответа) с исходником и первой строкой ' result: artifact:<id>/diagram.svg (см. render_block_docs plantuml).
+Нарисовать схему PlantUML (UML, C4, nwdiag, mindmap, Ганта, JSON, графики @startchart…) в песочнице: PlantUML 1.2026.9 (сборка Apache-2.0, без <latex>), Graphviz, без сети. Стандартная библиотека иконок и C4 — !include <C4/C4_Container>, <aws/…>, <tupadr3/font-awesome-5/…>, <osa/…>; адреса в интернете не принимаются (известные ссылки C4-PlantUML подменяются на библиотеку). Ответ — тип схемы, предупреждения (у графиков — пустой график, слипшиеся подписи) или ошибка со строкой, PNG первой страницы в ответе, ссылки на diagram.svg (страницы) и исходник. Чтобы показать в документе: блок ```plantuml build=<сборка> (строка fence из ответа) с исходником и первой строкой ' result: artifact:<id>/diagram.svg (см. render_block_docs plantuml).
 
 | Аргумент | Обязателен | Тип | Что |
 |---|---|---|---|
