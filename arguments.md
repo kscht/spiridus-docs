@@ -196,7 +196,7 @@
 
 ### `sandbox_builds` — Сборки песочниц
 
-Какие сборки есть у песочниц (cad.run — FreeCAD, modelica.run — OpenModelica, blender.run — Blender, plantuml.run — PlantUML, structurizr.run — Structurizr): версия программы, модули и плагины, состояние (default — по умолчанию, stable, next — новая на пробу, deprecated — устаревшая, с датой отключения sunset). У одной версии бывает несколько вариантов — разный набор верстаков и плагинов, другие опции компиляции: имя сборки — программа-версия[-вариант] (freecad-1.1.4, freecad-1.1.4-fem). Фильтр: program, version, module — подстрока в названии модуля (верстака, библиотеки). Сборку называют параметром build у cad_run, modelica_run, blender_run и строкой build: в блоке документа.
+Какие сборки есть у песочниц (cad.run — FreeCAD, modelica.run — OpenModelica, blender.run — Blender, plantuml.run — PlantUML, structurizr.run — Structurizr): версия программы, модули и плагины, состояние (default — по умолчанию, stable, next — новая на пробу, deprecated — устаревшая, с датой отключения sunset). У одной версии бывает несколько вариантов — разный набор верстаков и плагинов, другие опции компиляции: имя сборки — программа-версия[-вариант] (freecad-1.1.4, text-2026.10-openblas). Фильтр: program, version, module — подстрока в названии модуля (верстака, библиотеки). Сборку называют параметром build у инструментов песочниц (cad_run, modelica_run, blender_run, plantuml_run, text_parse…) и строкой build: в блоке документа; в ответе каждого из них build — сборка, в которой посчитано.
 
 | Аргумент | Обязателен | Тип | Что |
 |---|---|---|---|
