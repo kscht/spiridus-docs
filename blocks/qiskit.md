@@ -4,10 +4,10 @@
 
 Программа OpenQASM 2.0 или 3.0, которую разобрал и промоделировал MCP-инструмент `quantum_run`:
 Qiskit 2.5 и PyZX в песочнице без сети. Он возвращает готовый блок — строки `// result`, `// build`,
-`// view` и исходник; читатель видит исходник и выбранные картинки.
+`// view` и исходник; читатель видит выбранные картинки, а под ними — свёрнутый «показать исходник».
 
 ```qiskit
-// result: artifact:743a29379445fe1a/circuit.svg
+// result: artifact:ca7de9c1946963b1/circuit.svg
 // build: qiskit-2.5.2
 // view: circuit, histogram, bloch
 OPENQASM 2.0;
@@ -40,7 +40,7 @@ ZX-исчисление — графический язык квантовых �
 схем (меньше T-вентилей — дешевле на компьютере с исправлением ошибок). Гровер на двух кубитах:
 
 ```qiskit
-// result: artifact:b912013e47e8ad5d/circuit.svg
+// result: artifact:09b172fa98596738/circuit.svg
 // build: qiskit-2.5.2
 // view: circuit, zx, zx-reduced
 OPENQASM 2.0;
