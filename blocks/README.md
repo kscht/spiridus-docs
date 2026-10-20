@@ -7,6 +7,7 @@
 |---|---|
 | [`media`](media.md) | Картинки из внешних источников |
 | [`markdown`](markdown.md) | Разметка документа |
+| [`sandbox`](sandbox.md) | Сборки песочниц |
 | [`abc`](abc.md) | abc — ноты |
 | [`bpmn`](bpmn.md) | bpmn — процессы BPMN 2.0 |
 | [`conllu`](conllu.md) | conllu — синтаксический разбор предложения |

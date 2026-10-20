@@ -65,11 +65,38 @@
 
 Подробнее и через REST — [api.md](api.md#свои-файлы).
 
-## Служебные
+## Сборки песочниц: версии программ
+
+Всё, что считает сервер, — в **сборке**: версия программы с набором модулей. У программы может быть
+несколько сборок — разные версии (прежняя и новая на пробу) или разные варианты одной версии. Нужную
+называют параметром `build` у инструмента или строкой `build:` в блоке документа; без неё берётся
+сборка по умолчанию. Как это устроено, состояния сборок и переход на новую версию —
+[blocks/sandbox.md](blocks/sandbox.md).
 
 | Инструмент | Зачем |
 |---|---|
-| `sandbox_builds` | какие версии программ есть для рисования на сервере; нужную версию называют в запросе |
+| `sandbox_builds` | какие сборки есть сейчас: программа, версия, вариант, модули, состояние (`default`, `stable`, `next`, `deprecated` с датой отключения); фильтры `program`, `version`, `module` |
+
+Сборки на 21.10.2026 (актуальный список — всегда `sandbox_builds`):
+
+| Сборка | Состояние | Что внутри | Инструменты |
+|---|---|---|---|
+| `freecad-1.1.4` | default | FreeCAD 1.1.4: Part, PartDesign, Sketcher, Mesh, импорт STEP, FEM (CalculiX, Gmsh) | `cad_run` |
+| `openmodelica-1.27.1` | default | OpenModelica 1.27.1, Modelica Standard Library 4.1 | `modelica_run` |
+| `blender-5.2.2` | default | Blender 5.2.2 LTS: Cycles на процессоре, glTF, STL, OBJ, PLY, FBX | `blender_run` |
+| `plantuml-1.2026.9-asl` | default | PlantUML 1.2026.9 (сборка Apache-2.0, без `<latex>`), Graphviz, библиотеки C4, AWS, Azure, Kubernetes… | `plantuml_run` |
+| `structurizr-2025.11.09` | default | Structurizr CLI 2025.11.09 поверх PlantUML | `structurizr_run` |
+| `hdl-debian13` | default | Yosys 0.52, nextpnr 0.7 (iCE40, ECP5, Gowin), Icarus Verilog 12, Verilator 5.032, GHDL 5.0.1 | `hdl_synth`, `hdl_sim` |
+| `qiskit-2.5.2` | default | Qiskit 2.5.2, OpenQASM 2 и 3, PyZX 0.10.7 | `quantum_run` |
+| `qelectrotech-0.200.1-dev-f4dcbcc` | default | QElectroTech 0.200.1-dev, библиотека 8839 элементов | `qet_run`, `qet_symbols` |
+| `chromium-155` | default | Chromium 155 без экрана — рисует документ, как у читателя | `render_check` |
+| `lint-2026.10` | default | линтеры блоков: ruff, Biome, ShellCheck, chktex, d2, bpmnlint, markdownlint… | `render_check` |
+| `text-2026.10` | default | проверка текста: LanguageTool 6.6, SAGE, Vale, typograf; разбор: Slovnet, spaCy, Stanza, UDPipe 1 и 2 | `render_check`, `text_parse` |
+| `text-2026.10-onednn`, `text-2026.10-openblas` | next | то же с другой математической библиотекой — на пробу | `text_parse` |
+
+Новая версия программы появляется отдельной сборкой `next`, а не заменяет прежнюю: документ со строкой
+`build:` и дальше считается в своей сборке, пока она не отключена; об устаревшей сборке ответ
+предупреждает заранее, с датой.
 
 ## Для чатов: укороченное описание
 
