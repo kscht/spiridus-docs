@@ -212,7 +212,7 @@ curl -sS "https://v2.spiridus.ru/api/v1/jobs/91818451…?wait=30" -H "Authorizat
 
 | Инструмент | Поля |
 |---|---|
-| `render_check` | `clean` — чисто ли; `issues` — замечания `{ line, kind, text, hint, at }` (`at` — ширины окна); `blocks`, `errors`; `artifact`, `files` — снимки; `preview` — снимок строкой Markdown; `show_user` — что сделать дальше |
+| `render_check` | `clean` — чисто ли; `issues` — замечания `{ line, kind, text, hint, at }` (`at` — ширины окна; `hint` — у первого замечания каждого рецепта); `blocks`, `errors`; `artifact`, `files` — снимки; `preview` — снимок строкой Markdown; `show_user` — что сделать дальше. Картинки в ответе — только при замечаниях к рисункам или со сценариями `interact`. `brief: true` — без `hint`, `show_user` и `files`, картинки — только вырезы проблемных блоков |
 | `plantuml_run`, `structurizr_run`, `quantum_run`, `hdl_synth`, `hdl_sim`, `modelica_run`, `qet_run` | `artifact` — id результата; `files` — ссылки на файлы; `block` (и `fence`) — готовые строки для блока документа, уже со сборкой; `warnings` или ошибка со строкой |
 | `cad_run`, `blender_run` | `artifact`, `files` (модели, кадры); объём, габариты, объекты; `block` — блок ```stl со сборкой, если есть модель STL |
 | все инструменты песочниц | `build` — id сборки, в которой посчитано (и без `build` в запросе), `buildImage` — sha256 её образа. Чтобы результат не менялся с новой версией программы, запишите сборку в документ — [blocks/sandbox.md](blocks/sandbox.md#как-закрепить-результат) |
