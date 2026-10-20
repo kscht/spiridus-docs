@@ -97,10 +97,13 @@ asyncio.run(main())
 - `render_examples`, `render_recipes` — готовые примеры и рецепты починки замечаний;
 - `render_check` — нарисовать документ и получить замечания; снимки блоков и страницы;
 - песочницы: `plantuml_run`, `structurizr_run`, `hdl_synth`, `hdl_sim`, `quantum_run`, `modelica_run`,
-  `cad_run`, `blender_run`, `qet_run`, `text_parse` — результат вставляется в документ строкой из ответа.
+  `cad_run`, `blender_run`, `qet_run`, `text_parse` — результат вставляется в документ строкой из ответа;
+- `document_share` — живая ссылка на документ `https://v2.spiridus.ru/d/<id>`: открывается без ключа,
+  как у читателя; с тем же `id` — новая версия по той же ссылке.
 
 Хороший цикл для модели: прочитать `render_block_docs` нужного языка → написать документ →
-`render_check` → починить замечания → снова `render_check`, пока не станет чисто.
+`render_check` → починить замечания → снова `render_check`, пока не станет чисто → `document_share` и
+отдать ссылку человеку.
 
 Лимиты и очередь — как у REST: [api.md](api.md#лимиты-и-очередь). Всё, что приходит через MCP,
 сохраняется — [data.md](data.md).
