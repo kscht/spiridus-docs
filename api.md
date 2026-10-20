@@ -75,6 +75,19 @@ curl -sS -X POST 'https://v2.spiridus.ru/api/v1/files?name=model.stl' \
 (Blender принимает входной файл до 24 МБ, документ для `render_check` — до 512 КБ). Через MCP — инструмент
 `files_upload` с содержимым в base64, до 10 МБ.
 
+**Картинка в документ.** Загрузки читатель не видит. Чтобы показать свою картинку (PNG, JPG, WebP, GIF,
+SVG, до 10 МБ), опубликуйте её:
+
+```sh
+curl -sS -X POST https://v2.spiridus.ru/api/v1/tools/files_publish \
+  -H "Authorization: Bearer $SPIRIDUS_KEY" -H 'content-type: application/json' \
+  -d '{"ref": "upload:4c23262dcc968948/photo.png", "alt": "Схема стенда"}'
+# data: {"artifact":"…","ref":"artifact:…/photo.png","url":"https://v2.spiridus.ru/artifacts/…/photo.png","markdown":"![Схема стенда](artifact:…/photo.png)"}
+```
+
+Строку `markdown` вставляют в документ. Опубликованная картинка — как результаты инструментов: видна
+по ссылке без ключа. Тип проверяется по содержимому, а не по имени.
+
 ## Поделиться документом
 
 Готовый документ можно показать человеку живым, как его видит читатель: `document_share` сохраняет
