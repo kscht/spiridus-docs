@@ -49,6 +49,9 @@ curl -sS -X POST https://v2.spiridus.ru/api/v1/tools/render_block_docs \
 - `content` — ответ целиком, как у MCP: `text`, `image` (base64), `resource_link`;
 - неверные аргументы — `400` со списком `issues`; ошибка инструмента — `422` и `ok: false`.
 
+Тело — аргументы инструмента. Что принимает каждый (опции песочниц, сборка `build`, ссылки на файлы,
+пределы) — [arguments.md](arguments.md); машинно — `GET /api/v1/tools` и `openapi.json`.
+
 ## Свои файлы
 
 Модель STL для Blender, проект QElectroTech, документ Markdown — загрузите файл и подставьте ссылку в
