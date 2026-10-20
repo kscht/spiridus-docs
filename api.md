@@ -22,7 +22,7 @@ Authorization: Bearer sp_...
 | `POST /api/v1/tools/<имя>` | вызвать инструмент |
 | `POST /api/v1/tools/<имя>?async=1` | вызвать, не дожидаясь: сразу номер задачи |
 | `GET /api/v1/jobs` | свои задачи |
-| `GET /api/v1/jobs/<id>?wait=30` | состояние и результат задачи, подождать до 60 с |
+| `GET /api/v1/jobs/<id>?wait=N` | состояние и результат задачи; `wait` — сколько секунд подождать готовности, не больше 60 (в примерах — 30) |
 | `DELETE /api/v1/jobs/<id>` | отменить задачу |
 | `POST /api/v1/files?name=<имя>` | загрузить свой файл (тело запроса — файл, до 32 МБ) → ссылка `upload:<id>/<имя>` |
 | `GET /api/v1/files` · `DELETE /api/v1/files/<id>` | свои файлы и занятое место; удалить |
@@ -84,7 +84,7 @@ curl -sS -X POST 'https://v2.spiridus.ru/api/v1/tools/plantuml_run?async=1' \
   -d '{"source": "Alice -> Bob: привет"}'
 # {"id":"91818451…","status":"running","poll":"/api/v1/jobs/91818451…?wait=30"}
 
-# забрать результат: ждёт готовности до 30 с, иначе отвечает status: running — спросите ещё раз
+# забрать результат: wait=30 — ждёт готовности до 30 с (можно до 60), иначе отвечает status: running — спросите ещё раз
 curl -sS "https://v2.spiridus.ru/api/v1/jobs/91818451…?wait=30" -H "Authorization: Bearer $SPIRIDUS_KEY"
 ```
 

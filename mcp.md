@@ -12,18 +12,27 @@ claude mcp add --transport http spiridus https://v2.spiridus.ru/mcp \
   --header "Authorization: Bearer $SPIRIDUS_KEY"
 ```
 
-**Cursor, Windsurf и другие клиенты с файлом настроек** (`mcp.json`):
+Ключ сохранится в ваших настройках Claude Code (`~/.claude.json`), не в проекте. Не добавляйте с
+`--scope project`: тогда он попадёт в `.mcp.json` в папке проекта и легко уйдёт в git. Если сервер нужен
+в общем `.mcp.json` проекта — только с подстановкой из окружения: `"Authorization": "Bearer ${SPIRIDUS_KEY}"`.
+
+**Cursor, Windsurf и другие клиенты с файлом настроек** (`mcp.json`) — ключ не вписывайте в файл,
+подставляйте из переменной окружения; в Cursor это `${env:ИМЯ}`:
 
 ```json
 {
   "mcpServers": {
     "spiridus": {
       "url": "https://v2.spiridus.ru/mcp",
-      "headers": { "Authorization": "Bearer sp_..." }
+      "headers": { "Authorization": "Bearer ${env:SPIRIDUS_KEY}" }
     }
   }
 }
 ```
+
+Как пишется подстановка в вашем клиенте — смотрите его документацию. Если клиент её не умеет и ключ
+приходится вписать в файл — держите этот файл вне проекта (в настройках пользователя, а не в
+`.cursor/mcp.json` репозитория) или добавьте его в `.gitignore`.
 
 **Open WebUI** — двумя путями:
 
