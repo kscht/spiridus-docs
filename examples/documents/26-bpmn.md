@@ -208,13 +208,3 @@ bpmn-auto-layout прямо во фрейме; внутри — ещё один 
   </process>
 </definitions>
 ```
-
-## Ошибка
-
-Незакрытый тег — ошибка разбора с объяснением под исходником:
-
-```bpmn
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="x">
-  <process id="p"><userTask id="t" name="Незакрытая задача"></process>
-</definitions>
-```

@@ -186,17 +186,3 @@ Vega-Lite — грамматика графиков: данные, метка и
   }]
 }
 ```
-
-## Ошибки
-
-Адрес в интернете не загружается: у блока нет сети, данные должны быть в документе.
-
-```vega-lite
-{"data": {"url": "https://vega.github.io/vega-datasets/data/cars.json"}, "mark": "point", "encoding": {"x": {"field": "Horsepower", "type": "quantitative"}}}
-```
-
-Ссылка на файл, которого в документе нет:
-
-```vega-lite
-{"data": {"url": "file:нет-такого.csv"}, "mark": "bar", "encoding": {"x": {"field": "a", "type": "nominal"}}}
-```

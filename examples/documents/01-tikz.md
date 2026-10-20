@@ -73,9 +73,3 @@
 ```tikz
 \begin{tikzpicture}\node{cat \textipa{[k\ae t]} — кошка};\end{tikzpicture}
 ```
-
-Ошибка TeX показывается с местом, а не мусорной картинкой:
-
-```tikz
-\begin{tikzpicture}\node {\нетакойкоманды};\end{tikzpicture}
-```

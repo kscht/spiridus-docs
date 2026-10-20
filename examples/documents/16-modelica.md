@@ -128,13 +128,3 @@ equation
   annotation(experiment(StopTime = 5));
 end RC;
 ```
-
-## Ещё не рассчитана
-
-```modelica
-model Decay
-  Real x(start = 1, fixed = true);
-equation
-  der(x) = -0.5 * x;
-end Decay;
-```

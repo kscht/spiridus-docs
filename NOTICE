@@ -1,6 +1,19 @@
 Чужие материалы в этой документации и примерах — под своими лицензиями.
 Лицензии репозитория (CC BY 4.0 для текста, MIT-0 для examples/) на них не распространяются.
 
-Формат: файл — что это — автор — лицензия — источник.
+Формат: что — автор — лицензия — источник — где встречается.
 
-(пока нет)
+Картинки Викисклада. В документах-примерах — только ссылки на их страницы; сами файлы показывает
+рендер Spiridus из своего пакета картинок, с этой же подписью под картинкой.
+
+«Мона Лиза» — Леонардо да Винчи — общественное достояние (у Spiridus уменьшена до 1600 точек по ширине)
+  https://commons.wikimedia.org/wiki/File:Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg
+  examples/documents/08-media.md, 22-geo-history.md, 25-arts-tech.md
+
+«Строение цветка» (Mature flower diagram) — Mariana Ruiz LadyofHats — общественное достояние
+  https://commons.wikimedia.org/wiki/File:Mature_flower_diagram.svg
+  examples/documents/08-media.md, 18-primary-school.md
+
+«Сердце в разрезе» (Heart diagram-en) — ZooFari — CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)
+  https://commons.wikimedia.org/wiki/File:Heart_diagram-en.svg
+  examples/documents/08-media.md

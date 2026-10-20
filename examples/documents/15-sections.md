@@ -50,10 +50,3 @@ difference() {
   cylinder(r = 5, h = 20, center = true, $fn = 48);
 }
 ```
-
-## Плоскость мимо модели
-
-```stl
-file: artifact:7fca8326ca566d68/model.stl
-section: z = 80
-```

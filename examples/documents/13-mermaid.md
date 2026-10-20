@@ -175,10 +175,3 @@ pie
    "avoidLabelOverlap":true,
    "data":[{"name":"Азот","value":78},{"name":"Кислород","value":21},{"name":"Аргон и прочее","value":1}]}]}
 ```
-
-## Ошибка в исходнике
-
-```mermaid
-flowchart LR
-  A --> 
-```

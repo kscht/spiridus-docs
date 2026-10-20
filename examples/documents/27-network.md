@@ -107,11 +107,3 @@ flowchart LR
   S --- P
   S --- C
 ```
-
-## Ошибка
-
-Иконка по адресу в интернете не принимается:
-
-```d2
-x: Сервер { icon: https://example.com/server.svg }
-```

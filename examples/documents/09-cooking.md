@@ -17,9 +17,3 @@
  "series":[{"type":"map","map":"курица","top":36,"bottom":20,"label":{"color":"#111","textBorderColor":"#fff","textBorderWidth":3,"show":true,"fontSize":10},
   "data":[{"name":"грудка","itemStyle":{"areaColor":"#c0392b"}},{"name":"бедро","itemStyle":{"areaColor":"#e67e22"}},{"name":"крыло","itemStyle":{"areaColor":"#e67e22"}}]}]}
 ```
-
-Опечатка в имени контура подсказывает похожее:
-
-```echarts
-{"series":[{"type":"map","map":"утки"}]}
-```
