@@ -8,7 +8,10 @@ MCP=${SPIRIDUS_MCP:-https://v2.spiridus.ru/mcp}
 if [ $# -eq 0 ]; then
   BODY='{"jsonrpc": "2.0", "id": 1, "method": "tools/list"}'
 else
-  BODY="{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"tools/call\", \"params\": {\"name\": \"$1\", \"arguments\": ${2:-{\}}}}"
+  # аргументы по умолчанию — отдельной строкой: «${2:-{}}» разные sh разбирают по-разному
+  ARGS=${2:-}
+  [ -n "$ARGS" ] || ARGS='{}'
+  BODY="{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"tools/call\", \"params\": {\"name\": \"$1\", \"arguments\": $ARGS}}"
 fi
 curl -fsS "$MCP" -H "Authorization: Bearer $SPIRIDUS_KEY" -H 'content-type: application/json' \
   -H 'Accept: application/json, text/event-stream' --data-binary "$BODY" | python3 -c '

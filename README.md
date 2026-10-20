@@ -9,9 +9,15 @@ Spiridus — документы, которые вместе пишут люди
 - [REST API](api.md) — вызовы, асинхронные задачи, лимиты, ошибки
 - [Инструменты](tools.md) — что умеет каждый, когда нужен и что в ответе
 - [MCP](mcp.md) — подключить Claude Code, Cursor, Open WebUI и другие клиенты
-- [Примеры](examples/) — скрипты регистрации и вызовов, клиент на Python
+- [Справка по блокам](blocks/) — синтаксис каждого блока: Mermaid, TikZ, ECharts, PlantUML, HDL…
+- [Примеры](examples/) — скрипты регистрации и вызовов, клиент на Python, [документы-примеры](examples/documents/)
 - [Данные и их использование](data.md) — что сохраняется и зачем
 - [Как предложить правку](CONTRIBUTING.md)
+
+## Связь
+
+- Вопросы, ошибки в документации и в работе Spiridus, предложения — [issues](https://github.com/kscht/spiridus-docs/issues).
+- Что не для публичного обсуждения — почтой: [kscht@tutamail.com](mailto:kscht@tutamail.com).
 
 ## Лицензия
 

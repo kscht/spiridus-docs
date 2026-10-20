@@ -52,9 +52,9 @@ Llama, Mistral, DeepSeek, gpt-oss…); у мелких лучше включит
 
 ## Из своего скрипта
 
-MCP — это JSON-RPC запросами `POST` на один адрес. Сервер работает без сессий: `initialize` не нужен,
-каждый запрос самостоятелен, ответ — обычный JSON. Нужен заголовок
-`Accept: application/json, text/event-stream`.
+MCP — это JSON-RPC запросами `POST` на один адрес. Сервер работает без сессий: каждый запрос
+самостоятелен, ответ — обычный JSON, и **при прямых запросах** шаг `initialize` можно пропустить — наш
+сервер его не требует. Нужен заголовок `Accept: application/json, text/event-stream`.
 
 ```sh
 curl -sS https://v2.spiridus.ru/mcp \
@@ -66,7 +66,8 @@ curl -sS https://v2.spiridus.ru/mcp \
 
 `tools/list` — список инструментов. Скрипт целиком — [`examples/mcp.sh`](examples/mcp.sh).
 
-Библиотекой — для Python `pip install mcp`:
+Библиотекой — для Python `pip install mcp`. Библиотека работает по протоколу целиком и начинает с
+`initialize` сама — его вызов в примере нужен ей, а не нашему серверу:
 
 ```python
 import asyncio, os
