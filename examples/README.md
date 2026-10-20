@@ -10,4 +10,4 @@
 | [`mcp.sh`](mcp.sh) | инструмент по MCP напрямую, JSON-RPC через curl: `./mcp.sh render_block_docs '{"lang": "mermaid"}'` |
 | [`spiridus.py`](spiridus.py) | клиент на Python без зависимостей: `register`, `me`, `tools`, `check`, `call`, `async` |
 
-Документы с блоками — образцы для моделей — в [`documents/`](documents/).
+Документы с блоками — образцы синтаксиса и приёмов, для людей и моделей, — в [`documents/`](documents/).
