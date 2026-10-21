@@ -71,7 +71,9 @@ doc.recompute()
 
 **Надписи на детали** — гравировка, выпуклый текст, таблички, — `Draft.make_shapestring` и выдавливание.
 Шрифты с кириллицей есть в песочнице: `font("имя", bold=False, italic=False)` даёт путь к файлу, `fonts()` —
-список. Чертёжный ГОСТ 2.304 — `"OpenGost Type A TT"` и `"OpenGost Type B TT"` (OpenGOST, OFL-1.1); ещё PT Sans,
+список. Чертёжный ГОСТ 2.304 — `"GOST 2.304 Type A"` и `"GOST 2.304 Type B"`, прямой и наклонный (75° к
+строке): `font("GOST 2.304 Type A", italic=True)`; прямой есть и под исходным именем `"OpenGost Type A TT"`
+(OpenGOST, OFL-1.1; наклонный — производная от него). Ещё PT Sans,
 PT Serif, PT Mono, Liberation Sans/Serif/Mono, DejaVu, Noto Sans/Serif, Linux Libertine и Biolinum, CMU,
 FreeSans/FreeSerif, JetBrains Mono, Ubuntu, osifont. Шрифта нет — ошибка со списком.
 
