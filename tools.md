@@ -48,8 +48,9 @@
 | `quantum_run` | квантовые схемы OpenQASM | схема, вероятности исходов, сферы Блоха, ZX-диаграмма и её упрощение |
 | `hdl_synth` | Verilog, SystemVerilog, VHDL: проверка и синтез | схема RTL, живая схема для щелчков по входам, ресурсы ПЛИС и предельная частота |
 | `hdl_sim` | симуляция тестбенча | осциллограммы для блока и вывод тестбенча |
-| `modelica_run` | расчёт модели Modelica: механика, электрика, тепло | графики переменных, у механизмов — анимация |
-| `cad_run` | 3D-модель по сценарию FreeCAD на Python | модель STL и STEP, объём, площадь, габариты |
+| `modelica_run` | расчёт модели Modelica: механика, электрика, тепло; `set` — другие значения параметров | графики переменных, у механизмов — анимация |
+| `cad_run` | 3D-модель по сценарию FreeCAD на Python | модель STL и STEP, объём, площадь, габариты; модель от таблицы параметров (ячейки с псевдонимами) — `params` и блок ```` ```freecad ```` с полями для читателя |
+| `cad_recompute` | пересчитать готовую модель FreeCAD (FCStd) с другими значениями параметров, без сценария | то же, что у `cad_run` |
 | `blender_run` | сцена Blender: кадр, конвертация моделей | картинка или файлы моделей |
 | `qet_run`, `qet_symbols` | электрические схемы и символы QElectroTech; поиск символа в библиотеке | листы схемы, проект для скачивания |
 | `qet_tools`, `qet_call`, `qet_save` | пошаговая работа со схемой QElectroTech, когда нужны все её инструменты | результат каждого шага, сохранённые листы |
@@ -96,7 +97,7 @@
 
 | Сборка | Состояние | Что внутри | Инструменты |
 |---|---|---|---|
-| `freecad-1.1.4` | default | FreeCAD 1.1.4: Part, PartDesign, Sketcher, Mesh, импорт STEP, FEM (CalculiX, Gmsh) | `cad_run` |
+| `freecad-1.1.4` | default | FreeCAD 1.1.4: Part, PartDesign, Sketcher, Mesh, импорт STEP, FEM (CalculiX, Gmsh) | `cad_run`, `cad_recompute` |
 | `openmodelica-1.27.1` | default | OpenModelica 1.27.1, Modelica Standard Library 4.1 | `modelica_run` |
 | `blender-5.2.2` | default | Blender 5.2.2 LTS: Cycles на процессоре, glTF, STL, OBJ, PLY, FBX | `blender_run` |
 | `plantuml-1.2026.9-asl` | default | PlantUML 1.2026.9 (сборка Apache-2.0, без `<latex>`), Graphviz, библиотеки C4, AWS, Azure, Kubernetes… | `plantuml_run` |
