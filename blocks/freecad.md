@@ -69,6 +69,27 @@ cut = doc.addObject("Part::Cut", "Result"); cut.Base = b; cut.Tool = c
 doc.recompute()
 ```
 
+**Надписи на детали** — гравировка, выпуклый текст, таблички, — `Draft.make_shapestring` и выдавливание.
+Шрифты с кириллицей есть в песочнице: `font("имя", bold=False, italic=False)` даёт путь к файлу, `fonts()` —
+список. Чертёжный ГОСТ 2.304 — `"OpenGost Type A TT"` и `"OpenGost Type B TT"` (OpenGOST, OFL-1.1); ещё PT Sans,
+PT Serif, PT Mono, Liberation Sans/Serif/Mono, DejaVu, Noto Sans/Serif, Linux Libertine и Biolinum, CMU,
+FreeSans/FreeSerif, JetBrains Mono, Ubuntu, osifont. Шрифта нет — ошибка со списком.
+
+```python
+import FreeCAD as App, Draft
+doc = App.newDocument("Sign")
+plate = doc.addObject("Part::Box", "Plate"); plate.Length = 120; plate.Width = 30; plate.Height = 3
+ss = Draft.make_shapestring(String="Шухов ГОСТ 2.304", FontFile=font("OpenGost Type A TT"), Size=7)
+ss.Placement.Base = App.Vector(4, 4, 3)
+doc.recompute()
+ex = doc.addObject("Part::Extrusion", "Text"); ex.Base = ss; ex.Dir = App.Vector(0, 0, 1.2); ex.Solid = True
+fu = doc.addObject("Part::MultiFuse", "Sign"); fu.Shapes = [plate, ex]
+doc.recompute()
+```
+
+Гравировка вглубь — `Part::Cut` вместо `MultiFuse`. Размер и текст можно вынести в таблицу параметров:
+`ss.setExpression("Size", "Params.text_h")`, текст — `ss.setExpression("String", "Params.label")`.
+
 Пересчитать без документа — MCP-инструмент `cad_recompute`: `model` — ссылка на FCStd, `params` —
 новые значения (`{"length": "200 mm"}`). Ошибка называет параметр: такого нет, не число, с такими
 значениями модель не строится.
