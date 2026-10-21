@@ -15,6 +15,7 @@
 | [`digitaljs`](digitaljs.md) | digitaljs — живая логическая схема |
 | [`dot`](dot.md) | dot — графы Graphviz |
 | [`echarts`](echarts.md) | echarts — диаграммы Apache ECharts |
+| [`font`](font.md) | font — шрифт в документе |
 | [`freecad`](freecad.md) | freecad — модель FreeCAD с параметрами |
 | [`hdl`](hdl.md) | hdl — Verilog, SystemVerilog, VHDL со схемой и ресурсами |
 | [`mermaid`](mermaid.md) | mermaid — схемы Mermaid |
