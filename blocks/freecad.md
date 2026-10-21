@@ -76,6 +76,8 @@ doc.recompute()
 (OpenGOST, OFL-1.1; наклонный — производная от него). Ещё PT Sans,
 PT Serif, PT Mono, Liberation Sans/Serif/Mono, DejaVu, Noto Sans/Serif, Linux Libertine и Biolinum, CMU,
 FreeSans/FreeSerif, JetBrains Mono, Ubuntu, osifont. Шрифта нет — ошибка со списком.
+`Size` у `make_shapestring` — высота прописной буквы в мм (замерено), а не кегль: размер шрифта по ГОСТ
+2.304 (2,5; 3,5; 5; 7; 10; 14 мм) пишется как есть — `Size=5` даёт прописную 5 мм у любого шрифта.
 
 ```python
 import FreeCAD as App, Draft
