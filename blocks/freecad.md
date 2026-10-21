@@ -78,6 +78,8 @@ PT Serif, PT Mono, Liberation Sans/Serif/Mono, DejaVu, Noto Sans/Serif, Linux Li
 FreeSans/FreeSerif, JetBrains Mono, Ubuntu, osifont. Шрифта нет — ошибка со списком.
 `Size` у `make_shapestring` — высота прописной буквы в мм (замерено), а не кегль: размер шрифта по ГОСТ
 2.304 (2,5; 3,5; 5; 7; 10; 14 мм) пишется как есть — `Size=5` даёт прописную 5 мм у любого шрифта.
+Чертёжный шрифт (`GOST…` в имени) с размером не из ряда `render_check` отмечает (`gost-size`, линтер
+`spiridus`); 1,8 мм — «допускается, но не рекомендуется».
 
 ```python
 import FreeCAD as App, Draft
