@@ -32,6 +32,7 @@
 | [`structurizr`](structurizr.md) | structurizr — модель C4 на Structurizr DSL |
 | [`svg`](svg.md) | svg — произвольный рисунок |
 | [`table`](table.md) | table — таблица с объединёнными ячейками |
+| [`tabulator`](tabulator.md) | tabulator — интерактивная таблица Tabulator |
 | [`tikz`](tikz.md) | tikz — рисунки на TeX |
 | [`vcd`](vcd.md) | vcd — осциллограммы симуляции |
 | [`vega`](vega.md) | vega — диаграммы Vega |
