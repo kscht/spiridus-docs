@@ -1,7 +1,7 @@
 <!-- Собрано из apps/playground/examples/46-fonts.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
-<!-- раздел: Инженерия | теги: font, шрифт, ГОСТ 2.304, чертёжный шрифт, Spiridus GOST, кириллица, наклонный -->
-# Шрифты Spiridus GOST
+<!-- раздел: Инженерия | теги: font, шрифт, ГОСТ 2.304, чертёжный шрифт, Timashkovy GOST, кириллица, наклонный -->
+# Шрифты Timashkovy GOST
 
 Свои шрифты проекта по ГОСТ 2.304-81 «Шрифты чертёжные». Знаки построены заново по чертежам стандарта
 (`fonts/` в репозитории). Лицензия — SIL Open Font License 1.1. Сейчас готов **черновик типа Б**, прямой и
@@ -26,7 +26,7 @@
 ## Тип Б, прямой
 
 ```font
-file: fonts:spiridus-gost-b
+file: fonts:timashkovy-gost-b
 grid: gost-b
 chars: кириллица, латиница, греческий, цифры, знаки
 text: ЧЕРТЁЖ ОБЩЕГО ВИДА
@@ -44,8 +44,8 @@ sizes: гост
 прямое начертание.
 
 ```font
-file: fonts:spiridus-gost-b-italic
-compare: fonts:spiridus-gost-b
+file: fonts:timashkovy-gost-b-italic
+compare: fonts:timashkovy-gost-b
 grid: gost-b
 chars: кириллица, латиница, цифры, знаки
 text: Спецификация сборочного чертежа
