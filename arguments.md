@@ -244,6 +244,18 @@
 | `brief` |  | `true` / `false` | краткий ответ: замечания без подсказок hint (рецепты — render_recipes), без show_user и списка файлов, JSON без отступов; для повторных проверок. По умолчанию нет: подсказка — у первого замечания каждого рецепта |
 | `text` |  | `true` / `false` | проверка русского текста (песочница text.run): LanguageTool, второе мнение SAGE, Vale со стилем Spiridus — канцелярит, «является», пустышки, длинные предложения, typograf — кавычки и тире, повторы и цепочки родительных; по умолчанию да; замечания kind: text не меняют clean. Свои слова — в документе <!-- text-words: слайсер, кубит -->, не показывать правила — <!-- text-ignore: Spiridus.Fillers, sage --> |
 
+### `lint_check` — Проверить код линтерами — без отрисовки
+
+Быстрая проверка линтерами без отрисовки документа (render_check делает то же, но ещё рисует всё в браузере — дольше). Блок кода: code и lang — строки замечаний по этому коду. Или документ целиком: markdown или markdown_file — каждый блок своим линтером, как в render_check. Линтеры по языку: python — ruff, js/ts — Biome, sh/bash — ShellCheck, dockerfile — hadolint, yaml — yamllint, sql — sqlfluff, json, tikz/latex — chktex, dot — Graphviz, d2 — d2 validate, vega/vega-lite — JSON-схема, bpmn — bpmnlint, markdown — markdownlint, схемы — правила Spiridus (тихие ошибки). text: true — ещё и проверка русского текста. Ответ — issues {line, lang, tool, rule, text, hint}, clean — нет ли замечаний.
+
+| Аргумент | Обязателен | Тип | Что |
+|---|---|---|---|
+| `code` |  | строка до 256 К знаков | код одного блока — без ``` вокруг |
+| `lang` |  | строка `^[a-z0-9+-]{1,24}$` | язык блока: python, js, ts, sh, dockerfile, yaml, sql, json, tikz, dot, d2, vega-lite, bpmn, mermaid… |
+| `markdown` |  | строка до 512 К знаков | или документ целиком |
+| `markdown_file` |  | ссылка `artifact:…` или `upload:…` | или документ файлом: upload:<id>/<имя>.md |
+| `text` |  | `true` / `false` | и проверка русского текста (как text в render_check); по умолчанию нет |
+
 ## Справка и примеры
 
 ### `render_blocks` — Наглядные блоки документа

@@ -106,6 +106,7 @@ asyncio.run(main())
 - `render_blocks`, `render_block_docs` — какие блоки есть и как их писать;
 - `render_examples`, `render_recipes` — готовые примеры и рецепты починки замечаний;
 - `render_check` — нарисовать документ и получить замечания; снимки блоков и страницы;
+- `lint_check` — только линтеры, без отрисовки: один блок кода или документ, за пару секунд;
 - песочницы: `plantuml_run`, `structurizr_run`, `hdl_synth`, `hdl_sim`, `quantum_run`, `modelica_run`,
   `cad_run`, `blender_run`, `qet_run`, `text_parse` — результат вставляется в документ строкой из ответа;
 - `document_share` — живая ссылка на документ `https://v2.spiridus.ru/d/<id>`: открывается без ключа,
