@@ -217,7 +217,9 @@ curl -sS "https://v2.spiridus.ru/api/v1/jobs/91818451…?wait=30" -H "Authorizat
   `render_block_docs` — это Markdown), `data` — `null`, текст — в `content`;
 - `content` — ответ целиком, как у MCP: `text`, `image` (картинки в base64), `resource_link` (ссылки на файлы);
 - для чатов (`/api/v1/chat/tools/<имя>`, спецификация `openapi-chat.json`) — только результат: объект
-  `data` или `{ "result": "текст" }`, без `content`.
+  `data` или `{ "result": "текст" }`, без `content`;
+- без картинок — `?images=0` (или заголовок `X-Spiridus-Images: off`): в `content` нет `image`, ссылки
+  на картинки в `data` остаются. Для моделей без зрения; то же работает у MCP.
 
 **Ошибки** — `{ "error": "…" }` и код; у неверных аргументов ещё `issues` — что и где не так:
 
