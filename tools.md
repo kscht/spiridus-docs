@@ -98,7 +98,8 @@
 
 | Сборка | Состояние | Что внутри | Инструменты |
 |---|---|---|---|
-| `freecad-1.1.4` | default | FreeCAD 1.1.4: Part, PartDesign, Sketcher, Mesh, импорт STEP, FEM (CalculiX, Gmsh) | `cad_run`, `cad_recompute` |
+| `freecad-1.1.4-timashkovy` | default | FreeCAD 1.1.4: Part, PartDesign, Sketcher, Mesh, импорт STEP, FEM (CalculiX, Gmsh); шрифты, в том числе свои Timashkovy GOST (ГОСТ 2.304, типы A и B) | `cad_run`, `cad_recompute` |
+| `freecad-1.1.4` | stable | то же без шрифтов Timashkovy GOST | `cad_run`, `cad_recompute` |
 | `openmodelica-1.27.1` | default | OpenModelica 1.27.1, Modelica Standard Library 4.1 | `modelica_run` |
 | `blender-5.2.2` | default | Blender 5.2.2 LTS: Cycles на процессоре, glTF, STL, OBJ, PLY, FBX | `blender_run` |
 | `plantuml-1.2026.9-asl` | default | PlantUML 1.2026.9 (сборка Apache-2.0, без `<latex>`), Graphviz, библиотеки C4, AWS, Azure, Kubernetes… | `plantuml_run` |

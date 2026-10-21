@@ -71,9 +71,10 @@ doc.recompute()
 
 **Надписи на детали** — гравировка, выпуклый текст, таблички, — `Draft.make_shapestring` и выдавливание.
 Шрифты с кириллицей есть в песочнице: `font("имя", bold=False, italic=False)` даёт путь к файлу, `fonts()` —
-список. Чертёжный ГОСТ 2.304 — `"GOST 2.304 Type A"` и `"GOST 2.304 Type B"`, прямой и наклонный (75° к
-строке): `font("GOST 2.304 Type A", italic=True)`; прямой есть и под исходным именем `"OpenGost Type A TT"`
-(OpenGOST, OFL-1.1; наклонный — производная от него). Ещё PT Sans,
+список. Чертёжный ГОСТ 2.304 — свой шрифт Spiridus `"Timashkovy GOST Type B"` и `"Timashkovy GOST Type A"`,
+прямой и наклонный (75° к строке): `font("Timashkovy GOST Type B", italic=True)` — сверен с чертежами стандарта
+(в допуске ±0,5 мм); есть и `"GOST 2.304 Type A"`, `"GOST 2.304 Type B"` (OpenGOST, OFL-1.1, наклонный — производная
+от него; прямой и под исходным именем `"OpenGost Type A TT"`). Ещё PT Sans,
 PT Serif, PT Mono, Liberation Sans/Serif/Mono, DejaVu, Noto Sans/Serif, Linux Libertine и Biolinum, CMU,
 FreeSans/FreeSerif, JetBrains Mono, Ubuntu, osifont. Шрифта нет — ошибка со списком.
 `Size` у `make_shapestring` — высота прописной буквы в мм (замерено), а не кегль: размер шрифта по ГОСТ
