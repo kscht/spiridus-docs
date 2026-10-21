@@ -52,3 +52,4 @@
 | [43-adders.md](43-adders.md) | Как компьютер складывает числа: от элемента И до сумматора |
 | [44-syntax.md](44-syntax.md) | Синтаксический разбор: дерево зависимостей |
 | [45-abc-cover.md](45-abc-cover.md) | abc — пример кавера |
+| [46-fonts.md](46-fonts.md) | Шрифты Spiridus GOST |
