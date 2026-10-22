@@ -398,6 +398,19 @@ FreeCAD: сохранить STL, STEP, FCStd и воспроизводимый �
 | `simulator` |  | `iverilog`, `verilator`, `ghdl` | по умолчанию iverilog для Verilog, ghdl для VHDL |
 | `stop` |  | строка до 40 знаков `^\d+(\.\d+)?\s*(fs\|ps\|ns\|us\|ms\|sec)$` | VHDL: время остановки, по умолчанию 1ms |
 
+### `hlsl_compile` — HLSL и Slang: скомпилировать пиксельный шейдер
+
+Компилирует HLSL/Slang mainImage в GLSL ES 3.00. Возвращает файлы, диагностику и блок result:. Синтаксис: render_block_docs hlsl/slang.
+
+| Аргумент | Обязателен | Тип | Что |
+|---|---|---|---|
+| `source` | да | строка до 64 К знаков |  |
+| `language` |  | `hlsl`, `slang` |  |
+| `entry` |  | строка `^[A-Za-z_]\w{0,63}$` |  |
+| `profile` |  | `ps_6_0` |  |
+| `build` |  | строка | сборка из sandbox_builds (версия и модули); по умолчанию — основная |
+| `disassemble` |  | `true` / `false` |  |
+
 ### `modelica_run` — Modelica: рассчитать модель
 
 Рассчитать модель Modelica в OpenModelica 1.27.1 со стандартной библиотекой Modelica 4.1 в изолированной песочнице (без сети, 1,5 ГБ, 180 с). Модель — текст .mo целиком (model … end …;), можно с import из Modelica.*; других библиотек нет. Ответ — сводка (переменные, число строк, предупреждения, ошибка компилятора) и ссылки на result.csv и model.mo; у моделей MultiBody ещё anim.json — блок покажет их движение в 3D. Чтобы показать результат в документе, пишите блок ```modelica с исходником и строками в начале: // result: artifact:<id>/result.csv и // plot: C.v, R.i (см. render_block_docs modelica).

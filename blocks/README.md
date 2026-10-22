@@ -19,6 +19,7 @@
 | [`freecad`](freecad.md) | freecad — модель FreeCAD с параметрами |
 | [`glsl`](glsl.md) | glsl — шейдер GLSL ES 3.00 |
 | [`hdl`](hdl.md) | hdl — Verilog, SystemVerilog, VHDL со схемой и ресурсами |
+| [`hlsl`](hlsl.md) | HLSL и Slang — пиксельные шейдеры |
 | [`mermaid`](mermaid.md) | mermaid — схемы Mermaid |
 | [`modelica`](modelica.md) | modelica — модель Modelica и графики расчёта |
 | [`mol3d`](mol3d.md) | mol3d — молекула в 3D |
@@ -30,6 +31,7 @@
 | [`qet`](qet.md) | qet — электрические схемы и символы QElectroTech |
 | [`qiskit`](qiskit.md) | qiskit — квантовая схема: Qiskit и ZX-исчисление |
 | [`razbor`](razbor.md) | razbor — разбор слова и предложения |
+| [`slang`](slang.md) | HLSL и Slang — пиксельные шейдеры |
 | [`smiles`](smiles.md) | smiles — структурные формулы и схемы реакций |
 | [`stl`](stl.md) | stl — 3D-модель STL |
 | [`structurizr`](structurizr.md) | structurizr — модель C4 на Structurizr DSL |
