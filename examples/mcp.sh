@@ -22,6 +22,13 @@ res = r["result"]
 if "tools" in res:
     for t in res["tools"]: print(t["name"], "—", t.get("title", ""))
 else:
+    typed = "structuredContent" in res and not res.get("isError")
+    plain = res.get("_meta", {}).get("spiridus/textResult")
+    printed = False
     for c in res["content"]:
-        print(c["text"] if c["type"] == "text" else "[" + c["type"] + "]")
+        if c["type"] == "text" and typed and not printed and not plain:
+            print(json.dumps(res["structuredContent"], ensure_ascii=False, indent=1))
+        else:
+            print(c["text"] if c["type"] == "text" else "[" + c["type"] + "]")
+        if c["type"] == "text": printed = True
 '

@@ -121,3 +121,8 @@
 Модели в чате (Open WebUI и т. п.) проще выбирать из меньшего числа операций. Для них —
 `https://v2.spiridus.ru/api/v1/openapi-chat.json`: только инструменты модели, без служебных адресов.
 Ещё короче — свой набор: `openapi-chat.json?tools=render_block_docs,render_examples,render_check`.
+
+Типизированные ответы доступны для render_check, cad_run/cad_recompute, plantuml_run,
+structurizr_run, lint_check, document_share и render_block_docs. Имена и значения полей прежние;
+полный результат MCP — в structuredContent, схема — outputSchema в tools/list.
+Подробнее — [MCP](mcp.md#структурированные-результаты) и [REST API](api.md#типизированные-результаты-инструментов).
