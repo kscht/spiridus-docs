@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/digitaljs/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/digitaljs/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `digitaljs` — живая логическая схема
 

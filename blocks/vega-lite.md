@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/vega-lite/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/vega/docs.vega-lite.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `vega-lite` — диаграммы Vega-Lite
 

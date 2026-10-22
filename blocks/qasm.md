@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/qasm/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/qasm/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `qasm` — квантовая схема на OpenQASM
 

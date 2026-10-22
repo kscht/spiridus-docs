@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/python/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/python/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `python` — код на Python с запуском
 

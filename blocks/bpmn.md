@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/bpmn/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/bpmn/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `bpmn` — процессы BPMN 2.0
 

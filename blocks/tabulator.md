@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/tabulator/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/tabulator/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `tabulator` — интерактивная таблица Tabulator
 

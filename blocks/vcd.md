@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/vcd/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/vcd/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `vcd` — осциллограммы симуляции
 

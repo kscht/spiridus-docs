@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/freecad/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/freecad/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `freecad` — модель FreeCAD с параметрами
 

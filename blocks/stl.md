@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/stl/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/stl/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `stl` — 3D-модель STL
 

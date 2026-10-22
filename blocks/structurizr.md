@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/structurizr/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/structurizr/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `structurizr` — модель C4 на Structurizr DSL
 

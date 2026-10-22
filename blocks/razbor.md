@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/razbor/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/razbor/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `razbor` — разбор слова и предложения
 

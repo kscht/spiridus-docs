@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/propis/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/propis/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `propis` — пропись
 

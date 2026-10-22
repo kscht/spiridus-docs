@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/modelica/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/modelica/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `modelica` — модель Modelica и графики расчёта
 

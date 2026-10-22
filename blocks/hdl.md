@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/hdl/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/hdl/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `hdl` — Verilog, SystemVerilog, VHDL со схемой и ресурсами
 

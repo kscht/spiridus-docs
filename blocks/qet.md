@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/qet/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/qet/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `qet` — электрические схемы и символы QElectroTech
 

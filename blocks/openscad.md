@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/openscad/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/openscad/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `openscad` — 3D-модель OpenSCAD
 

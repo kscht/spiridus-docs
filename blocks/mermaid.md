@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/mermaid/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/mermaid/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `mermaid` — схемы Mermaid
 

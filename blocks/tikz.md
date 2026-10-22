@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/tikz/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/tikz/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `tikz` — рисунки на TeX
 

@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/qiskit/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/qiskit/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `qiskit` — квантовая схема: Qiskit и ZX-исчисление
 

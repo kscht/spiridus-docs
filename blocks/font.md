@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/font/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/font/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `font` — шрифт в документе
 

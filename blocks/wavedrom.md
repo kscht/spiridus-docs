@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/wavedrom/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/wavedrom/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `wavedrom` — временны́е диаграммы, регистры, логические схемы
 

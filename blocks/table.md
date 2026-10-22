@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/table/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/table/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `table` — таблица с объединёнными ячейками
 

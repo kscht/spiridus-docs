@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/conllu/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/conllu/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `conllu` — синтаксический разбор предложения
 

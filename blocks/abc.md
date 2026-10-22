@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/abc/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/abc/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `abc` — ноты
 

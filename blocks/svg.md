@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/svg/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/svg/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `svg` — произвольный рисунок
 

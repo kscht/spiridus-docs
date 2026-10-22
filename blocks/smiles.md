@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/smiles/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/smiles/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `smiles` — структурные формулы и схемы реакций
 

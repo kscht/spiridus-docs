@@ -1,4 +1,4 @@
-<!-- Собрано из packages/render/src/blocks/vega/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано из notations/vega/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
 
 # `vega` — диаграммы Vega
 
