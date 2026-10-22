@@ -53,3 +53,4 @@
 | [44-syntax.md](44-syntax.md) | Синтаксический разбор: дерево зависимостей |
 | [45-abc-cover.md](45-abc-cover.md) | abc — пример кавера |
 | [46-fonts.md](46-fonts.md) | Шрифты Timashkovy GOST |
+| [59-glsl.md](59-glsl.md) | Шейдеры в документе |

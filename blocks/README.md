@@ -17,6 +17,7 @@
 | [`echarts`](echarts.md) | echarts — диаграммы Apache ECharts |
 | [`font`](font.md) | font — шрифт в документе |
 | [`freecad`](freecad.md) | freecad — модель FreeCAD с параметрами |
+| [`glsl`](glsl.md) | glsl — шейдер GLSL ES 3.00 |
 | [`hdl`](hdl.md) | hdl — Verilog, SystemVerilog, VHDL со схемой и ресурсами |
 | [`mermaid`](mermaid.md) | mermaid — схемы Mermaid |
 | [`modelica`](modelica.md) | modelica — модель Modelica и графики расчёта |
