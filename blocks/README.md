@@ -9,6 +9,7 @@
 | [`markdown`](markdown.md) | Разметка документа |
 | [`sandbox`](sandbox.md) | Сборки песочниц |
 | [`abc`](abc.md) | abc — ноты |
+| [`argdown`](argdown.md) | argdown — карта аргументации |
 | [`bpmn`](bpmn.md) | bpmn — процессы BPMN 2.0 |
 | [`conllu`](conllu.md) | conllu — синтаксический разбор предложения |
 | [`d2`](d2.md) | d2 — схемы D2 |

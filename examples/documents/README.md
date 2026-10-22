@@ -55,3 +55,4 @@
 | [46-fonts.md](46-fonts.md) | Шрифты Timashkovy GOST |
 | [59-glsl.md](59-glsl.md) | Шейдеры в документе |
 | [60-hlsl-slang.md](60-hlsl-slang.md) | Шейдеры HLSL и Slang |
+| [61-argdown.md](61-argdown.md) | Карты аргументации |
