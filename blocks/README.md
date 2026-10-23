@@ -22,6 +22,7 @@
 | [`hdl`](hdl.md) | hdl — Verilog, SystemVerilog, VHDL со схемой и ресурсами |
 | [`hlsl`](hlsl.md) | HLSL и Slang — пиксельные шейдеры |
 | [`lean`](lean.md) | Lean 4: доказательства с проверкой |
+| [`legalruleml`](legalruleml.md) | Нормы права — LegalRuleML 1.0 |
 | [`mermaid`](mermaid.md) | mermaid — схемы Mermaid |
 | [`modelica`](modelica.md) | modelica — модель Modelica и графики расчёта |
 | [`mol3d`](mol3d.md) | mol3d — молекула в 3D |
