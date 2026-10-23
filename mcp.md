@@ -3,6 +3,11 @@
 Сервер MCP Spiridus — `https://v2.spiridus.ru/mcp` (Streamable HTTP). Ключ — тот же, что для REST API
 ([getting-started.md](getting-started.md)), в заголовке `Authorization: Bearer sp_...`.
 
+Без ключа сервер показывает только `account_register {email, nickname}`. Подтвердите email
+по письму и впишите полученный ключ в настройки клиента — не отправляйте его модели.
+Если регистрация доступна только по приглашению, откройте ссылку, которую вам дали.
+Правила обязательного никнейма — в [первых шагах](getting-started.md#1-зарегистрируйтесь).
+
 ## Подключить
 
 **Claude Code:**

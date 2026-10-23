@@ -21,6 +21,7 @@
 | [`glsl`](glsl.md) | glsl — шейдер GLSL ES 3.00 |
 | [`hdl`](hdl.md) | hdl — Verilog, SystemVerilog, VHDL со схемой и ресурсами |
 | [`hlsl`](hlsl.md) | HLSL и Slang — пиксельные шейдеры |
+| [`lean`](lean.md) | Lean 4: доказательства с проверкой |
 | [`mermaid`](mermaid.md) | mermaid — схемы Mermaid |
 | [`modelica`](modelica.md) | modelica — модель Modelica и графики расчёта |
 | [`mol3d`](mol3d.md) | mol3d — молекула в 3D |

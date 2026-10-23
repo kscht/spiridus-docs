@@ -10,13 +10,26 @@ Spiridus рисует наглядные блоки в документах Mark
 
 ## 1. Зарегистрируйтесь
 
+Подключите MCP-клиент к `https://v2.spiridus.ru/mcp` без ключа: он увидит только
+`account_register`. Укажите email и обязательный `nickname`. Откройте письмо, подтвердите адрес,
+затем впишите ключ в настройки клиента: `Authorization: Bearer sp_…`. Ключ по MCP не передаётся;
+не отправляйте его в разговор с моделью.
+
+Если вам дали ссылку `/invite/…`, откройте её в браузере, укажите email и никнейм, затем подтвердите
+почту. В режиме регистрации по приглашениям обычная регистрация REST и MCP закрыта.
+
+Никнейм: 1–64 знака `A–Z`, `a–z`, `0–9`, внутри также `.`, `-`, `_`.
+Начало и конец — латинская буква или цифра. Пробелы, Unicode и невидимые символы запрещены.
+
+Через REST:
+
 ```sh
 curl -sS -X POST https://v2.spiridus.ru/api/v1/register \
   -H 'content-type: application/json' \
-  -d '{"email": "you@example.com"}'
+  -d '{"email": "you@example.com", "nickname": "reader"}'
 ```
 
-Или скриптом: [`examples/register.sh`](examples/register.sh) `you@example.com`.
+Или скриптом: [`examples/register.sh`](examples/register.sh) `you@example.com reader`.
 
 Ответ всегда один и тот же — «если адрес верный, на него ушло письмо». Письмо придёт с
 `nobody@spiridus.ru` (загляните в «Спам»); ссылка в нём действует сутки.
