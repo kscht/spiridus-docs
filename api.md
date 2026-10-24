@@ -86,8 +86,10 @@ curl -sS -X POST 'https://v2.spiridus.ru/api/v1/files?name=model.stl' \
 (Blender принимает входной файл до 24 МБ, документ для `render_check` — до 512 КБ). Через MCP — инструмент
 `files_upload` с содержимым в base64, до 10 МБ.
 
-**Картинка в документ.** Загрузки читатель не видит. Чтобы показать свою картинку (PNG, JPG, WebP, GIF,
-SVG, до 10 МБ), опубликуйте её:
+**Файл в документ.** Загрузки `upload:` и большие ответы Code Mode `private:` читатель не видит.
+`private:` доступен владельцу через инструменты и временный подписанный адрес не дольше 15 минут.
+Чтобы показать файл читателю, явно опубликуйте его; для загрузок разрешены картинки (PNG, JPG, WebP,
+GIF, SVG) и шрифты до 10 МБ, приватный результат копируется как файл:
 
 ```sh
 curl -sS -X POST https://v2.spiridus.ru/api/v1/tools/files_publish \
@@ -96,7 +98,9 @@ curl -sS -X POST https://v2.spiridus.ru/api/v1/tools/files_publish \
 # data: {"artifact":"…","ref":"artifact:…/photo.png","url":"https://v2.spiridus.ru/artifacts/…/photo.png","markdown":"![Схема стенда](artifact:…/photo.png)"}
 ```
 
-Строку `markdown` вставляют в документ. Опубликованная картинка видна по ссылке без ключа, как
+В `ref` можно передать также собственный `private:<id>/<имя>`. Строку `markdown` вставляют в документ;
+`render_check` и `document_share` отвергают необработанный `private:` и подсказывают `files_publish`.
+Опубликованный файл виден по ссылке без ключа, как
 результаты инструментов, и живёт, пока жива учётная запись; снять раньше — `files_unpublish`
 `{"ref": "artifact:…/photo.png"}`. Тип проверяется по содержимому, а не по имени.
 
