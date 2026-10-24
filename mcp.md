@@ -23,6 +23,18 @@ Python как `tools.<имя>(args)`. Большие ответы остаютс
 `render_check` автоматически использует краткий ответ и один снимок страницы. Полный структурированный
 результат сохраняется, а точный формат сценариев взаимодействия доступен как `render_block_docs check`.
 
+Выбор адреса:
+
+- `/mcp/code` — основной вариант для модели, которая уверенно пишет JavaScript или Python: каталог
+  короткий, а тёплый пул убирает обычную цену запуска одноразовой песочницы;
+- `/mcp/lite` — для небольшой модели или простого цикла «справка → документ → проверка → публикация»;
+- `/mcp` — если модели нужны прямые вызовы всех песочниц и клиент сам умеет откладывать или
+  фильтровать большой каталог.
+
+Цикл `/mcp/code`: `search({query})` находит имя, `search({describe:[...]})` возвращает сигнатуру,
+а `execute` вызывает `tools.<имя>(...)` в одноразовой песочнице. Проверку `render_check` и публикацию
+`document_share` удобно сделать в том же `execute`, вернув в чат только `verdict` и URL.
+
 ## Подключить
 
 **Claude Code:**
@@ -35,6 +47,45 @@ claude mcp add --transport http spiridus https://v2.spiridus.ru/mcp \
 Ключ сохранится в ваших настройках Claude Code (`~/.claude.json`), не в проекте. Не добавляйте с
 `--scope project`: тогда он попадёт в `.mcp.json` в папке проекта и легко уйдёт в git. Если сервер нужен
 в общем `.mcp.json` проекта — только с подстановкой из окружения: `"Authorization": "Bearer ${SPIRIDUS_KEY}"`.
+
+**Claude Messages API, MCP connector.** Для полного `/mcp` включите серверный tool search и отложенную
+загрузку схем. MCP connector требует beta `mcp-client-2025-11-20`: передайте её в `anthropic-beta`
+или как `betas: ["mcp-client-2025-11-20"]` в SDK. `authorization_token` передавайте только со своего сервера:
+
+```json
+{
+  "mcp_servers": [{
+    "type": "url",
+    "name": "spiridus",
+    "url": "https://v2.spiridus.ru/mcp",
+    "authorization_token": "${SPIRIDUS_KEY}"
+  }],
+  "tools": [
+    { "type": "tool_search_tool_bm25_20251119", "name": "tool_search_tool_bm25" },
+    {
+      "type": "mcp_toolset",
+      "mcp_server_name": "spiridus",
+      "default_config": { "defer_loading": true }
+    }
+  ]
+}
+```
+
+**OpenAI Agents SDK.** Если нужна только часть полного каталога, отфильтруйте его на стороне клиента:
+
+```js
+import { MCPServerStreamableHttp, createMCPToolStaticFilter } from "@openai/agents";
+
+const spiridus = new MCPServerStreamableHttp({
+  url: "https://v2.spiridus.ru/mcp",
+  requestInit: { headers: { Authorization: `Bearer ${process.env.SPIRIDUS_KEY}` } },
+  toolFilter: createMCPToolStaticFilter({
+    allowed: ["render_blocks", "render_block_docs", "render_check", "document_share"]
+  })
+});
+```
+
+`toolFilter` сокращает набор, видимый модели, но не заменяет авторизацию на сервере.
 
 **Cursor, Windsurf и другие клиенты с файлом настроек** (`mcp.json`) — ключ не вписывайте в файл,
 подставляйте из переменной окружения; в Cursor это `${env:ИМЯ}`:
