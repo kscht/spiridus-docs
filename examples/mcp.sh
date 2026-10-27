@@ -1,10 +1,11 @@
 #!/bin/sh
 # Вызвать инструмент Spiridus по MCP напрямую, без библиотеки: JSON-RPC запросом POST.
 # Запуск: SPIRIDUS_KEY=sp_… ./mcp.sh render_block_docs '{"lang": "mermaid"}'
+# По умолчанию — ядро и схемы; другой пресет задаётся через SPIRIDUS_MCP.
 #         SPIRIDUS_KEY=sp_… ./mcp.sh            — список инструментов
 set -eu
 : "${SPIRIDUS_KEY:?нужен ключ: export SPIRIDUS_KEY=sp_…}"
-MCP=${SPIRIDUS_MCP:-https://v2.spiridus.ru/mcp}
+MCP=${SPIRIDUS_MCP:-https://v2.spiridus.ru/mcp/p/diagrams}
 if [ $# -eq 0 ]; then
   BODY='{"jsonrpc": "2.0", "id": 1, "method": "tools/list"}'
 else

@@ -4,6 +4,28 @@
 аргументы с типами и пределами — [arguments.md](arguments.md) (машинно — `GET /api/v1/tools`,
 `openapi.json`), здесь — зачем он и что получится.
 
+`/mcp` показывает ядро: документный цикл, файлы и публикацию, учётную запись и `code_run`, с выпуска
+проектов v1 — ещё `projects`.
+Прямые вызовы инструментов нотаций доступны в пресетах ([подключение](mcp.md)):
+
+| Адрес | Инструменты сверх ядра |
+|---|---|
+| `/mcp/p/cad-steps` | `cad_session_open`, `cad_exec`, `cad_inspect`, `cad_view`, `cad_session_save`, `session_list`, `session_close`, `sandbox_builds` |
+| `/mcp/p/cad` | `cad_run`, `cad_recompute`, `sandbox_builds` |
+| `/mcp/p/diagrams` | `plantuml_run`, `structurizr_run`, `render_shapes`, `render_icons`, `render_media`, `render_recipes`, `fonts_list` |
+| `/mcp/p/docs` | документный цикл, как `/mcp/lite` |
+| `/mcp/p/electric` | `qet_run`, `qet_symbols`, `qet_tools`, `qet_call`, `qet_save`, `sandbox_builds` |
+| `/mcp/p/electronics` | `hdl_synth`, `hdl_sim`, `sandbox_builds` |
+| `/mcp/p/graphics` | `blender_run`, `ffmpeg_run`, `hlsl_compile`, `sandbox_builds` |
+| `/mcp/p/modelica` | `modelica_run`, `sandbox_builds` |
+| `/mcp/p/projects` | `project_read`, `project_write`, `project_import`, `project_hide`, `project_members`, `invitations`, `project_admin` — с выпуска проектов v1 |
+| `/mcp/p/proofs` | `lean_check`, `lean_session_open`, `lean_session_command`, `lean_session_tactic`, `lean_session_goals`, `lean_session_close`, `lean_session_save`, `sandbox_builds` |
+| `/mcp/p/quantum` | `quantum_run`, `sandbox_builds` |
+
+Всё вне ядра и пресетов (например `text_parse`, `session_open`) — через Code Mode
+(`/mcp/code`, `code_run`). `session_call` и `search` в Code Mode не входят: шаг сеанса Python из Code
+Mode — `code_run` с `session`, отдельным вызовом — REST. REST и `/openapi.json` отдают все инструменты.
+
 У каждого инструмента есть необязательное поле `task` — 2–3 предложения о том, какую просьбу
 пользователя модель сейчас выполняет. Оно ни на что не влияет в ответе, но помогает нам понять, где
 проверки ошибаются ([data.md](data.md)).
@@ -76,7 +98,7 @@
 | Инструмент | Когда | Что в ответе |
 |---|---|---|
 | `search` | только `/mcp/code`: `{}` — пространства имён, `{query, ns?, limit?}` — поиск, `{describe: [имена]}` — до восьми сигнатур | `structuredContent` с совпадениями или сигнатурами и примерами; большой текст явно усечён |
-| `execute` | имя `code_run` в `/mcp/code`; в коде доступны `tools.search`, `tools.describe` и выборочное `tools.read` | только явно возвращённый итог и обрезанный лог; промежуточные ответы больше 16 КиБ — через приватный `private:` владельца |
+| `execute` | имя `code_run` в `/mcp/code`; в коде доступны `tools.search`, `tools.describe` и выборочное `tools.read` | только явно возвращённый итог и обрезанный лог; промежуточные ответы больше 16 КиБ — через `private:` владельца или затронутого проекта; для браузера — подпись `?sign=1` с ключом |
 | `code_run` | связать несколько вызовов кодом на JavaScript или Python: построить деталь → проверить объём → пересчитать → проверить документ; посчитать по результату (numpy, scipy, sympy, pandas) — без промежуточных ответов в контексте модели ([code.md](code.md)) | `value` — то, что вернул `return`, и последние строки лога |
 
 ## Долгие сеансы
@@ -84,6 +106,7 @@
 | Инструмент | Когда | Что в ответе |
 |---|---|---|
 | `session_open`, `session_call`, `session_list`, `session_close` | работать по шагам, не теряя состояния: переменные Python (numpy, pandas) живут между вызовами; `code_run` с `session` — шаг в том же интерпретаторе ([code.md](code.md#сеансы-python)) | описание сеанса; итог шага; свои сеансы и расход минут·ГБ |
+| `session_save`, `session_open` с `from` | вернуться к сеансу Python через дни: пакет — шаги, ответы инструментов, файлы `/out` и seed — в своих приватных файлах; открытие проигрывает шаги без повторных вызовов инструментов ([code.md](code.md#сохранить-сеанс-и-открыть-позже)) | ссылка `upload:<id>/session.json`; новый сеанс, `warning` и при `refresh` — `differences` |
 | `lean_session_open`, `lean_session_command`, `lean_session_tactic`, `lean_session_goals`, `lean_session_save`, `lean_session_close` | доказательства по шагам в загруженной среде Mathlib | среда, состояния целей и сообщения Lean |
 | `cad_session_open`, `cad_exec`, `cad_inspect`, `cad_view`, `cad_session_save` | строить деталь FreeCAD по шагам: документ остаётся в памяти, шаг — миллисекунды; смотреть дерево и вид, сохранить модель и сценарий для `cad_run` ([freecad](blocks/freecad.md)) | итог шага; объекты со свойствами, объёмами и габаритами; SVG-проекция; STL, STEP, FCStd, `script.py` и готовый блок |
 
@@ -93,25 +116,52 @@
 
 | Инструмент | Зачем | Что в ответе |
 |---|---|---|
-| `files_upload` | загрузить свой файл: модель для Blender, проект QElectroTech, документ для проверки | ссылка `upload:<id>/<имя>` для аргументов инструментов |
+| `files_upload` | загрузить свой файл: модель для Blender, проект QElectroTech, документ для проверки | ссылка `upload:<id>/<имя>`; с `size` — прямой PUT/multipart и после `action: "finish"` ссылка `blob:sha256/<хеш>` |
 | `files_publish` | сделать видимым читателю свой `private:` из Code Mode или загруженную картинку/шрифт `upload:` | общая ссылка `artifact:<id>/<имя>` и готовая Markdown-строка |
 | `files_unpublish` | снять свою опубликованную картинку — только если пользователь сам попросил | что снято |
 | `files_list`, `files_delete` | свои файлы и занятое место; удалить ненужное | список со ссылками и размерами |
 | `account_register` | регистрация по email и обязательному nickname; доступен в MCP без ключа, в REST — `POST /api/v1/register`. Письмо подтверждения, ключ выдаётся только человеку на странице | инструкция по подтверждению, без ключа |
 | `account_delete` | удалить свою учётную запись — только если пользователь сам попросил; в `confirm` — почта. Есть только в MCP и только с ключом учётной записи; в REST — `DELETE /api/v1/me` | что удалено |
 
-Подробнее и через REST — [api.md](api.md#свои-файлы).
+До 10 МБ — `data_base64`. Для больших файлов передайте `name`, `size` в байтах и `type`;
+клиент отправляет байты по выданным ссылкам в S3. Докачка — `action: "status"`, завершение —
+`action: "finish"`, отмена — `action: "cancel"`, с `upload_id` из первого ответа.
+Подробнее — [свои файлы](api.md#свои-файлы) и [протокол больших загрузок](api.md#большие-загрузки-в-s3).
 
 ## Поделиться документом
 
 | Инструмент | Зачем | Что в ответе |
 |---|---|---|
-| `document_share` | сохранить документ и получить ссылку на живую страницу — схемы кликаются, ноты играют; с тем же `id` — новая версия по той же ссылке | `url` — `https://v2.spiridus.ru/d/<id>`, `version`, `versionUrl` — ссылка на эту версию |
+| `document_share` | сохранить документ и получить ссылку на живую страницу — схемы кликаются, ноты играют; с тем же `id` — новая версия по той же ссылке; с выпуска проектов v1 — только новая версия своего `/d` по `id` ([mcp.md](mcp.md#новые-d-с-выпуска-v1)) | `url` — `https://v2.spiridus.ru/d/<id>`, `version`, `versionUrl` — ссылка на эту версию |
 | `documents_list` | свои опубликованные документы | id, ссылка, заголовок, сколько версий |
 | `documents_catalog` | одна ссылка на каталог всех своих документов — для человека, который запутался, что где; обновляется сам; `rotate: true` — новая ссылка | `url` каталога, сколько в нём документов |
 | `document_delete` | удалить документ со всеми версиями — только если пользователь сам попросил | что удалено |
 
 Подробнее — [api.md](api.md#поделиться-документом).
+
+## Проекты
+
+С выпуска проектов v1; только с ключом учётной записи.
+Проект — папки и статьи `.md` с историей правок; роли — владелец, админ, редактор, читатель. Без права
+ответ тот же, что «нет такого» (404). Из Code Mode закрыты `project_hide`, `project_members`,
+`invitations` и `project_admin`; REST — без `async=1`.
+
+| Инструмент | Зачем | Что в ответе |
+|---|---|---|
+| `projects` | свои проекты с ролями, ожидающие приглашения и передачи владения; `action: "create"` — новый проект со `slug` и `title` (нужно право создавать проекты от владельца системы, до 10 своих проектов) | списки `projects`, `invitations`, `transfers` или созданный проект |
+| `project_read` | дерево (`op: "tree"`, ресурсы — `resource: true`), статья или ресурс (`"read"`, `path`), история (`"history"`) или версии ресурса (`"versions"`, `path`); `version` — старая версия, читателю — только голова `main` | `commit` — `base` для записи, `files`, `content` или `commits` с текущими никами; у ресурса — `url` (подписанная ссылка, не дольше 15 минут, не отзывается; из Code Mode её нет), `size`, `type`, `version` |
+| `project_write` | один коммит: `put` — `files [{path, content}]` или один ресурс `{path, base64}` / `{path, ref}` (до 12 МБ; `ref` — своя загрузка `upload:` или своя публикация `artifact:` из `files_publish`), `move` — `from` → `to` (ссылки статей на перемещаемый путь правятся тем же коммитом; у статьи её ссылки пересчитываются от нового места), `restore` — `paths` статей из `version` (до 50), `delete` — один ресурс в `paths` (на него не должны ссылаться статьи), `copy` — ресурс `from` из проекта `source` (по умолчанию этот) и `version` в `to`; `base` обязателен, изменились те же пути — 409, перечитать. Новый путь, неотличимый на вид от существующего (`сах.md` кириллицей рядом с `cax.md`), — 409 | `commit`, `base`, автор; `articles` — статьи, где поправлены или мешают ссылки |
+| `project_import` | последняя версия своего `/d/<id>` в новую статью: `project`, `id`, `path` (`.md`); один коммит от тени вызывающего, занятый путь — 409. Любой публичный `artifact:` из своего `/d`, включая файл другого автора, копируется ресурсом `media/<имя>` (у `project_write put` — только свой `artifact:` из `files_publish`) (при совпадении — суффикс), ссылки переписываются относительно статьи; `/d` не меняется. Разрешён из Code Mode | `commit`, `base`, `path`, `files` (пути и размеры), `unavailable` (`{ref, reason}`: ссылки, оставленные в тексте) |
+| `project_hide` | убрать статьи из `main` (`base`, `paths`); в истории остаются, вернуть — `restore` | `commit` |
+| `project_members` | участники и роли; `role`, `remove` — админ и владелец (админов назначает только владелец); `leave` — выйти; `journal` — приглашения, роли, передачи | `members` или `events` |
+| `invitations` | свои приглашения: `list`, `accept`, `decline` по `id`; с `project` — приглашения проекта, `invite` по email с ролью, `revoke`. Письмо одно и то же, есть ли такой адрес | список или `status` |
+| `project_admin` | `rename`, передача владения (`transfer`, `cancel_transfer`, `accept_transfer`), `delete` и `cancel_delete`, `erase` (стереть `paths` со всей историей), `delete_versions` (старая версия ресурса: `path`, `version`; только владелец); в `confirm` — slug проекта, без него ничего не меняется | итог действия |
+
+Удаление проекта, стирание с историей и удаление версий ресурса записываются в реестр стираний; без него
+(и без хранилища вложений) отвечают 503. Сейчас реестр — временная заглушка на той же машине, от отката машины
+из резервной копии он не защищает ([data.md](data.md)). Без хранилища вложений инструменты ресурсов отвечают
+503, статьи работают. Журнал вызовов проектов —
+только служебные поля ([data.md](data.md#журнал-вызовов-и-проекты)).
 
 ## Сборки песочниц: версии программ
 
