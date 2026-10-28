@@ -1,4 +1,4 @@
-<!-- Собрано из apps/playground/examples/60-hlsl-slang.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано автоматически из документов-примеров Spiridus — правки в основном репозитории Spiridus. -->
 
 # Шейдеры HLSL и Slang
 

@@ -1,4 +1,4 @@
-<!-- Собрано из apps/playground/examples/46-fonts.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано автоматически из документов-примеров Spiridus — правки в основном репозитории Spiridus. -->
 
 <!-- раздел: Инженерия | теги: font, шрифт, ГОСТ 2.304, чертёжный шрифт, Timashkovy GOST, кириллица, наклонный -->
 # Шрифты Timashkovy GOST

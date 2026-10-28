@@ -1,4 +1,4 @@
-<!-- Собрано из apps/playground/examples/28-plantuml.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано автоматически из документов-примеров Spiridus — правки в основном репозитории Spiridus. -->
 
 <!-- раздел: Схемы | теги: plantuml, uml, c4, nwdiag, сеть, последовательность, классы, состояния, mindmap -->
 # PlantUML: схемы из песочницы

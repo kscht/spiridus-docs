@@ -1,4 +1,4 @@
-<!-- Собрано из apps/playground/examples/19-math.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано автоматически из документов-примеров Spiridus — правки в основном репозитории Spiridus. -->
 
 <!-- раздел: Школа | теги: математика, алгебра, геометрия, стереометрия, вероятность, статистика, начала анализа, 5 класс, 6 класс, 7 класс, 8 класс, 9 класс, 10 класс, 11 класс, проверка -->
 # Математика: 5–11 класс
@@ -265,26 +265,26 @@ $$S = \int_1^3 \left(4 - (x-2)^2\right)dx = \left.\left(4x - \frac{(x-2)^3}{3}\r
 ### Построение циркулем и линейкой: серединный перпендикуляр
 
 ```tikz
-\usetikzlibrary{calc}
 \begin{tikzpicture}
-  \coordinate (A) at (0,0); \coordinate (B) at (4,0);
-  \draw[thick] (A) -- (B);
-  \fill (A) circle (1.5pt) node[below left] {$A$};
-  \fill (B) circle (1.5pt) node[below right] {$B$};
-  \draw[gray] (A) ++(30:3) arc (30:90:3);
-  \draw[gray] (A) ++(-30:3) arc (-30:-90:3);
-  \draw[gray] (B) ++(150:3) arc (150:90:3);
-  \draw[gray] (B) ++(210:3) arc (210:270:3);
-  \coordinate (P) at (2,2.236); \coordinate (Q) at (2,-2.236);
-  \fill (P) circle (1.5pt) node[above right] {$P$};
-  \fill (Q) circle (1.5pt) node[below right] {$Q$};
-  \draw[red, thick] ($(P)!-0.15!(Q)$) -- ($(Q)!-0.15!(P)$);
-  \fill[red] (2,0) circle (1.5pt) node[below right] {$M$};
-  \draw (2,0.25) -- (2.25,0.25) -- (2.25,0);
+  \tkzDefPoints{0/0/A, 4/0/B}
+  \tkzInterCC(A,B)(B,A) \tkzGetPoints{P}{Q}
+  \tkzInterLL(P,Q)(A,B) \tkzGetPoint{M}
+  \tkzCompass[gray, delta=10](A,P)
+  \tkzCompass[gray, delta=10](A,Q)
+  \tkzCompass[gray, delta=10](B,P)
+  \tkzCompass[gray, delta=10](B,Q)
+  \tkzDrawSegment[thick](A,B)
+  \tkzDrawLine[red, thick, add=0.1 and 0.1](P,Q)
+  \tkzMarkRightAngle(B,M,P) \tkzMarkSegments[mark=|](A,M M,B)
+  \tkzDrawPoints(A,B,P,Q) \tkzDrawPoints[red](M)
+  \tkzLabelPoints[below left](A)
+  \tkzLabelPoints[below right](B,M)
+  \tkzLabelPoints[above left](P)
+  \tkzLabelPoints[below left](Q)
 \end{tikzpicture}
 ```
 
-Шаги: 1) окружность $(A,\,r)$, $r > \tfrac12 AB$; 2) окружность $(B,\,r)$; 3) прямая $PQ$ через точки пересечения — серединный перпендикуляр, $M$ — середина $AB$.
+Шаги: 1) окружность с центром $A$ радиусом $AB$; 2) окружность с центром $B$ тем же радиусом; 3) прямая $PQ$ через точки пересечения — серединный перпендикуляр, $M$ — середина $AB$.
 
 ### Высота, медиана, биссектриса
 

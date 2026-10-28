@@ -1,4 +1,4 @@
-<!-- Собрано из apps/playground/examples/34-evpn-nexus.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано автоматически из документов-примеров Spiridus — правки в основном репозитории Spiridus. -->
 
 <!-- раздел: Сети | теги: evpn, vxlan, bgp, cisco, nexus, nx-os, цод, spine-leaf, vpc, esi, конфигурация -->
 # Фабрика ЦОД: BGP EVPN / VXLAN на Cisco Nexus 9000

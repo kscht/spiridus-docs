@@ -1,4 +1,4 @@
-<!-- Собрано из apps/playground/examples/30-evpn-fabric.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано автоматически из документов-примеров Spiridus — правки в основном репозитории Spiridus. -->
 
 <!-- раздел: Сети | теги: evpn, vxlan, bgp, arista, цод, spine-leaf, конфигурация -->
 # Фабрика ЦОД: BGP EVPN / VXLAN на Arista EOS

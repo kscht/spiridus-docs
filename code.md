@@ -1,12 +1,17 @@
 # Code Mode: JavaScript и Python
 
+Code Mode связывает несколько вызовов инструментов сценарием JavaScript или Python. Он удобен,
+когда нужно обработать большой ответ, перебрать параметры или построить и проверить документ,
+передав модели только итог. [Формат документа](markdown.md), [подключение MCP](mcp.md).
+
 ## Профиль `/mcp/code`
 
-В компактном профиле видны только `search` и `execute` (плюс инструменты учётной записи).
+В компактном профиле видны только `search` и `execute` (плюс `account_register`, `account_delete`; ключи — в `/mcp`).
 Рабочий порядок: `search({query})` → `search({describe:[имя]})` → `execute`. Внутри `execute`
 инструменты вызываются как `tools.<имя>(args)` в JavaScript и Python. Сначала прочитайте
-`render_block_docs`, затем соберите документ, проверьте его через `tools.render_check`, исправьте
-`issues` и опубликуйте через `tools.document_share`, вернув короткий итог с `verdict`.
+`render_block_docs`, затем соберите документ, проверьте его через `tools.render_check` (приёмка — поле
+`clean`), исправьте `issues` и сохраните статьёй проекта через `tools.project_write`, вернув короткий итог с
+`verdict`. `tools.document_share` только сохраняет новую версию своего `/d` по `id`.
 
 `tools.search(query)` повторяет поиск каталога, а `tools.describe(name)` возвращает сигнатуру.
 Эти вызовы и `tools.read` не расходуют предел 20 предметных инструментов; вместе их можно вызвать
@@ -52,8 +57,10 @@ return {'integral': str(sp.integrate(x**2, x)), 'documentation': r['result'][:12
 Для CAD: `a = tools.cad_run(...)`, затем `tools.cad_recompute(...)` с `ref` из результата,
 затем `tools.render_check(...)` с документом, ссылающимся на артефакты. Между вызовами можно
 проверять объёмы и выбирать параметры; в `return` оставляйте только нужные модели данные.
+Готовые цепочки FreeCAD → Blender → статья проекта и циклы внутри `cad_run`/`blender_run` —
+в разделе [«Цепочки и циклы в песочнице»](#цепочки-и-циклы-в-песочнице).
 
-Пределы: 20 вызовов, строго последовательно (`await` в JavaScript), 300 секунд на весь сценарий,
+Пределы: 20 вызовов, строго последовательно (`await` в JavaScript), 300 секунд на сценарий после допуска,
 2 ГБ RAM, 2 CPU; код до 256 КиБ. Ответ инструмента больше 16 КБ сохраняется целиком как
 `private:<случайный-id>/result.json`, а код получает `ref`, размер, тип, короткий preview и временный
 `download` (не дольше 15 минут). Ссылка читается через `tools.read` только тем же владельцем; два пользователя
@@ -76,10 +83,13 @@ HLSL, работу с загрузками и публикацию докуме�
 
 `tools.<имя>.start(args)` ставит разрешённый инструмент в фон и возвращает `{job: "<id>"}`.
 Сценарий может сразу завершиться: его предел 300 с и закрытие соединения фон не отменяют.
-Позже, в другом `execute`, вызовите `tools.jobs.get(id, {wait: 30})` (Python:
-`tools.jobs.get(id, wait=30)`) или `tools.jobs.cancel(id)`. `wait` — секунды от 0 до 30;
-без него состояние возвращается сразу. Постановка, статус и отмена расходуют общий предел 20 вызовов.
-`job_status` и `job_cancel` вызываются напрямую, поставить их в фон через `.start` нельзя.
+Позже, в другом `execute`, вызовите `tools.jobs.get(id)` или `tools.jobs.cancel(id)`. Без `wait`
+состояние возвращается сразу; `tools.jobs.get(id, {wait: 30})` (Python: `tools.jobs.get(id, wait=30)`,
+секунды от 0 до 30) держит сценарий, а с ним и слот сценариев узла, и всё равно может вернуть
+незавершённое задание: ждите между ходами, а не циклом внутри `execute`.
+Постановка, статус и отмена расходуют общий предел 20 вызовов.
+`job_status`, `job_cancel` и открытие сеансов (`session_open`, `cad_session_open`,
+`lean_session_open`) вызываются напрямую: `.start` для них запрещён.
 Отмена возвращает только статус и метаданные, даже у завершённого задания; результат и текст
 ошибки доступны через `tools.jobs.get` или `job_status` с проверкой и наследованием прав данных.
 
@@ -93,21 +103,503 @@ job = tools.blender_run.start({'script': 'import bpy\nbpy.ops.mesh.primitive_cub
 return {'job': job}
 ```
 
-Состояния: `running`, `queued`, `done`, `error`, `cancelled`, `lost`. В `done` поле `result` —
+Состояния: `queued`, `running`, `done`, `error`, `cancelled`, `lost`.
+Постановка возвращает `queued`; у отвязанных заданий `running` появляется после допуска планировщика узла.
+Для GPU, сеансов и режимов без независимого фонового исполнения старт считается
+от отправки запроса исполнения; у инструментов шлюза без песочницы — от запуска обработчика.
+На этих путях точной позиции очереди нет. `startedAt` и ожидание фиксируются при первом старте.
+Пока задача ждёт, `queue: {class: "batch" | "interactive", position, ahead}` показывает её место
+(с единицы) и число ожидающих впереди в той же доле; `check` учитывается в `interactive`.
+Позиция меняется по справедливой доле и приоритету, это не обещание времени старта.
+Чужие задания, их владельцы и инструменты не выдаются. `node` — выбранный узел,
+`waitMs` — ожидание до старта в миллисекундах, у завершённого задания `ms` — время от постановки до окончания.
+До выбора узла или при отсутствии сведений о его очереди позиция может отсутствовать. В `done` поле `result` —
 ответ REST `{ok, data, content}` либо `{ref, size, type}` на приватный JSON с этим ответом;
 прочитать его можно через `tools.read(ref, {pointer: "/data"})`. В MCP те же записи читают
 `job_status({job, wait: 30})` и отменяет `job_cancel({job})`; они доступны в пресете `/mcp/p/jobs` (или `tools({use:"jobs"})`).
 
-Права и квоты — как у прямого вызова; `code: false` не обойти через `.start`, гость фон не запускает.
+У фонового `code_run` узел и время старта относятся к самому сценарию; идентификатор
+`sandboxJobId` вложенного инструмента в его статус не попадает.
+
+Квота частоты списывается при принятии `.start` и REST `async=1`: при исчерпании сразу отказ 429,
+записи задания нет. Исполнение и восстановление не списывают её повторно. Принятый вызов
+(в том числе с готовым результатом из кеша) квоту расходует; при `cancel`, `error` и `lost` возврата нет:
+отмена не откатывает внешние действия, а `lost` не доказывает, что работа не начиналась.
+Ошибка сохранения записи и превышение числа заданий квоту не расходуют.
+Права — как у прямого вызова; `code: false` не обойти через `.start`, гость фон не запускает.
 По умолчанию у владельца не больше пяти незавершённых заданий (превышение — ошибка 429), готовые
 хранятся семь дней. Отмена доходит до песочницы и останавливает контейнер; уже выполненные внешние
 действия не откатываются. Долгий `batch` доступен сборкам с `batchTimeoutSec` (Blender — до двух часов):
-они переживают перезапуск шлюза. Остальные фоновые вызовы при перезапуске становятся `lost`.
+они переживают перезапуск шлюза. Обычные одноразовые CPU-расчёты также продолжаются после перезапуска шлюза,
+сохраняя прежние класс и срок исполнения. Вызовы без отвязанного маршрута
+(например, сеанс) после перезапуска становятся `lost`.
+
+Права входного файла проверяются до постановки и повторно при чтении: `upload:` и `blob:` требуют
+`files`, а `private:` — текущего доступа к проекту или владения файлом и прав из метки результата.
+Проектный `private:` без метки `files` читается ключом без `files` и синхронно, и через `.start`/REST async;
+метка с `files` по-прежнему требует это право. Потеря роли в проекте закрывает чтение.
+
+`code_run` возвращает `ms` (исполнение), `waitMs` (ожидание) и `node`, включая ошибки.
+Ожидание очереди сценариев ограничено отдельно: до 300 с; после допуска — до 300 с исполнения.
+Синхронный `code_run` может занять около 610 с с запасом на остановку; сервер ждёт ответа до 630 с.
+Настройте timeout клиента с учётом этого ожидания.
+Отказы различают «ждал очередь сценариев N с», «code.run превысил 300 с» и «песочницы заняты».
 
 Инструменты проектов напрямую в фон не ставятся, как и REST `async=1`. Если сценарий уже прочитал
 проект и ставит другой расчёт, задание наследует пометку и версии проекта: результат хранится в
-`private:` проекта, статус и отмена проверяют текущий доступ. Журнал такого расчёта — только
+`private:` проекта. Чтение статуса, ошибки и результата проверяет текущий доступ; владелец может
+отменить своё задание и после потери роли. Ответ отмены содержит только метаданные. Журнал такого расчёта — только
 служебные поля; выдача содержимого результата дополнительно проверяет роль и версию.
+
+## Цепочки и циклы в песочнице
+
+Цепочка «построить → проверить → отрисовать → записать» укладывается в один-два `execute`: модель
+видит только `return`, без картинок и полных ответов. Перебор вариантов лучше делать **циклом внутри**
+сценария FreeCAD или Blender: один контейнер и один вызов из 20 вместо десятков. Правила для таких цепочек:
+
+- **`render_check`**: приёмка — `clean` (`true`/`false`), а `verdict` — фраза для пользователя
+  («блоки собраны; 2 замечания к оформлению»), сравнивать её со строкой нельзя. Строгая приёмка —
+  `strict: ["warning", "layout"]`.
+- **Новый документ — статья проекта** (`project_write`). `document_share` без `id`
+  новый `/d` не создаёт; с `id` своего `/d` сохраняет его новую версию.
+- **`blender_run`**: `markdown` (строки картинок) есть, только если среди файлов есть PNG или JPEG,
+  `block` — только если есть STL; без них поля нет и `r.markdown.join` упадёт.
+- **Ответ инструмента больше 16 КиБ** приходит не объектом, а ссылкой `{ref, truncated: true, preview}`:
+  поля читаются `tools.read(ref, {pointer})`. В примерах это делает помощник `field`.
+- **Долгий Blender** — только `tools.blender_run.start`: синхронный вызов идёт до 300 с, столько же живёт
+  весь сценарий. Результат читается в следующем `execute`: `tools.jobs.get(id)` без `wait`. Пока
+  `status` — `running` или `queued`, повторите позже; `error`, `cancelled`, `lost` — причина в `error`.
+  В `done` поле `result` — `{ok, data, content}` или `{ref, size, type}`: ссылкой приходит результат
+  больше 64 КиБ (кадры PNG в ответе) и любой результат после обращения к проекту.
+- **Файлы вне проекта общие.** Пока `execute` не обращался к проекту, файлы `cad_run`/`blender_run` (STL,
+  FCStd, кадры, `scene.blend`) — общие `artifact:`: их скачает каждый, у кого есть ссылка, и они не
+  удаляются вместе с учётной записью. После любого инструмента проекта (`project_read`, `project_write`,
+  `render_check` с `project`) результаты этого `execute` — `private:` проекта.
+- **Ключ без права `files`.** Проектный `private:` без метки `files` доступен при текущей роли
+  в проекте одинаково в синхронном вызове, `.start` и REST async. Если метка результата требует
+  `files`, без этого права ни один путь его не прочитает; `upload:` и `blob:` тоже требуют `files`.
+- **Вход.** Для приведённых цепочек через публичные MCP и REST нужен ключ. В анонимном каталоге MCP
+  есть только регистрация. Без ключа читатель может пересчитывать готовые модели FreeCAD и Modelica
+  на странице документа ([вход](api.md#вход)).
+
+Помощник `field` объявлен в начале каждого примера:
+
+```javascript
+// ответ больше 16 КиБ приходит ссылкой {ref, truncated: true}: поле читается выборочно
+const field = async (v, path) => v?.truncated && v.ref
+  ? (await tools.read(v.ref, {pointer: path}).catch(() => ({}))).value
+  : path.split("/").slice(1).reduce((o, k) => o?.[k], v);
+```
+
+```python
+def field(v, path):
+    # ответ больше 16 КиБ приходит ссылкой {ref, truncated: true}: поле читается выборочно
+    if isinstance(v, dict) and v.get('truncated') and v.get('ref'):
+        try:
+            return tools.read(v['ref'], pointer=path).get('value')
+        except RuntimeError:
+            return None
+    for key in path.split('/')[1:]:
+        v = v.get(key) if isinstance(v, dict) else None
+    return v
+```
+
+Сценарии FreeCAD и Blender в примерах — отдельными блоками; в `execute` они вставляются строкой
+(`String.raw` в JavaScript — без обратных кавычек и `${` внутри, `r'''…'''` в Python).
+
+### 1. FreeCAD → Blender → статья проекта
+
+Деталь строится в FreeCAD, объём проверяется программой, Blender рисует кадр, кадр и статья
+ложатся в проект, `render_check` проверяет статью до записи. Первый `execute` ставит рендер в фон и
+сразу завершается, второй — после готовности задания — записывает результат.
+
+Файл из песочницы попадает в проект **содержимым** прямо по ссылке: после обращения к проекту
+результаты `cad_run`/`blender_run` — `private:` этого проекта, и `project_write` принимает такой `ref`
+ресурсом (`{path, ref}`, до 12 МБ) — кадр, видео или 3D-модель, без base64 и без `tools.read`. Нужна
+роль не ниже editor и права ключа из метки результата (результат, полученный с правом `files`, кладёт
+только ключ с `files`). Личный `private:` (расчёт без обращения к проекту) и результат другого проекта —
+отказ 400; результат, стёртый вместе с историей проекта, — тоже.
+
+Сценарий FreeCAD (`CAD`):
+
+```python
+import FreeCAD as App
+doc = App.newDocument("Plate")
+plate = doc.addObject("Part::Box", "Plate")
+plate.Length, plate.Width, plate.Height = 80, 50, 6
+hole = doc.addObject("Part::Cylinder", "Hole")
+hole.Radius, hole.Height = 10, 6
+hole.Placement.Base = App.Vector(40, 25, 0)
+body = doc.addObject("Part::Cut", "Body")
+body.Base, body.Tool = plate, hole
+doc.recompute()
+```
+
+Сцена Blender (`SCENE`):
+
+```python
+from mathutils import Matrix, Vector
+obj = load("model.stl")[0]
+center = sum((Vector(c) for c in obj.bound_box), Vector()) / 8
+obj.data.transform(Matrix.Translation(-center))          # деталь — в начало координат
+mat = bpy.data.materials.new("Сталь")
+mat.use_nodes = True
+bsdf = mat.node_tree.nodes["Principled BSDF"]
+bsdf.inputs["Base Color"].default_value = (0.55, 0.57, 0.6, 1)
+bsdf.inputs["Metallic"].default_value = 0.9
+bsdf.inputs["Roughness"].default_value = 0.35
+obj.data.materials.append(mat)
+world = bpy.data.worlds.new("Фон")
+bpy.context.scene.world = world
+world.use_nodes = True
+world.node_tree.nodes["Background"].inputs["Color"].default_value = (0.9, 0.9, 0.92, 1)
+bpy.ops.object.light_add(type="SUN", location=(50, -50, 100))
+bpy.context.object.data.energy = 4
+bpy.ops.object.camera_add(location=(90, -110, 90))
+cam = bpy.context.object
+cam.data.clip_end = 1000                                   # модель в миллиметрах
+cam.rotation_euler = (-cam.location).to_track_quat("-Z", "Y").to_euler()
+bpy.context.scene.camera = cam
+render("render.png", samples=32, size=(640, 480))
+fmt = bpy.context.scene.render.image_settings
+fmt.file_format, fmt.quality = "JPEG", 85
+bpy.data.images["Render Result"].save_render(str(OUT / "render.jpg"))
+(OUT / "render.png").unlink()
+```
+
+Шаг 1 — модель, проверка объёма, рендер в фон. `project_read` идёт первым: он даёт `commit` для
+записи и делает файлы этого `execute` приватными файлами проекта.
+
+```javascript
+const P = "plate-demo";                                    // slug своего проекта
+const CAD = String.raw`…`;                                 // сценарий FreeCAD выше
+const SCENE = String.raw`…`;                               // сцена Blender выше
+const field = async (v, path) => v?.truncated && v.ref
+  ? (await tools.read(v.ref, {pointer: path}).catch(() => ({}))).value
+  : path.split("/").slice(1).reduce((o, k) => o?.[k], v);
+const tree = await tools.project_read({project: P});
+const cad = await tools.cad_run({script: CAD, exports: ["stl"]});
+const body = (await field(cad, "/objects"))[0];
+if (!body.valid || Math.abs(body.volume - 22115) > 1) return {error: "объём не тот", volume: body.volume};
+const stl = (await field(cad, "/files"))["model.stl"];     // private:<id>/model.stl проекта
+const step = {base: await field(tree, "/commit"), volume: body.volume};
+// private: проекта проверяется по текущей роли и метке результата; files не обязателен
+step.job = (await tools.blender_run.start({script: SCENE, inputs: [stl]})).job;
+return step;
+```
+
+```python
+P = 'plate-demo'                                           # slug своего проекта
+CAD = r'''…'''                                             # сценарий FreeCAD выше
+SCENE = r'''…'''                                           # сцена Blender выше
+def field(v, path):
+    if isinstance(v, dict) and v.get('truncated') and v.get('ref'):
+        try:
+            return tools.read(v['ref'], pointer=path).get('value')
+        except RuntimeError:
+            return None
+    for key in path.split('/')[1:]:
+        v = v.get(key) if isinstance(v, dict) else None
+    return v
+tree = tools.project_read({'project': P})
+cad = tools.cad_run({'script': CAD, 'exports': ['stl']})
+body = field(cad, '/objects')[0]
+if not body['valid'] or abs(body['volume'] - 22115) > 1:
+    return {'error': 'объём не тот', 'volume': body['volume']}
+stl = field(cad, '/files')['model.stl']                    # private:<id>/model.stl проекта
+step = {'base': field(tree, '/commit'), 'volume': body['volume']}
+# private: проекта проверяется по текущей роли и метке результата; files не обязателен
+step['job'] = tools.blender_run.start({'script': SCENE, 'inputs': [stl]})['job']
+return step
+```
+
+Шаг 2 — через минуту-другую, новым `execute` с итогом шага 1. Задание ещё идёт — сценарий сразу
+возвращает `status`, и его повторяют позже; готово — кадр и статья записываются в проект.
+
+```javascript
+const P = "plate-demo", PATH = "детали/Пластина.md", IMG = "детали/media/plate.jpg";
+const step = {…};                                          // итог шага 1
+const field = async (v, path) => v?.truncated && v.ref
+  ? (await tools.read(v.ref, {pointer: path}).catch(() => ({}))).value
+  : path.split("/").slice(1).reduce((o, k) => o?.[k], v);
+const job = await tools.jobs.get(step.job);              // без wait: ответ сразу
+const status = await field(job, "/status");
+if (status === "running" || status === "queued") return {status, next: "повторите этот execute позже"};
+if (status !== "done") return {status, error: await field(job, "/error")};
+const ref = await field(job, "/result/ref");             // после обращения к проекту — всегда ссылкой
+const files = ref ? (await tools.read(ref, {pointer: "/data/files"})).value : await field(job, "/result/data/files");
+const frame = files["render.jpg"];
+const image = await tools.project_write({project: P, base: step.base, files: [{path: IMG, ref: frame}]});
+const markdown = `# Пластина 80×50×6\n\nОбъём по FreeCAD — ${Math.round(step.volume)} мм³.\n\n![Пластина с отверстием](media/plate.jpg)\n`;
+const check = await tools.render_check({project: P, path: PATH, markdown, strict: ["warning", "layout"]});
+const verdict = await field(check, "/verdict");
+if (!(await field(check, "/clean"))) return {verdict, issues: ((await field(check, "/issues")) ?? []).slice(0, 5)};
+const saved = await tools.project_write({project: P, base: image.commit, files: [{path: PATH, content: markdown}]});
+return {verdict, commit: saved.commit, article: `/p/${P}/${PATH}`};
+```
+
+```python
+P, PATH, IMG = 'plate-demo', 'детали/Пластина.md', 'детали/media/plate.jpg'
+step = {…}                                                 # итог шага 1
+def field(v, path):
+    if isinstance(v, dict) and v.get('truncated') and v.get('ref'):
+        try:
+            return tools.read(v['ref'], pointer=path).get('value')
+        except RuntimeError:
+            return None
+    for key in path.split('/')[1:]:
+        v = v.get(key) if isinstance(v, dict) else None
+    return v
+job = tools.jobs.get(step['job'])                      # без wait: ответ сразу
+status = field(job, '/status')
+if status in ('running', 'queued'):
+    return {'status': status, 'next': 'повторите этот execute позже'}
+if status != 'done':
+    return {'status': status, 'error': field(job, '/error')}
+ref = field(job, '/result/ref')                        # после обращения к проекту — всегда ссылкой
+files = tools.read(ref, pointer='/data/files')['value'] if ref else field(job, '/result/data/files')
+frame = files['render.jpg']
+image = tools.project_write({'project': P, 'base': step['base'], 'files': [{'path': IMG, 'ref': frame}]})
+markdown = (f"# Пластина 80×50×6\n\nОбъём по FreeCAD — {round(step['volume'])} мм³.\n\n"
+            "![Пластина с отверстием](media/plate.jpg)\n")
+check = tools.render_check({'project': P, 'path': PATH, 'markdown': markdown, 'strict': ['warning', 'layout']})
+verdict = field(check, '/verdict')
+if not field(check, '/clean'):
+    return {'verdict': verdict, 'issues': (field(check, '/issues') or [])[:5]}
+saved = tools.project_write({'project': P, 'base': image['commit'], 'files': [{'path': PATH, 'content': markdown}]})
+return {'verdict': verdict, 'commit': saved['commit'], 'article': f'/p/{P}/{PATH}'}
+```
+
+Человеку дают адрес `https://v2.spiridus.ru/p/<slug>/<путь>` и приглашают его в проект. Задание
+переживает завершение и отмену `execute`; отменить его — `tools.jobs.cancel(id)`, уже записанное в
+проект при этом не откатывается.
+
+### 2. Перебор параметров в одном `cad_run`
+
+Сценарий сам перебирает толщину, радиус и число отверстий пластины, отбрасывает варианты с узкой
+перемычкой или слабым сечением, выбирает самый лёгкий и строит в документе только его — с таблицей
+параметров, чтобы читатель мог пересчитать. Остальные варианты считаются формами `Part` без документа.
+Модель видит одну сводку, а не 24 ответа. Предел — 120 с и 1 ГБ на весь `cad_run`.
+
+Сценарий FreeCAD (`SWEEP`):
+
+```python
+import json
+import FreeCAD as App, Part
+
+L, W, STEEL = 120.0, 50.0, 7.85e-3                         # пластина 120×50 мм, сталь, г/мм³
+variants = []
+for t in (4, 5, 6):                                        # толщина
+    for r in (4, 6, 8, 10):                                # радиус отверстий
+        for n in (2, 3, 4):                                # число отверстий
+            pitch = L / n
+            bridge = min(pitch - 2 * r, pitch / 2 - r, W / 2 - r)   # самая узкая перемычка
+            inertia = (W - 2 * r) * t ** 3 / 12                       # сечение по отверстию, мм⁴
+            if bridge < 5 or inertia < 250:
+                continue
+            s = Part.makeBox(L, W, t)
+            for i in range(n):
+                s = s.cut(Part.makeCylinder(r, t, App.Vector(pitch * (i + 0.5), W / 2, 0)))
+            variants.append({"t": t, "r": r, "n": n, "mass": round(s.Volume * STEEL, 1)})
+variants.sort(key=lambda v: v["mass"])
+best = variants[0]
+
+doc = App.newDocument("Plate")                             # в модель — только победитель
+thick = param("thick", f"{best['t']} mm", min=4, max=8, step=1, note="толщина")
+radius = param("radius", f"{best['r']} mm", min=2, max=10, step=1, note="радиус отверстий")
+body = doc.addObject("Part::Box", "Plate")
+body.Length, body.Width = L, W
+body.setExpression("Height", thick)
+pitch = L / best["n"]
+for i in range(best["n"]):
+    hole = doc.addObject("Part::Cylinder", f"Hole{i + 1}")
+    hole.setExpression("Radius", radius)
+    hole.setExpression("Height", thick)
+    hole.Placement.Base = App.Vector(pitch * (i + 0.5), W / 2, 0)
+    cut = doc.addObject("Part::Cut", f"Cut{i + 1}")
+    cut.Base, cut.Tool = body, hole
+    body = cut
+doc.recompute()
+print("SUMMARY " + json.dumps({"checked": len(variants), "best": best, "next": variants[1:3]}, ensure_ascii=False))
+```
+
+```javascript
+const SWEEP = String.raw`…`;                               // сценарий FreeCAD выше
+const field = async (v, path) => v?.truncated && v.ref
+  ? (await tools.read(v.ref, {pointer: path}).catch(() => ({}))).value
+  : path.split("/").slice(1).reduce((o, k) => o?.[k], v);
+const cad = await tools.cad_run({script: SWEEP, exports: ["stl", "fcstd"]});
+const line = ((await field(cad, "/output")) ?? "").split("\n").find(s => s.startsWith("SUMMARY "));
+if (!line) return {error: "сценарий не напечатал сводку", warnings: await field(cad, "/warnings")};
+const {checked, best, next} = JSON.parse(line.slice("SUMMARY ".length));
+const body = (await field(cad, "/objects"))[0];
+return {checked, best, next, volume: body.volume, valid: body.valid, block: await field(cad, "/block")};
+```
+
+```python
+import json
+SWEEP = r'''…'''                                           # сценарий FreeCAD выше
+def field(v, path):
+    if isinstance(v, dict) and v.get('truncated') and v.get('ref'):
+        try:
+            return tools.read(v['ref'], pointer=path).get('value')
+        except RuntimeError:
+            return None
+    for key in path.split('/')[1:]:
+        v = v.get(key) if isinstance(v, dict) else None
+    return v
+cad = tools.cad_run({'script': SWEEP, 'exports': ['stl', 'fcstd']})
+line = next((s for s in (field(cad, '/output') or '').split('\n') if s.startswith('SUMMARY ')), None)
+if not line:
+    return {'error': 'сценарий не напечатал сводку', 'warnings': field(cad, '/warnings')}
+summary = json.loads(line[len('SUMMARY '):])
+body = field(cad, '/objects')[0]
+return {**summary, 'volume': body['volume'], 'valid': body['valid'], 'block': field(cad, '/block')}
+```
+
+`block` — готовый ```` ```freecad ```` с полями `thick` и `radius` для документа вне проекта
+(новая версия своего `/d`). В статьях проектов ссылок `artifact:` нет: файлы кладутся ресурсами по
+путям, как кадр в примере 1. Этот `execute` не обращается к проекту, поэтому STL и FCStd — общие
+`artifact:` по ссылке.
+
+### 3. Варианты Blender одним `blender_run` и лист превью
+
+Одна сцена, два материала × два ракурса: сценарий рендерит четыре кадра, считает по каждому
+формальные метрики — долю кадра под моделью (`cover`) и разброс яркости по ней (`contrast`), —
+отбирает лучший и склеивает кадры в **один** лист `sheet.png`, удаляя отдельные кадры. Метрики не
+заменяют взгляд: выбор по картинке — отдельный шаг модели. В ответ прямого вызова `blender_run` (пресет
+`/mcp/p/graphics`) приходят не больше двух PNG — лист показывает все варианты одной картинкой. В
+`execute` картинки из ответов выбрасываются: там остаются сводка и ссылка на лист. `tools.image_view`
+в сценарии тоже отдаёт только ссылку и размер; кадр посмотрите прямым вызовом `image_view({ref})`
+(пресеты `/mcp/p/graphics` и `/mcp/p/jobs`) — без повторного рендера.
+
+Сцена Blender (`SHEET`):
+
+```python
+import json, math
+import numpy as np
+
+S, W, H = int(params.get("samples", 16)), 320, 240
+bpy.ops.mesh.primitive_monkey_add()                        # своя модель: inputs и load("model.stl")
+obj = bpy.context.object
+obj.modifiers.new("Гладкость", "SUBSURF").levels = 1
+for p in obj.data.polygons:
+    p.use_smooth = True
+world = bpy.data.worlds.new("Фон")
+bpy.context.scene.world = world
+world.use_nodes = True
+world.node_tree.nodes["Background"].inputs["Color"].default_value = (1, 1, 1, 1)
+bpy.ops.object.light_add(type="SUN", location=(4, -4, 6))
+bpy.context.object.data.energy = 3
+bpy.ops.object.camera_add()
+cam = bpy.context.object
+bpy.context.scene.camera = cam
+bpy.context.scene.render.film_transparent = True           # альфа отделяет модель от фона
+
+MATERIALS = {"сталь": (0.62, 0.64, 0.68, 1), "медь": (0.85, 0.45, 0.25, 1)}
+ANGLES = (35, 125)
+variants, tiles = [], []
+for name, color in MATERIALS.items():
+    mat = bpy.data.materials.new(name)
+    mat.use_nodes = True
+    bsdf = mat.node_tree.nodes["Principled BSDF"]
+    bsdf.inputs["Base Color"].default_value = color
+    bsdf.inputs["Metallic"].default_value = 0.9
+    bsdf.inputs["Roughness"].default_value = 0.35
+    obj.data.materials.clear()
+    obj.data.materials.append(mat)
+    for deg in ANGLES:
+        a = math.radians(deg)
+        cam.location = (5 * math.cos(a), -5 * math.sin(a), 2.5)
+        cam.rotation_euler = (-cam.location).to_track_quat("-Z", "Y").to_euler()
+        frame = render(f"v{len(tiles)}.png", samples=S, size=(W, H))
+        img = bpy.data.images.load(str(frame))
+        px = np.empty(W * H * 4, dtype=np.float32)
+        img.pixels.foreach_get(px)
+        px = px.reshape(H, W, 4)
+        bpy.data.images.remove(img)
+        frame.unlink()                                     # в ответе — только лист
+        mask = px[..., 3] > 0.5
+        lum = px[..., :3] @ np.array([0.2126, 0.7152, 0.0722], dtype=np.float32)
+        variants.append({"material": name, "angle": deg, "cover": round(float(mask.mean()), 3),
+                         "contrast": round(float(lum[mask].std()) if mask.any() else 0.0, 3)})
+        tiles.append(px)
+fit = [v for v in variants if 0.15 <= v["cover"] <= 0.6] or variants
+best = max(fit, key=lambda v: v["contrast"])
+
+cols = len(ANGLES)
+rows = math.ceil(len(tiles) / cols)
+sheet = np.ones((rows * H, cols * W, 4), dtype=np.float32)
+for i, px in enumerate(tiles):
+    r, c = divmod(i, cols)
+    y = (rows - 1 - r) * H                                 # строки пикселей Blender идут снизу вверх
+    alpha = px[..., 3:4]
+    sheet[y:y + H, c * W:(c + 1) * W, :3] = px[..., :3] * alpha + (1 - alpha)
+out = bpy.data.images.new("sheet", cols * W, rows * H)
+out.pixels.foreach_set(sheet.ravel())
+out.filepath_raw, out.file_format = str(OUT / "sheet.png"), "PNG"
+out.save()
+print("SUMMARY " + json.dumps({"variants": variants, "best": best,
+                               "sheet": "sheet.png: слева направо, сверху вниз"}, ensure_ascii=False))
+```
+
+Шаг 1 — постановка:
+
+```javascript
+const SHEET = String.raw`…`;                               // сцена Blender выше
+const {job} = await tools.blender_run.start({script: SHEET, params: {samples: 16}});
+return {job};
+```
+
+```python
+SHEET = r'''…'''                                           # сцена Blender выше
+return {'job': tools.blender_run.start({'script': SHEET, 'params': {'samples': 16}})['job']}
+```
+
+Шаг 2 — сводка и ссылка на лист, когда задание готово:
+
+```javascript
+const step = {…};                                          // итог шага 1
+const field = async (v, path) => v?.truncated && v.ref
+  ? (await tools.read(v.ref, {pointer: path}).catch(() => ({}))).value
+  : path.split("/").slice(1).reduce((o, k) => o?.[k], v);
+const job = await tools.jobs.get(step.job);
+const status = await field(job, "/status");
+if (status === "running" || status === "queued") return {status, next: "повторите этот execute позже"};
+if (status !== "done") return {status, error: await field(job, "/error")};
+const ref = await field(job, "/result/ref");               // кадр PNG в ответе — обычно больше 64 КиБ
+const data = ref ? (await tools.read(ref, {pointer: "/data"})).value : await field(job, "/result/data");
+const line = (data.output ?? "").split("\n").find(s => s.startsWith("SUMMARY "));
+return {...JSON.parse(line.slice("SUMMARY ".length)), sheet: data.markdown?.[0] ?? data.files?.["sheet.png"]};
+```
+
+```python
+import json
+step = {…}                                                 # итог шага 1
+def field(v, path):
+    if isinstance(v, dict) and v.get('truncated') and v.get('ref'):
+        try:
+            return tools.read(v['ref'], pointer=path).get('value')
+        except RuntimeError:
+            return None
+    for key in path.split('/')[1:]:
+        v = v.get(key) if isinstance(v, dict) else None
+    return v
+job = tools.jobs.get(step['job'])
+status = field(job, '/status')
+if status in ('running', 'queued'):
+    return {'status': status, 'next': 'повторите этот execute позже'}
+if status != 'done':
+    return {'status': status, 'error': field(job, '/error')}
+ref = field(job, '/result/ref')                            # кадр PNG в ответе — обычно больше 64 КиБ
+data = tools.read(ref, pointer='/data')['value'] if ref else field(job, '/result/data')
+line = next(s for s in (data.get('output') or '').split('\n') if s.startswith('SUMMARY '))
+sheet = (data.get('markdown') or [None])[0] or (data.get('files') or {}).get('sheet.png')
+return {**json.loads(line[len('SUMMARY '):]), 'sheet': sheet}
+```
+
+`markdown[0]` — готовая строка `![sheet.png](artifact:…/sheet.png)` для документа вне проекта; лист —
+общий файл по ссылке. Для статьи проекта кадр кладут ресурсом, как в примере 1.
 
 ## Выборочное чтение больших ответов
 
@@ -124,20 +616,27 @@ return {'job': job}
 
 ```javascript
 const large = await tools.render_check({markdown});
-const found = await tools.read(large.ref, {find: "ошибка", context: 2, limit: 5});
-const field = await tools.read(large.ref, {pointer: "/issues/0/message"});
-let page = await tools.read(large.ref, {}), text = page.text ?? "";
-while (page.cursor) { page = await tools.read(large.ref, {cursor: page.cursor}); text += page.text ?? ""; }
+let text, field;
+if (large.truncated && large.ref) {
+  const found = await tools.read(large.ref, {find: "ошибка", context: 2, limit: 5});
+  field = await tools.read(large.ref, {pointer: "/issues/0/text"});
+  let page = await tools.read(large.ref, {}); text = page.text ?? "";
+  while (page.cursor) { page = await tools.read(large.ref, {cursor: page.cursor}); text += page.text ?? ""; }
+} else { field = large.issues?.[0]?.text; text = JSON.stringify(large); }
 const hits = [...text.matchAll(/строка\s+\d+/gu)].map(m => m[0]); // regex работает в песочнице
 ```
 
 ```python
 large = tools.render_check({'markdown': markdown})
-found = tools.read(large['ref'], find='ошибка', context=2, limit=5)
-field = tools.read(large['ref'], pointer='/issues/0/message')
-page = tools.read(large['ref']); chunks = [page.get('text', '')]
-while page.get('cursor'):
-    page = tools.read(large['ref'], cursor=page['cursor']); chunks.append(page.get('text', ''))
+if large.get('truncated') and large.get('ref'):
+    found = tools.read(large['ref'], find='ошибка', context=2, limit=5)
+    field = tools.read(large['ref'], pointer='/issues/0/text')
+    page = tools.read(large['ref']); chunks = [page.get('text', '')]
+    while page.get('cursor'):
+        page = tools.read(large['ref'], cursor=page['cursor']); chunks.append(page.get('text', ''))
+else:
+    field = next(iter(large.get('issues', [])), {}).get('text')
+    chunks = [__import__('json').dumps(large, ensure_ascii=False)]
 hits = __import__('re').findall(r'строка\s+\d+', ''.join(chunks))
 ```
 
@@ -158,16 +657,24 @@ JavaScript пока одноразовый. `session_open` принимает т
 {"session":"<id из session_open>","language":"python","code":"import numpy as np\nx = np.arange(10)\nreturn int(x.sum())"}
 ```
 
-Следующий `session_call`: `{"session":"<тот же id>","code":"x *= 2\nreturn int(x.sum())"}`.
+Следующий `session_call`: `{"session":"<тот же id>","action":"exec","code":"x *= 2\nreturn int(x.sum())"}`.
 `return` завершает текущий шаг; определения верхнего уровня остаются в интерпретаторе.
 
 У пользователя не больше двух открытых сеансов, у гостя — ноль. Начальный бюджет — 480 минут·ГБ
 в сутки: память оплачивается временем жизни ядра, включая простой. После 15 минут простоя или
 двух часов жизни ядро сохраняется и выключается, следующий шаг восстанавливает состояние.
+Если выгруженный сеанс не возобновлять, через 7 дней он автоматически закрывается и освобождает
+место (срок настраивает администратор). Ошибка 429 перечисляет ваши открытые сеансы:
+`id`, инструмент, время открытия; ненужный можно закрыть через `session_close`.
+`session_list` и 429 предупреждают о закрытии без публикации и показывают срок выгруженного
+сеанса. Сохраните нужное заранее; после истечения метки происхождения Python-пакет создать нельзя.
 Один шаг сохраняет прежний предел времени сборки; зависание останавливает контейнер.
 
+Пакет `session_save` — обычная загрузка `upload:`: гарантированно хранится сутки, дальше — пока
+есть место ([сроки](data.md#сколько-хранится)). Важное скачайте заранее.
+
 Python восстанавливается исполнением успешных команд из журнала; явно записанные в `/out` файлы
-сохраняются отдельно. Ответы `spiridus.*` при восстановлении берутся из журнала: инструменты второй
+сохраняются отдельно. Ответы `tools.*` при восстановлении берутся из журнала: инструменты второй
 раз не вызываются. Для повторяемых вычислений фиксируйте случайные числа и исходные данные;
 время и другие недетерминированные операции при повторном исполнении могут дать другой результат.
 Ошибка шага сбрасывает частично изменённую память к последнему успешному состоянию; уже выполненные
@@ -183,7 +690,7 @@ Python восстанавливается исполнением успешны�
 
 В пакете нет снимка памяти и pickle — только то, из чего состояние воспроизводится:
 
-- код каждого успешного шага и ответы инструментов, которые шаг получил (`spiridus.*`, `tools.*`);
+- код каждого успешного шага и ответы инструментов, которые шаг получил (`tools.*`);
 - файлы `/out` (base64) со списком и размерами, не больше `outMb` сборки (у Python — 4 МБ): `input` —
   какими они были до первого шага (с них шаги проигрываются), `files` — после последнего шага; у шага
   бывают свои `files` — итог прежнего пакета, если сеанс сам был открыт из пакета: они накладываются сразу
@@ -209,7 +716,15 @@ Python восстанавливается исполнением успешны�
 пробоя, сохранить нельзя. Сеанс, связанный с проектом, сохраняется вместе с меткой проекта: открыть пакет
 можно, пока у вас есть доступ к этому проекту. Пакет помнит права ключа, которые понадобились сеансу (например, `docs` или
 `files`): открыть его можно только ключом с этими правами. Если шлюз не знает, откуда сеанс (например, метка истекла
-через сутки), сохранение отказывает — откройте новый сеанс. Пока сохраняются только сеансы Python; FreeCAD — `cad_session_save`.
+через сутки), сохранение отказывает — откройте новый сеанс.
+
+Сеанс FreeCAD сохраняется так же: `session_save` или `cad_session_save` (он ещё выгружает модель и блок)
+пишет пакет с `kind: "freecad"`: шаги, `files` — точка сохранения ядра (`checkpoint.FCStd`,
+`bindings.json` с простыми переменными) и свои файлы `/out` без выгрузок экспорта и вида, `resume` —
+переменные в точке полные (файл точки больше 32 МиБ в пакет не входит — тогда `resume: false` и `warning`).
+Открывают его `cad_session_open {from}` или `session_open {from}`: при
+`resume` новый сеанс открывает документ без проигрывания шагов, иначе шаги проигрываются; `rebuild: true`
+(только `session_open`) всегда проигрывает шаги на основной сборке. `refresh` у FreeCAD нет.
 
 Пакет можно править: он исполняется только в песочнице от вашего имени и в ваших лимитах, а
 подставленный «ответ инструмента» получает лишь код этого же пакета. Схема строгая: лишние поля,
@@ -217,18 +732,36 @@ Python восстанавливается исполнением успешны�
 
 ## Пошаговый FreeCAD из Code Mode
 
-В `spiridus` доступны `cad_session_open`, `cad_exec`, `cad_inspect`, `cad_view`, `cad_session_save`,
+В `tools` доступны `cad_session_open`, `cad_exec`, `cad_inspect`, `cad_view`, `cad_session_save`,
 `session_list`, `session_save`, `session_open`, `session_close`. Создавать вложенный `code_run` или вызывать `session_call` из кода
 по-прежнему нельзя. Сеанс Python и сеанс CAD занимают оба доступных места.
 
+Сеанс, открытый через `session_open`, `cad_session_open` или `lean_session_open` внутри `execute` (`code_run`),
+по умолчанию закрывается вместе со сценарием: при успехе, ошибке, тайм-ауте и отмене.
+Закрывает его шлюз, даже если `finally` вашего кода не выполнился. В журнале вызовов —
+`session_close` с `automatic: true`, причиной и `parent` запуска. Уже открытый сеанс,
+переданный в `code_run {session}`, остаётся открытым.
+
+Для продолжения в следующем вызове откройте `tools.session_open({keep: true})` или
+`tools.cad_session_open({'keep': True})` и верните `id`. Затем закройте его через
+`session_close` (для Lean также `lean_session_close`). Для Lean используйте
+`tools.lean_session_open({keep: true})`. `keep` действует и при восстановлении из пакета
+(`session_open {from, keep}`, `lean_session_open {from, keep}`).
+Прямое открытие вне `execute` оставляет сеанс открытым. Открытие через `.start` запрещено;
+остальные разрешённые фоновые задания живут самостоятельно.
+При падении шлюза дочерний сеанс без `keep` закрывается на узле по сроку родителя (300 с
+от допуска сценария (`ready`), затем ближайшая уборка; ожидание очереди не входит). Закрытие следует тому же пути сохранения
+точки и освобождения ресурсов, что `session_close`; для возвращения через дни сначала
+создайте пакет `session_save` или `cad_session_save`.
+
 ```python
-cad = spiridus.cad_session_open({})
+cad = tools.cad_session_open({})
 sid = cad['id']
-spiridus.cad_exec({'session': sid, 'code': 'doc = App.ActiveDocument\nbox = doc.addObject("Part::Box", "Box")'})
-spiridus.cad_exec({'session': sid, 'code': 'box.Length=10\nbox.Width=20\nbox.Height=30'})
-info = spiridus.cad_inspect({'session': sid})
-saved = spiridus.cad_session_save({'session': sid})
-spiridus.session_close({'session': sid})
+tools.cad_exec({'session': sid, 'code': 'doc = App.ActiveDocument\nbox = doc.addObject("Part::Box", "Box")'})
+tools.cad_exec({'session': sid, 'code': 'box.Length=10\nbox.Width=20\nbox.Height=30'})
+info = tools.cad_inspect({'session': sid})
+saved = tools.cad_session_save({'session': sid})
+tools.session_close({'session': sid})
 return {'objects': info['objects'], 'block': saved['block']}
 ```
 
@@ -263,7 +796,6 @@ return {length: typeof field === "string" ? field.length : Object.keys(field).le
 если выражение может пересечь их границу; длину перекрытия выбирайте по задаче.
 `tools.read` не исполняет регулярные выражения, JSONPath или код на шлюзе.
 
-Профиль `/mcp/code` экспериментальный: холодный запуск медленнее прямого вызова.
-Рекомендованным адресом он станет после отдельной задачи о тёплом пуле (#140).
+Профиль `/mcp/code` — компактный профиль для модели, уверенно пишущей JavaScript или Python.
 В обычном `/mcp` имя остаётся `code_run`, но большой вложенный JSON теперь также возвращается ссылкой
 на `result.json`, а не встроенным объектом.

@@ -1,4 +1,4 @@
-<!-- Собрано из apps/playground/examples/05-music.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано автоматически из документов-примеров Spiridus — правки в основном репозитории Spiridus. -->
 
 <!-- раздел: Музыка | теги: abc, ноты -->
 # Ноты

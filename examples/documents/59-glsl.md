@@ -1,4 +1,4 @@
-<!-- Собрано из apps/playground/examples/59-glsl.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано автоматически из документов-примеров Spiridus — правки в основном репозитории Spiridus. -->
 
 # Шейдеры в документе
 

@@ -1,4 +1,4 @@
-<!-- Собрано из notations/vega/docs.vega-lite.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано автоматически из справки render_block_docs — правки в основном репозитории Spiridus. -->
 
 # `vega-lite` — диаграммы Vega-Lite
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Клиент REST API Spiridus — только стандартная библиотека Python 3.8+.
 
-    python3 spiridus.py register you@example.com     # письмо со ссылкой; ключ — на странице подтверждения
+    python3 spiridus.py register you@example.com reader  # письмо со ссылкой; ключ — на странице подтверждения
     export SPIRIDUS_KEY=sp_...
     python3 spiridus.py me
     python3 spiridus.py tools                        # список инструментов
@@ -28,17 +28,18 @@ class SpiridusError(Exception):
 
 
 class Spiridus:
-    def __init__(self, key=None, api=API):
+    def __init__(self, key=None, api=API, timeout=660):
         self.key, self.api = key or os.environ.get("SPIRIDUS_KEY"), api.rstrip("/")
+        self.timeout = timeout  # code_run может ждать очередь и исполняться около 610 с
 
-    def _req(self, method, path, body=None, timeout=330):
+    def _req(self, method, path, body=None, timeout=None):
         data = json.dumps(body).encode() if body is not None else None
         req = urllib.request.Request(self.api + path, data=data, method=method)
         req.add_header("content-type", "application/json")
         if self.key:
             req.add_header("authorization", "Bearer " + self.key)
         try:
-            with urllib.request.urlopen(req, timeout=timeout) as r:
+            with urllib.request.urlopen(req, timeout=self.timeout if timeout is None else timeout) as r:
                 return json.load(r)
         except urllib.error.HTTPError as e:
             try:
@@ -47,8 +48,8 @@ class Spiridus:
                 payload = {"error": e.reason}
             raise SpiridusError(e.code, payload) from None
 
-    def register(self, email):
-        return self._req("POST", "/api/v1/register", {"email": email})
+    def register(self, email, nickname):
+        return self._req("POST", "/api/v1/register", {"email": email, "nickname": nickname})
 
     def me(self):
         return self._req("GET", "/api/v1/me")
@@ -56,9 +57,23 @@ class Spiridus:
     def tools(self):
         return self._req("GET", "/api/v1/tools")["tools"]
 
+    @staticmethod
+    def _value(result):
+        # Большой результат задания — приватный JSON полного REST-ответа.
+        # Верните ref вызывающему; скачивать его нужно с ключом и текущими правами.
+        if result.get("ref"):
+            return result
+        if result.get("data") is not None:
+            return result["data"]
+        return {"result": "\n".join(c["text"] for c in result.get("content", []) if c["type"] == "text")}
+
+    def call_full(self, tool, **args):
+        """Полный REST-ответ: ok, data и content, включая картинки и текстовую справку."""
+        return self._req("POST", f"/api/v1/tools/{tool}", args)
+
     def call(self, tool, **args):
-        """Обычный вызов: ждёт результата. Ответ — data инструмента."""
-        return self._req("POST", f"/api/v1/tools/{tool}", args)["data"]
+        """Ждёт результата: data, а для текстовой справки — {result: текст}."""
+        return self._value(self.call_full(tool, **args))
 
     def call_async(self, tool, poll=30, **args):
         """Задача в очередь, результат — когда будет готов (без открытого соединения на всё время)."""
@@ -66,8 +81,8 @@ class Spiridus:
         while True:
             j = self._req("GET", f"/api/v1/jobs/{job['id']}?wait={poll}", timeout=poll + 30)
             if j["status"] == "done":
-                return j["result"]["data"]
-            if j["status"] != "running":
+                return self._value(j["result"])
+            if j["status"] not in ("queued", "running"):
                 raise SpiridusError(422, {"error": j.get("error") or j["status"]})
             time.sleep(0.5)
 
@@ -82,7 +97,10 @@ def main(argv):
         return 2
     s, cmd, rest = Spiridus(), argv[0], argv[1:]
     if cmd == "register":
-        out = s.register(rest[0])
+        if len(rest) != 2:
+            print("register требует email и nickname", file=sys.stderr)
+            return 2
+        out = s.register(rest[0], rest[1])
     elif cmd == "me":
         out = s.me()
     elif cmd == "tools":

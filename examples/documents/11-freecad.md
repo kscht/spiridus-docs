@@ -1,4 +1,4 @@
-<!-- Собрано из apps/playground/examples/11-freecad.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано автоматически из документов-примеров Spiridus — правки в основном репозитории Spiridus. -->
 
 <!-- раздел: 3D | теги: freecad, cad, деталь, stl, step, скругление, фаска, кронштейн, фланец, mcp -->
 # Детали из FreeCAD

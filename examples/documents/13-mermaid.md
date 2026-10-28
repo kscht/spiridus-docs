@@ -1,4 +1,4 @@
-<!-- Собрано из apps/playground/examples/13-mermaid.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано автоматически из документов-примеров Spiridus — правки в основном репозитории Spiridus. -->
 
 <!-- раздел: Схемы | теги: mermaid, схема, блок-схема, flowchart, sequence, последовательность, классы, состояния, er, гант, gantt, mindmap, timeline, pie -->
 # Схемы Mermaid

@@ -1,4 +1,4 @@
-<!-- Собрано из notations/mol3d/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано автоматически из справки render_block_docs — правки в основном репозитории Spiridus. -->
 
 # `mol3d` — молекула в 3D
 

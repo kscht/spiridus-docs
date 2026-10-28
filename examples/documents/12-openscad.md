@@ -1,4 +1,4 @@
-<!-- Собрано из apps/playground/examples/12-openscad.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано автоматически из документов-примеров Spiridus — правки в основном репозитории Spiridus. -->
 
 <!-- раздел: 3D | теги: openscad, модель, 3d, параметры, rotate_extrude, linear_extrude, hull, minkowski, корпус, ваза -->
 # OpenSCAD: подборка

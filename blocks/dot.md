@@ -1,4 +1,4 @@
-<!-- Собрано из notations/dot/docs.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано автоматически из справки render_block_docs — правки в основном репозитории Spiridus. -->
 
 # `dot` — графы Graphviz
 

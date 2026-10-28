@@ -1,4 +1,4 @@
-<!-- Собрано из apps/playground/examples/29-structurizr.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано автоматически из документов-примеров Spiridus — правки в основном репозитории Spiridus. -->
 
 <!-- раздел: Схемы | теги: structurizr, c4, архитектура, dsl, контекст, контейнеры -->
 # Structurizr: модель C4

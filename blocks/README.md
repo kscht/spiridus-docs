@@ -2,11 +2,12 @@
 
 Блок — fenced-код с языком (```mermaid, ```tikz …) в документе Markdown; рендер Spiridus рисует его у
 читателя или, для части языков, на сервере. Та же справка — инструмент `render_block_docs` в MCP и REST.
+Формат целого документа — [Формат документа Spiridus](../markdown.md).
 
 | Справка | Что |
 |---|---|
 | [`media`](media.md) | Картинки из внешних источников |
-| [`markdown`](markdown.md) | Разметка документа |
+| [`markdown`](markdown.md) | Формат документа Spiridus |
 | [`sandbox`](sandbox.md) | Сборки песочниц |
 | [`abc`](abc.md) | abc — ноты |
 | [`argdown`](argdown.md) | argdown — карта аргументации |

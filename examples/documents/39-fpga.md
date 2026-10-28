@@ -1,4 +1,4 @@
-<!-- Собрано из apps/playground/examples/39-fpga.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано автоматически из документов-примеров Spiridus — правки в основном репозитории Spiridus. -->
 
 <!-- раздел: Схемы | теги: fpga, плис, verilog, vhdl, systemverilog, yosys, nextpnr, ice40, ecp5, симуляция, vcd, осциллограммы, digitaljs, временная диаграмма, wavedrom, spi, uart, axi, регистр, интерфейс, протокол, цифровая схемотехника -->
 # FPGA: схемы, ресурсы, осциллограммы

@@ -1,4 +1,4 @@
-<!-- Собрано из apps/playground/examples/17-multibody.md основного репозитория Spiridus (scripts/build-public-docs.mjs) — правьте там. -->
+<!-- Собрано автоматически из документов-примеров Spiridus — правки в основном репозитории Spiridus. -->
 
 <!-- раздел: Моделирование | теги: modelica, multibody, 3d, анимация, механика, маятник, пружина, шарнир, openmodelica -->
 # MultiBody: механика в 3D
