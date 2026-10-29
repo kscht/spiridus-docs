@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Клиент REST API Spiridus — только стандартная библиотека Python 3.8+.
 
-    python3 spiridus.py register you@example.com reader  # письмо со ссылкой; ключ — на странице подтверждения
-    export SPIRIDUS_KEY=sp_...
+    python3 spiridus.py register you@example.com reader  # только для установок с открытой регистрацией
+    # SPIRIDUS_KEY уже задан вне репозитория
     python3 spiridus.py me
     python3 spiridus.py tools                        # список инструментов
     python3 spiridus.py check документ.md            # render_check: замечания к документу

@@ -1,8 +1,8 @@
 #!/bin/sh
 # Вызвать инструмент Spiridus по MCP напрямую, без библиотеки: JSON-RPC запросом POST.
-# Запуск: SPIRIDUS_KEY=sp_… ./mcp.sh render_block_docs '{"lang": "mermaid"}'
-#         SPIRIDUS_KEY=sp_… ./mcp.sh            — список инструментов
-# По умолчанию — ядро и схемы; другой адрес задаётся через SPIRIDUS_MCP.
+# Запуск: ./mcp.sh render_block_docs '{"lang": "mermaid"}'
+#         ./mcp.sh            — список инструментов
+# По умолчанию — проекты; другой адрес задаётся через SPIRIDUS_MCP.
 #
 # Сессия (набор инструментов в разговоре) живёт между запусками скрипта:
 #   export SPIRIDUS_MCP=https://v2.spiridus.ru/mcp
@@ -17,8 +17,8 @@
 # SPIRIDUS_FIELD=имя — напечатать только это поле ответа (например id из session_open):
 #   K=$(SPIRIDUS_FIELD=id ./mcp.sh session_open '{}')
 set -eu
-: "${SPIRIDUS_KEY:?нужен ключ: export SPIRIDUS_KEY=sp_…}"
-MCP=${SPIRIDUS_MCP:-https://v2.spiridus.ru/mcp/p/diagrams}
+: "${SPIRIDUS_KEY:?задайте SPIRIDUS_KEY вне репозитория}"
+MCP=${SPIRIDUS_MCP:-https://v2.spiridus.ru/mcp/p/projects}
 SESSION=${SPIRIDUS_SESSION:-}
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT

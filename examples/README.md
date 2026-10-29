@@ -4,10 +4,14 @@
 
 | Файл | Что делает |
 |---|---|
-| [`register.sh`](register.sh) | регистрация: `./register.sh you@example.com reader` — письмо со ссылкой, ключ — на странице подтверждения |
-| [`check.sh`](check.sh) | проверить свой документ Markdown: `SPIRIDUS_KEY=sp_… ./check.sh документ.md` |
+| [`register.sh`](register.sh) | для установок с открытой регистрацией (на v2.spiridus.ru нужна ссылка приглашения): `./register.sh you@example.com reader` — письмо со ссылкой, ключ — на странице подтверждения |
+| [`check.sh`](check.sh) | проверить свой документ Markdown: `./check.sh документ.md` (ключ уже в окружении; для закрытой статьи используйте project.sh) |
+| [`project.sh`](project.sh) | существующий проект: `./project.sh atlas Начало.md ./статья.md [email]` — дерево, запись, приватная проверка, приглашение |
 | [`async.sh`](async.sh) | асинхронный вызов песочницы: поставить задачу и дождаться результата |
 | [`mcp.sh`](mcp.sh) | инструмент по MCP напрямую, JSON-RPC через curl: `./mcp.sh render_block_docs '{"lang": "mermaid"}'` |
 | [`spiridus.py`](spiridus.py) | клиент на Python без зависимостей: `register`, `me`, `tools`, `check`, `call`, `async` |
 
 Документы с блоками — образцы синтаксиса и приёмов, для людей и моделей, — в [`documents/`](documents/).
+
+Во всех примерах `SPIRIDUS_KEY` уже задан вне репозитория. Секрет не вводите в историю команд.
+`check.sh` проверяет вне проекта: снимки публичны по ссылке. Для закрытой статьи — `project.sh`.

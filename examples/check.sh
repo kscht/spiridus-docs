@@ -1,9 +1,9 @@
 #!/bin/sh
 # Проверить документ Markdown: render_check рисует его, как увидит читатель, и возвращает замечания.
-# Запуск: SPIRIDUS_KEY=sp_… ./check.sh документ.md
+# Запуск: ./check.sh документ.md
 set -eu
 FILE=${1:?файл Markdown: ./check.sh документ.md}
-: "${SPIRIDUS_KEY:?нужен ключ: export SPIRIDUS_KEY=sp_…}"
+: "${SPIRIDUS_KEY:?задайте SPIRIDUS_KEY вне репозитория}"
 API=${SPIRIDUS_API:-https://v2.spiridus.ru}
 # документ — строкой JSON; python3 есть почти везде, а экранировать Markdown руками — мучение
 BODY=$(python3 -c 'import json,sys; print(json.dumps({"markdown": open(sys.argv[1], encoding="utf-8").read(), "shots": "none"}))' "$FILE")

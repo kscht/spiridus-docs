@@ -1,8 +1,8 @@
 #!/bin/sh
 # Асинхронный вызов: поставить задачу песочнице и дождаться результата, не держа соединение.
-# Запуск: SPIRIDUS_KEY=sp_… ./async.sh
+# Запуск: ./async.sh
 set -eu
-: "${SPIRIDUS_KEY:?нужен ключ: export SPIRIDUS_KEY=sp_…}"
+: "${SPIRIDUS_KEY:?задайте SPIRIDUS_KEY вне репозитория}"
 API=${SPIRIDUS_API:-https://v2.spiridus.ru}
 AUTH="Authorization: Bearer $SPIRIDUS_KEY"
 JOB=$(curl -fsS -X POST "$API/api/v1/tools/plantuml_run?async=1" -H "$AUTH" -H 'content-type: application/json' \
