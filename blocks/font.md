@@ -36,6 +36,39 @@ text: Масштаб 1:2, ГОСТ 2.304-81
 - `compare:` — второй шрифт: в образце строкой ниже, в знаке крупно — красным поверх. Удобно сравнить
   начертания, версии или свой шрифт с образцом.
 
+Шрифты сайта (отдельный `fonts:<id>` для каждого начертания):
+
+| Семейство и назначение | Идентификаторы |
+|---|---|
+| PT Sans — гротеск для основного текста | `fonts:pt-sans`, `fonts:pt-sans-bold`, `fonts:pt-sans-italic`, `fonts:pt-sans-bold-italic` |
+| PT Serif — антиква для статей и учебных текстов | `fonts:pt-serif`, `fonts:pt-serif-bold`, `fonts:pt-serif-italic`, `fonts:pt-serif-bold-italic` |
+| PT Mono — код и таблицы | `fonts:pt-mono` |
+| Fira Sans — гротеск с греческим алфавитом | `fonts:fira-sans`, `fonts:fira-sans-bold`, `fonts:fira-sans-italic`, `fonts:fira-sans-bold-italic` |
+| Fira Mono — код с греческими буквами | `fonts:fira-mono`, `fonts:fira-mono-bold` |
+| Fira Sans Condensed — узкий для таблиц и подписей схем | `fonts:fira-sans-condensed`, `fonts:fira-sans-condensed-bold`, `fonts:fira-sans-condensed-italic`, `fonts:fira-sans-condensed-bold-italic` |
+| Spectral — антиква для длинного чтения | `fonts:spectral`, `fonts:spectral-bold`, `fonts:spectral-italic`, `fonts:spectral-bold-italic` |
+| Old Standard TT — классическая антиква для учебных материалов | `fonts:old-standard-tt`, `fonts:old-standard-tt-bold`, `fonts:old-standard-tt-italic` |
+| STIX Two Math — математические символы и греческий алфавит | `fonts:stix-two-math` |
+| Marck Script — рукописные образцы и карточки | `fonts:marck-script` |
+| Andika — гротеск SIL для обучения чтению и учебных материалов | `fonts:andika`, `fonts:andika-bold`, `fonts:andika-italic`, `fonts:andika-bold-italic` |
+| Balsamiq Sans — печатные буквы от руки для карточек и схем | `fonts:balsamiq-sans`, `fonts:balsamiq-sans-bold`, `fonts:balsamiq-sans-italic`, `fonts:balsamiq-sans-bold-italic` |
+| Prata — контрастная антиква для заголовков | `fonts:prata` |
+| Russo One — технические заголовки | `fonts:russo-one` |
+| Lobster — короткие связные заголовки | `fonts:lobster` |
+| Yeseva One — акцидентная антиква для заголовков | `fonts:yeseva-one` |
+| Neucha, Bad Script — прежние рукописные образцы | `fonts:neucha`, `fonts:bad-script` |
+| Timashkovy GOST — свои чертёжные, типы А/Б | `fonts:timashkovy-gost-a`, `fonts:timashkovy-gost-a-italic`, `fonts:timashkovy-gost-b`, `fonts:timashkovy-gost-b-italic` |
+
+Все перечисленные шрифты содержат русский алфавит с Ё/ё и базовую латиницу.
+Полный базовый греческий алфавит есть у Fira Sans, Fira Mono, Fira Sans Condensed,
+STIX Two Math и своих Timashkovy GOST. У остальных покрытие греческого частичное
+или отсутствует; точные числа показывает `fonts_list` в `sets`.
+Новые сторонние файлы — оригинальные статические TTF под OFL 1.1, без подмножеств
+и variable-осей. `font` показывает образец STIX Two Math и его символы, но не
+набирает формулы: для формул используйте математическую разметку документа.
+Рукописные семейства — для образцов и карточек; это не нормативная школьная пропись.
+Наличие в пакете сайта не устанавливает шрифты в песочницы.
+
 Под шрифтом — семейство, начертание, версия, число знаков, авторство и лицензия из самого файла,
 у шрифта из пакета — его состояние, кнопка «скачать». Щелчок по знаку — он крупно: основание строки, высота строчных и прописных, верх и
 низ, ширина знака (жёлтым), сетка d. Знаков образца, которых нет в шрифте, блок назовёт замечанием.
@@ -70,3 +103,18 @@ text: Масштаб 1:2, ГОСТ 2.304-81
 - у других шрифтов доля прописной своя (OpenGost — 0,588): её даёт MCP `fonts_list` (`capEm`), там же
   ряд h → кегль для каждого своего шрифта.
 
+## Статьи проектов
+
+> В статье проекта блок с `result:` пока не работает. Сохраните SVG/PNG ресурсом через `project_write` `{path, ref: "private:…"}` и вставьте обычной Markdown-картинкой `![](media/…svg)`. Инструменты песочниц вызывайте с `project` (editor и выше): без него результат и исходник попадают в публичные `artifacts/` и общий кеш. `private:` — промежуточный результат, в тексте статьи он не поддерживается. Живая схема и сверка исходника при замене картинкой не сохраняются; VCD/STL можно вставить текстом в пределах формата и размера статьи. Не публикуйте закрытые результаты через `files_publish`.
+
+## Шрифты в проекте
+
+В `/p/` `file:` и `compare:` — независимые входные файлы: относительные пути
+ресурсов одного commit или публичные `fonts:<id>`. Пакет `fonts:` не копируется.
+`project_write`/`project_import` материализует доступные `artifact:`, `private:`
+и обе формы `/artifacts/`; своя загрузка `upload:` копируется одним файлом
+после проверки владельца, scopes и текущей метки проекта (также перед commit).
+
+В FontFace передаются байты, подписи хранилища в блок и DOM не попадают.
+Скачивание повторно проверяет доступ к тому же commit. Обычный файл шрифта
+без метаданных/рецепта не получает обещания пересчёта или заверенной отметки.

@@ -43,6 +43,7 @@
 | [`table`](table.md) | table — таблица с объединёнными ячейками |
 | [`tabulator`](tabulator.md) | tabulator — интерактивная таблица Tabulator |
 | [`tikz`](tikz.md) | tikz — рисунки на TeX |
+| [`tts`](tts.md) | tts — сохранённая синтезированная речь |
 | [`vcd`](vcd.md) | vcd — осциллограммы симуляции |
 | [`vega`](vega.md) | vega — диаграммы Vega |
 | [`vega-lite`](vega-lite.md) | vega-lite — диаграммы Vega-Lite |

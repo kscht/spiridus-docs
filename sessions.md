@@ -8,26 +8,23 @@
 
 ## Выбрать ядро
 
-Срез `sandbox_builds` production от 28.10.2026; актуальный статус запрашивайте снова перед работой.
+Сборки и статусы — по `sandbox_builds`; пакеты требуют версии шлюза и узла с поддержкой #369.
 `next` — сборка на пробу, её выбирают явно; `stable` — рабочая, `default` — основная для своего инструмента.
 
 | Ядро | Открыть | Шаг | Сохранить | Вернуться позже | Сборка и статус |
 |---|---|---|---|---|---|
 | Python | `session_open` | `session_call` или `code_run` с `session`, Python | `session_save` → `ref` пакета | `session_open {from: ref}` | `python-3.13.7-code`, `stable` |
 | FreeCAD | `cad_session_open` | `cad_exec`, `cad_inspect`, `cad_view` | `cad_session_save` (пакет и модель), `session_save` | `cad_session_open {from}` или `session_open {from}` | `freecad-1.1.4-timashkovy`, `default` |
-| Lean | `lean_session_open` | `lean_session_command`, `lean_session_tactic`, `lean_session_goals` | `lean_session_save` → пакет | `lean_session_open {from}` | `lean-4.34.0-widgets`, `default` |
-| Blender | `blender_session_open` | `blender_exec`, `blender_inspect`, `blender_view` | `blender_session_save` → `.blend`, STL, `script.py`, файлы | Новый сеанс с прежними `inputs`, повторить `script.py`; `.blend` можно скачать для локального Blender, пакета `from` нет | `blender-5.2.2-session`, `next` |
-| Modelica | `modelica_session_open` | `modelica_simulate` | Пользовательского save/from нет | Снова открыть из исходного `.mo` и параметров | `openmodelica-1.27.1-session`, `next` |
-| QET | `qet_run` → `session` | `qet_tools`, `qet_call` | `qet_save` → `.qet` и результаты | Новый `qet_run` с сохранённым `.qet`; не пакет `session_open` | `qelectrotech-0.200.1-dev-f4dcbcc-kernel`, `default` |
+| Lean | `lean_session_open` | `lean_session_command`, `lean_session_tactic`, `lean_session_goals` | `lean_session_save` → пакет | `lean_session_open {from}` или `session_open {from}` | `lean-4.34.0-widgets`, `default` |
+| Blender | `blender_session_open` | `blender_exec`, `blender_inspect`, `blender_view` | `blender_session_save` → пакет и модель, `session_save` | `blender_session_open {from}` или `session_open {from}` | `blender-5.2.2-session`, `next` |
+| Modelica | `modelica_session_open` | `modelica_simulate` | `modelica_session_save` → пакет, `session_save` | `modelica_session_open {from}` или `session_open {from}` | `openmodelica-1.27.1-session`, `next` |
+| QET | `qet_call` → `workspace` | `qet_tools`, `qet_call` | `qet_save {workspace}` → пакет папки; с `files` ещё блок | `session_open {from}` → новый `id`, передать как `workspace` | `qelectrotech-0.200.1-dev-f4dcbcc-kernel`, `default` |
 
-Для Blender сохраните `script.py` и исходные входные файлы: в новом сеансе передайте те же
-`inputs` и повторите сценарий. Экспорт `.blend` сохраняет сцену для скачивания и локального Blender,
-но **`blender_session_open inputs` сейчас не принимает `.blend`**, а `load()` его не открывает.
-Своего пользовательского пакета восстановления ядра нет. Экспортированный STL можно загрузить
-как геометрию в новую сцену, но он не возвращает материалы, камеру и Python-переменные.
-Lean имеет собственный пакет
-до 2 МиБ и 200 команд; при открытии proofState создаются заново. Подробности —
-[Lean](blocks/lean.md), [QET](blocks/qet.md), [Modelica](blocks/modelica.md), [Blender](blocks/sandbox.md).
+Все шесть ядер сохраняют приватный пакет `upload:<id>/session.json` (`ref`). Он содержит шаги,
+свои файлы, вид ядра и точный образ узла. `session_save {session}` и `session_open {from}` — общий путь;
+предметные инструменты возвращают и принимают тот же пакет. Пакет другого пользователя недоступен.
+Подробности — [Lean](blocks/lean.md), [QET](blocks/qet.md), [Modelica](blocks/modelica.md),
+[Blender](blocks/sandbox.md).
 
 ## Открыть и передать модели
 
@@ -84,12 +81,12 @@ curl -fsS -X POST 'https://v2.spiridus.ru/api/v1/files?name=session.json' \
 ```
 
 Задайте `PACKAGE_ID` из своей ссылки `upload:<id>/session.json`, затем передайте новый `upload:…/session.json` в `session_open {from}`
-(для Lean — `lean_session_open`). Нужны право `files`, записанные в пакете scopes,
+(также можно использовать предметный инструмент открытия). Нужны право `files`, записанные в пакете scopes,
 текущий доступ к помеченному проекту и подходящий `imageId`; `rebuild` разрешает переиграть на новой
 сборке с предупреждением. Повторная загрузка не снимает этих проверок и не является способом
 снять метку проекта. [Сроки хранения](data.md#сколько-хранится).
 
-## Пакеты Python и FreeCAD
+## Состав пакетов
 
 Python восстанавливается исполнением успешных команд из журнала; явно записанные в `/out` файлы
 сохраняются отдельно. Ответы `tools.*` при восстановлении берутся из журнала: инструменты второй
@@ -140,6 +137,8 @@ Python восстанавливается исполнением успешны�
 пишет пакет с `kind: "freecad"`: шаги, `files` — точка сохранения ядра (`checkpoint.FCStd`,
 `bindings.json` с простыми переменными) и свои файлы `/out` без выгрузок экспорта и вида, `resume` —
 переменные в точке полные (файл точки больше 32 МиБ в пакет не входит — тогда `resume: false` и `warning`).
+Если свой файл `/out` больше 32 МиБ, сохранение пакета отказывает с его именем:
+уменьшите его или удалите из `/out` перед сохранением.
 Открывают его `cad_session_open {from}` или `session_open {from}`: при
 `resume` новый сеанс открывает документ без проигрывания шагов, иначе шаги проигрываются; `rebuild: true`
 (только `session_open`) всегда проигрывает шаги на основной сборке. `refresh` у FreeCAD нет.
@@ -148,3 +147,46 @@ Python восстанавливается исполнением успешны�
 подставленный «ответ инструмента» получает лишь код этого же пакета. Схема строгая: лишние поля,
 пути с `..` или абсолютные, неверные размеры — отказ.
 
+
+Blender сохраняет `checkpoint.blend`, простые переменные `bindings.json`, состояние `random` и
+`numpy.random` (`checkpoint.random.json`), входы `in/`, свои файлы и шаги. При `resume: true` сцена и
+переменные открываются без проигрывания; сложные переменные, общие ссылки, несохранённые пиксели и
+`mathutils.noise` требуют проигрывания. `blender_session_open {from}` берёт входы и сборку из пакета;
+`build` и `inputs` одновременно с `from` запрещены. `session_open {from, rebuild: true}` проигрывает
+шаги на основной сборке ядра с предупреждением; последовательность `random`/`numpy.random` — от seed.
+
+OpenModelica сохраняет модель `model.mo`, имя и последние параметры `session.json`, последний
+`result.csv` (если был расчёт), а также шаги `load`/`simulate`. При открытии точки модель собирается
+один раз заново, CSV и параметры сохраняются. Собранная программа в пакет не входит.
+`modelica_session_open {from}` не принимает вместе с `from` исходник, имя или сборку.
+`rebuild` через `session_open` проигрывает шаги на основной сборке ядра.
+
+QET сохраняет всю папку: проекты `.qet`, свои символы, экспорт и служебный журнал вызовов.
+`qet_save {workspace}` без `files` сохраняет только пакет (SVG не нужен); с `files` ещё выгружает
+выбранные файлы и блок, как раньше. После `session_open {from}` используйте новый `id` как `workspace`
+в `qet_call`/`qet_save`. QET и при `rebuild` открывает папку на основной сборке: повторение правок
+дублировало бы операции. Ответ предупреждает о возможном отличии результатов. До закрытия сеанса
+сохраните пакет: после закрытия можно забрать файлы папки для документа, но новый пакет ядра уже не создать.
+
+Lean сохраняет команды/тактики и файлы `/out` (в том числе `environment.olean`), возвращает `ref` и
+`scopes`. Восстановление воспроизводит журнал, `.olean` остаётся файлом и не импортируется.
+`lean_session_open {from}` возвращает последний результат с локальными индексами; после общего
+`session_open {from}` запросите `lean_session_goals`. Старый отдельный формат Lean (без `tool`,
+с `commands`) отклоняется с понятным текстом: его образ не был проверен на узле. Открытый старый
+сеанс можно сохранить заново новым `lean_session_save`. `lean_session_open {from, rebuild: true}`
+и общий `session_open` позволяют повторить команды на основной сборке с предупреждением.
+
+Предел общего пакета — 32 МиБ, журнала — 200 шагов и 8 МиБ, файлов — `outMb` сборки;
+служебные наложения файлов и чтение `goals`/`objects` не занимают шагов журнала.
+У Python, FreeCAD и Blender свой файл `/out` больше 32 МиБ вызывает отказ сохранения пакета;
+у QET дополнительно папка ≤ 32 МиБ и 300 файлов плюс служебный журнал. Пакет занимает штатную
+квоту загрузок владельца (500 МиБ); она отдельна от квоты приватных результатов
+(2 ГиБ по умолчанию). Приватные выгрузки и результаты учитываются своим штатным хранилищем;
+пакет не публикуется. Стирание учётной записи/проекта проходит через общие метки и очистку
+загрузок, приватных результатов и ядер. Метки прав и проекта хранятся в шлюзе отдельно
+от JSON пакета: повторная загрузка тех же байтов сохраняет их, только пока исходные метаданные
+ещё существуют. После удаления последней загрузки или очистки метаданных эта гарантия не действует.
+Скачанный пакет можно загрузить обычным способом и открыть по новому `upload:…/session.json`,
+но он не восстанавливает утраченные метки; для продолжения с прежними ограничениями сохраните
+исходную загрузку. При существующих метках повторная загрузка не даёт доступа чужому владельцу
+или исключённому участнику.
