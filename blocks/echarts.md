@@ -47,3 +47,25 @@
 - `label-crossed` в графе (`type: graph`) — силовая раскладка (`layout: force`) кладёт рёбра через подписи: задайте места узлов (`layout: none`, `x`, `y`) и `label.position: bottom`.
 - `label-overlap` у подписей точек и секторов — `labelLayout: { hideOverlap: true }`, у круговой — `avoidLabelOverlap: true`, у осей — `axisLabel.rotate` или `interval`.
 - `label-crossed` у подписи на линии графика — `label.position: top` и `distance`.
+
+## Полный Markdown через Code Mode
+
+Настройки ECharts — содержимое блока, а не код вызова инструмента.
+В `execute` с `language: "javascript"` не нужны `require("echarts")`, DOM,
+`document.getElementById` или локальный renderer: передайте документ в `render_check`.
+
+```javascript
+const option = {
+  xAxis: {type: 'category', data: ['Янв', 'Фев', 'Мар']},
+  yAxis: {}, series: [{type: 'bar', data: [53, 44, 39]}]
+};
+const markdown = [
+  '# Заказы', '', '~~~echarts', JSON.stringify(option), '~~~'
+].join('\n');
+const check = await tools.render_check({markdown, text: false, strict: ['warning', 'layout']});
+return {markdown, check};
+```
+
+Проверьте `built: true`, `clean: true` и `blocks: 1`, затем покажите тот же Markdown.
+Другие блоки и формулы добавляются в Markdown; формулы — `$…$` и `$$…$$` (KaTeX),
+не выдуманные языки блоков `math`, `plot` или `spiridus-plot`.

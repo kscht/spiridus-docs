@@ -17,10 +17,10 @@
 | `/mcp/p/docs` | документный цикл, как `/mcp/lite` |
 | `/mcp/p/electric` | `qet_run`, `qet_symbols`, `qet_tools`, `qet_call`, `qet_save`, `sandbox_builds` |
 | `/mcp/p/electronics` | `hdl_synth`, `hdl_sim`, `sandbox_builds` |
-| `/mcp/p/graphics` | `blender_run`, `ffmpeg_run`, `hlsl_compile`, `blender_session_open`, `blender_exec`, `blender_inspect`, `blender_view`, `blender_session_save`, `session_list`, `session_close`, `sandbox_builds`, `image_view` |
+| `/mcp/p/graphics` | `comfy_generate`, `blender_run`, `ffmpeg_run`, `hlsl_compile`, `blender_session_open`, `blender_exec`, `blender_inspect`, `blender_view`, `blender_session_save`, `session_list`, `session_close`, `sandbox_builds`, `image_view` |
 | `/mcp/p/jobs` | `job_status`, `job_cancel`, `image_view` |
 | `/mcp/p/modelica` | `modelica_run`, `modelica_session_open`, `modelica_simulate`, `modelica_session_save`, `session_list`, `session_close`, `sandbox_builds` |
-| `/mcp/p/projects` | `project_read`, `project_write`, `project_import`, `project_hide`, `project_members`, `invitations`, `project_admin` |
+| `/mcp/p/projects` | `project_read`, `project_search` (при включении), `project_write`, `project_import`, `project_git_import`, `project_hide`, `project_members`, `invitations`, `project_admin` |
 | `/mcp/p/proofs` | `lean_check`, `lean_session_open`, `lean_session_command`, `lean_session_tactic`, `lean_session_goals`, `lean_session_close`, `lean_session_save`, `sandbox_builds` |
 | `/mcp/p/quantum` | `quantum_run`, `sandbox_builds` |
 
@@ -42,8 +42,13 @@ REST-каталог и `/api/v1/openapi.json` описывают все REST-и�
 
 ## Справка и примеры
 
+Нашли ошибку Spiridus или недостающую возможность — `spiridus_feedback`; правила и
+пример — [обратная связь](feedback.md), также `render_block_docs({lang:"feedback"})`.
+
 | Инструмент | Зачем | Что в ответе |
 |---|---|---|
+| `spiridus_feedback` | сообщить об ошибке Spiridus, неверной справке или пожелании; только с учётной записью, без секретов и чужих данных | id обращения и подтверждение приёма |
+| `feedback_admin` | владельцу системы: `list`/`show`/`close`/`summary`, безопасный показ текста как `calls_view` | закрытый список, обращение, состояние или сводные числа |
 | `render_blocks` | узнать, какие наглядные блоки есть: диаграммы, схемы, формулы, химия, ноты, 3D, карты… | список языков блоков с короткими пояснениями |
 | `render_block_docs` | справка: синтаксис и ограничения языка блока | справка: синтаксис, ограничения, рабочий пример |
 | `render_examples` | найти готовый образец под задачу («диаграмма последовательности с ветвлением», «карта с раскраской областей») | 2–3 блока, которые проходят проверку, и ссылки на страницы примеров |
@@ -67,6 +72,11 @@ REST-каталог и `/api/v1/openapi.json` описывают все REST-и�
 нажать кнопку, щёлкнуть по входу схемы — и посмотреть, что изменилось ([сценарии и статьи проектов](check.md)).
 
 ## Рисование на сервере
+
+`comfy_generate` (пресет graphics, нотация comfy) явно создаёт PNG по шаблону SDXL/FLUX
+или определению comfy-workflow. Сохраняет приватный набор: PNG, API/UI-графы, параметры,
+модели и meta.json. Просмотр набора не запускает GPU. Картинки на входе и цепочки — следующий этап;
+справка и лицензии: `render_block_docs comfy`.
 
 Экспериментальный `tts_run` (нотация `tts`, включается профилем) синтезирует русский
 и английский текст выбранной моделью и голосом, возвращает аудио и разметку фраз
@@ -205,9 +215,11 @@ REST-обёртка возвращает HTTP 422. Недоступность �
 | Инструмент | Зачем | Что в ответе |
 |---|---|---|
 | `projects` | свои проекты с ролями, ожидающие приглашения и передачи владения; `action: "create"` — новый проект со `slug` и `title` (нужно право создавать проекты от владельца системы, до 10 своих проектов) | списки `projects`, `invitations`, `transfers` или созданный проект |
+| `project_search` | при включении оператором: `project`, `query`, только `scope:self`, `mode:text`; видимые статьи/кодовые блоки головы main, reader+ и ключ `docs`, без гостей/истории/Code Mode. `pathPrefix`, `kind`, `limit` 1–20; [подробнее](projects.md#поиск-по-своему-проекту) | `hits` с точными `excerpt`, `locator`, commit, `citationRef` и `untrusted:true`; версии/поколение индекса и `coverage` с пропусками; без запросов/цитат/task в журнале |
 | `project_read` | дерево (`op: "tree"`, ресурсы — `resource: true`), статья или ресурс (`"read"`, `path`), раздел/блок статьи (`"read"`, `path`, `fragment`), исходящие и обратные ссылки (`"links"`, `path`, только голова), история (`"history"`) или версии ресурса (`"versions"`, `path`); `version` — старая версия, читателю — только голова `main` | `commit` — `base` для записи, `files`, `content` или `commits` с текущими никами; у статьи — `url`, при чтении фрагмента — `heading`/`block`, `method`, `warnings`; у links — `links`, `backlinks`, `dangling`, `count`, `truncated`, `warnings`; у ресурса — `url` (подписанная ссылка, не дольше 15 минут, не отзывается; из Code Mode её нет), `size`, `type`, `version` |
 | `project_write` | один коммит: `put` — `files [{path, content}]` или один ресурс `{path, base64}` / `{path, ref}` (до 12 000 000 байт; `ref` — своя загрузка `upload:`, своя публикация `artifact:` из `files_publish` или `private:` результата этого проекта при праве чтения его версии и правах ключа из метки результата; личный `private:` и результат другого проекта — отказ), `move` — `from` → `to` (ссылки статей на перемещаемый путь правятся тем же коммитом; у статьи её ссылки пересчитываются от нового места), `restore` — `paths` статей из `version` (до 50), `delete` — один ресурс в `paths` (на него не должны ссылаться статьи), `copy` — ресурс `from` из проекта `source` (по умолчанию этот) и `version` в `to`; `base` обязателен; после него изменились пути записи или исчезли цели ссылок статьи (перемещены, скрыты, удалены) — 409 с текущим `commit`, прежним `base`, `reason` и `paths`: перечитать и слить правки. Правка содержимого цели не мешает. Новый путь, неотличимый на вид от существующего (`сах.md` кириллицей рядом с `cax.md`), — 409 | `commit`, `base`, автор, `url`, `urls` по путям; у put — `warnings` о пропавших якорях и смене цели; `articles` — статьи, где поправлены или мешают ссылки |
 | `project_import` | последняя версия своего `/d/<id>` в новую статью: `project`, `id`, `path` (`.md`); один коммит от тени вызывающего, занятый путь — 409. Любой публичный `artifact:` из своего `/d`, включая файл другого автора, копируется ресурсом `media/<имя>` (у `project_write put` — только свой `artifact:` из `files_publish`) (при совпадении — суффикс), ссылки переписываются относительно статьи; `/d` не меняется. Разрешён из Code Mode | `commit`, `base`, `path`, `url`, `urls`, `files` (пути и размеры), `unavailable` (`{ref, reason}`: ссылки, оставленные в тексте) |
+| `project_git_import` | настройка git-источника (`configure`: url, branch, subdir; пустая subdir — явно корень), своего read-only токена (`token`), отзыв (`revoke`), закрытый план без записи (`plan`, `read_plan`). Editor+, docs и files; из Code Mode закрыт. Требует включения владельцем установки. Неподтверждённые права отклоняются; сейчас поддержан проверяемый project access token GitLab, GitHub PAT получает отказ | настройка без секрета (`settings`), поколения, source commit, base, операции и блокеры; `applicable:false`, применение ещё недоступно |
 | `project_hide` | убрать статьи из `main` (`base`, `paths`); в истории остаются, вернуть — `restore` | `commit`, `brokenLinks` (группы входящих из оставшихся статей; скрытие не блокируют) |
 | `project_members` | участники и роли; `role`, `remove` — админ и владелец (админов назначает только владелец); `leave` — выйти; `journal` — приглашения, роли, передачи | `members` или `events` |
 | `invitations` | свои приглашения: `list`, `accept`, `decline` по `id`; с `project` — приглашения проекта, `invite` по email с ролью, `revoke`. Письмо одно и то же, есть ли такой адрес | список или `status` |

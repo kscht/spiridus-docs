@@ -66,3 +66,20 @@ architecture-beta
 закрепите её в строке забора: ` ```mermaid build=mermaid-12.2.0 `.
 Без `build=` используется сборка `default`. Неизвестная или отключённая после `sunset`
 сборка выдаёт ошибку; другой версией её автоматически не заменяют.
+
+## Полный Markdown через Code Mode
+
+В `execute` с `language: "javascript"` передайте следующий `code`.
+Внутри забора — Mermaid, снаружи — Markdown; инструменты вызываются JavaScript.
+
+```javascript
+const markdown = [
+  '# Обработка заказа', '', '~~~mermaid', 'flowchart TD',
+  'A[Клиент] --> B[Проверка] --> C[Результат]', '~~~'
+].join('\n');
+const check = await tools.render_check({markdown, text: false, strict: ['warning', 'layout']});
+return {markdown, check};
+```
+
+При `built: true`, `clean: true` и `blocks: 1` покажите тот же Markdown.
+При замечаниях исправьте схему и повторите проверку; `built` отдельно успеха не означает.
