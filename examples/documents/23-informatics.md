@@ -27,11 +27,11 @@ $$
 ### Обратный перевод: развёрнутая форма
 
 $$
-100101_2 = 1\cdot 2^5 + 0\cdot 2^4 + 0\cdot 2^3 + 1\cdot 2^2 + 0\cdot 2^1 + 1\cdot 2^0 = 32 + 4 + 1 = 37_{10}
+100101_2 = 2^5 + 2^2 + 2^0 = 37_{10}
 $$
 
 $$
-2\text{A}7_{16} = 2\cdot 16^2 + 10\cdot 16 + 7 = 679_{10}, \qquad 157_8 = 1\cdot 64 + 5\cdot 8 + 7 = 111_{10}
+\begin{gathered}2\text{A}7_{16}=2\cdot16^2+10\cdot16+7 \\ =679_{10}, \\ 157_8=1\cdot64+5\cdot8+7=111_{10}\end{gathered}
 $$
 
 ### Двоичная, восьмеричная и шестнадцатеричная: триады и тетрады
@@ -96,9 +96,11 @@ digraph {
 ### Кодирование графики и звука
 
 $$
-I_{\text{рисунка}} = W \cdot H \cdot i, \qquad N_{\text{цветов}} = 2^i;
-\qquad
+\begin{gathered}
+I_{\text{рисунка}} = W \cdot H \cdot i, \\
+N_{\text{цветов}} = 2^i; \\
 I_{\text{звука}} = f \cdot i \cdot t \cdot k
+\end{gathered}
 $$
 
 Рисунок $1024 \times 768$ точек, 256 цветов ($i = 8$ бит): $1024 \cdot 768 \cdot 8$ бит $= 768$ Кбайт.
@@ -124,9 +126,9 @@ $F = (A \land B) \lor \lnot C$
 
 $$
 \begin{gathered}
-\lnot(A \land B) = \lnot A \lor \lnot B, \qquad
+\lnot(A \land B) = \lnot A \lor \lnot B, \\
 \lnot(A \lor B) = \lnot A \land \lnot B, \\
-A \to B = \lnot A \lor B, \qquad
+A \to B = \lnot A \lor B, \\
 A \equiv B = (A \land B) \lor (\lnot A \land \lnot B)
 \end{gathered}
 $$
@@ -299,8 +301,8 @@ graph {
   layout=neato
   node [shape=circle, style=filled, fillcolor="#fef3c7", fontsize=14]
   edge [fontsize=12]
-  A [pos="0,1!"]; B [pos="1.5,2.2!"]; C [pos="1.5,0!"]; D [pos="3,1!"]
-  E [pos="4.5,0!"]; F [pos="4.5,2!"]; G [pos="6,1!"]
+  A [pos="1,0!"]; B [pos="2.2,1.5!"]; C [pos="0,1.5!"]; D [pos="1,3!"]
+  E [pos="0,4.5!"]; F [pos="2,4.5!"]; G [pos="1,6!"]
   A -- B [label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="1" BGCOLOR="white"><TR><TD>5</TD></TR></TABLE>>]; A -- C [label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="1" BGCOLOR="white"><TR><TD>3</TD></TR></TABLE>>]; B -- D [label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="1" BGCOLOR="white"><TR><TD>4</TD></TR></TABLE>>]; C -- D [label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="1" BGCOLOR="white"><TR><TD>2</TD></TR></TABLE>>]
   C -- E [label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="1" BGCOLOR="white"><TR><TD>7</TD></TR></TABLE>>]; D -- F [label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="1" BGCOLOR="white"><TR><TD>3</TD></TR></TABLE>>]; E -- F [label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="1" BGCOLOR="white"><TR><TD>1</TD></TR></TABLE>>]; E -- G [label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="1" BGCOLOR="white"><TR><TD>4</TD></TR></TABLE>>]
   F -- G [label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="1" BGCOLOR="white"><TR><TD>7</TD></TR></TABLE>>]
@@ -341,7 +343,7 @@ graph {
 
 ```dot
 digraph {
-  rankdir=LR
+  rankdir=TB
   node [shape=circle, style=filled, fillcolor="#e0f2fe", fontsize=13]
   A [label="A\n1"]; B [label="Б\n1"]; C [label="В\n2"]
   D [label="Г\n3"]; E [label="Д\n5"]; K [label="К\n8", fillcolor="#bbf7d0"]
@@ -411,13 +413,18 @@ direction: down
 sequenceDiagram
   participant Б as Браузер
   participant D as DNS-сервер
-  participant W as Веб-сервер
-  Б->>D: какой IP у school.ru?
+  Б->>D: IP school.ru?
   D-->>Б: 93.158.134.3
-  Б->>W: 
-  Note over D,W: GET /index.html (HTTP)
-  W-->>Б: 
-  Note over D,W: 200 OK, HTML-страница
+```
+
+После DNS-запроса браузер открывает HTTP-соединение с найденным адресом:
+
+```mermaid
+sequenceDiagram
+  participant Б as Браузер
+  participant W as Веб-сервер
+  Б->>W: GET /index.html (HTTP)
+  W-->>Б: 200 OK, HTML-страница
 ```
 
 ## Базы данных
@@ -490,20 +497,11 @@ ORDER BY средний DESC;
 ### Диаграмма по данным таблицы
 
 ```echarts
-{"width":520,"height":300,
- "title":{"text":"Сумма по товарам, ₽","left":"center","textStyle":{"fontSize":14}},
- "tooltip":{},
- "xAxis":{"type":"category","data":["Тетрадь","Ручка","Линейка"]},
- "yAxis":{"type":"value"},
- "series":[{"type":"bar","data":[450,360,180],"label":{"show":true,"position":"top"},"itemStyle":{"color":"#3b82f6"}}]}
+{"width":380,"height":300,"title":{"text":"Сумма по товарам, ₽","left":"center","textStyle":{"fontSize":14}},"tooltip":{},"xAxis":{"type":"category","data":["Тетрадь","Ручка","Линейка"],"axisLabel":{"fontSize":12}},"yAxis":{"type":"value","axisLabel":{"fontSize":12}},"series":[{"type":"bar","data":[450,360,180],"label":{"show":true,"position":"top"},"itemStyle":{"color":"#3b82f6"}}]}
 ```
 
 ```echarts
-{"width":520,"height":280,
- "tooltip":{"trigger":"item"},
- "legend":{"bottom":0},
- "series":[{"type":"pie","radius":["35%","65%"],"label":{"formatter":"{b}: {d}%"},
-   "data":[{"name":"Тетрадь","value":450},{"name":"Ручка","value":360},{"name":"Линейка","value":180}]}]}
+{"width":380,"height":280,"tooltip":{"trigger":"item"},"legend":{"bottom":0},"series":[{"type":"pie","radius":["35%","65%"],"label":{"formatter":"{b}: {d}%"},"data":[{"name":"Тетрадь","value":450},{"name":"Ручка","value":360},{"name":"Линейка","value":180}]}]}
 ```
 
 ## Компьютерная графика
@@ -525,12 +523,14 @@ ORDER BY средний DESC;
 
 ### Цвет в модели RGB
 
+```table
 | Цвет | R | G | B | Шестнадцатеричный код |
 |:--|--:|--:|--:|:--|
 | Красный | 255 | 0 | 0 | `#FF0000` |
 | Жёлтый | 255 | 255 | 0 | `#FFFF00` |
 | Голубой | 0 | 255 | 255 | `#00FFFF` |
 | Серый | 128 | 128 | 128 | `#808080` |
+```
 
 ## Устройство компьютера
 

@@ -23,56 +23,414 @@
 
 **Топология, PlantUML**
 
+Топология AS 64500 по линкам; повторённое имя — то же устройство. Связи между площадками и ядром сохранены.
+
 ```plantuml
-' result: artifact:e4bb69eb6ffcc8a3/diagram.svg
+' result: artifact:54f3667c7e26819e/diagram.svg
 ' build: plantuml-1.2026.9-asl
 @startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
 !include <office/Devices/router>
 !include <office/Devices/switch>
 !include <office/Servers/server_generic>
 !include <tupadr3/font-awesome-5/globe>
 !include <tupadr3/font-awesome-5/users>
 skinparam defaultFontName Arial
-skinparam nodesep 40
-skinparam ranksep 50
+skinparam nodesep 15
+skinparam ranksep 35
 skinparam rectangleBorderColor #5b6b7f
 skinparam rectangleBackgroundColor #ffffff
 cloud "Интернет" as inet <<$globe>>
 rectangle "upstream-a\nAS 64496" as upstream_a <<$router>>
+inet -- upstream_a
+@enduml
+```
+
+```plantuml
+' result: artifact:eeddb473f14d1e5b/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
+!include <office/Devices/router>
+!include <office/Devices/switch>
+!include <office/Servers/server_generic>
+!include <tupadr3/font-awesome-5/globe>
+!include <tupadr3/font-awesome-5/users>
+skinparam defaultFontName Arial
+skinparam nodesep 15
+skinparam ranksep 35
+skinparam rectangleBorderColor #5b6b7f
+skinparam rectangleBackgroundColor #ffffff
+cloud "Интернет" as inet <<$globe>>
 rectangle "upstream-b\nAS 64497" as upstream_b <<$router>>
-rectangle "Ядро AS 64500" as core #eef3fb {
-  rectangle "border1\nCCR2216-1G-12XS-2XQ\nlo 10.255.0.1" as border1 <<$router>>
-  rectangle "border2\nCCR2216-1G-12XS-2XQ\nlo 10.255.0.2" as border2 <<$router>>
-  rectangle "core1\nCCR2216-1G-12XS-2XQ\nlo 10.255.0.11" as core1 <<$switch>>
-  rectangle "core2\nCCR2216-1G-12XS-2XQ\nlo 10.255.0.12" as core2 <<$switch>>
-  rectangle "bng1\nCCR2116-12G-4S+\nlo 10.255.0.21" as bng1 <<$server_generic>>
-  rectangle "bng2\nCCR2116-12G-4S+\nlo 10.255.0.22" as bng2 <<$server_generic>>
-}
+inet -- upstream_b
+@enduml
+```
+
+```plantuml
+' result: artifact:5a80ba928c758c91/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
+!include <office/Devices/router>
+!include <office/Devices/switch>
+!include <office/Servers/server_generic>
+!include <tupadr3/font-awesome-5/globe>
+!include <tupadr3/font-awesome-5/users>
+skinparam defaultFontName Arial
+skinparam nodesep 15
+skinparam ranksep 35
+skinparam rectangleBorderColor #5b6b7f
+skinparam rectangleBackgroundColor #ffffff
+rectangle "upstream-a\nAS 64496" as upstream_a <<$router>>
+  rectangle "border1\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.1" as border1 <<$router>>
+upstream_a -- border1
+@enduml
+```
+
+```plantuml
+' result: artifact:9d857b808c4cb17e/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
+!include <office/Devices/router>
+!include <office/Devices/switch>
+!include <office/Servers/server_generic>
+!include <tupadr3/font-awesome-5/globe>
+!include <tupadr3/font-awesome-5/users>
+skinparam defaultFontName Arial
+skinparam nodesep 15
+skinparam ranksep 35
+skinparam rectangleBorderColor #5b6b7f
+skinparam rectangleBackgroundColor #ffffff
+rectangle "upstream-b\nAS 64497" as upstream_b <<$router>>
+  rectangle "border2\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.2" as border2 <<$router>>
+upstream_b -- border2
+@enduml
+```
+
+```plantuml
+' result: artifact:12777bfbf98fed19/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
+!include <office/Devices/router>
+!include <office/Devices/switch>
+!include <office/Servers/server_generic>
+!include <tupadr3/font-awesome-5/globe>
+!include <tupadr3/font-awesome-5/users>
+skinparam defaultFontName Arial
+skinparam nodesep 15
+skinparam ranksep 35
+skinparam rectangleBorderColor #5b6b7f
+skinparam rectangleBackgroundColor #ffffff
+  rectangle "border1\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.1" as border1 <<$router>>
+  rectangle "core1\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.11" as core1 <<$switch>>
+border1 -- core1
+@enduml
+```
+
+```plantuml
+' result: artifact:282168a34c32cf72/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
+!include <office/Devices/router>
+!include <office/Devices/switch>
+!include <office/Servers/server_generic>
+!include <tupadr3/font-awesome-5/globe>
+!include <tupadr3/font-awesome-5/users>
+skinparam defaultFontName Arial
+skinparam nodesep 15
+skinparam ranksep 35
+skinparam rectangleBorderColor #5b6b7f
+skinparam rectangleBackgroundColor #ffffff
+  rectangle "border1\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.1" as border1 <<$router>>
+  rectangle "core2\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.12" as core2 <<$switch>>
+border1 -- core2
+@enduml
+```
+
+```plantuml
+' result: artifact:a2c530b20bca1da4/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
+!include <office/Devices/router>
+!include <office/Devices/switch>
+!include <office/Servers/server_generic>
+!include <tupadr3/font-awesome-5/globe>
+!include <tupadr3/font-awesome-5/users>
+skinparam defaultFontName Arial
+skinparam nodesep 15
+skinparam ranksep 35
+skinparam rectangleBorderColor #5b6b7f
+skinparam rectangleBackgroundColor #ffffff
+  rectangle "border2\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.2" as border2 <<$router>>
+  rectangle "core1\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.11" as core1 <<$switch>>
+border2 -- core1
+@enduml
+```
+
+```plantuml
+' result: artifact:834eb0aafe976ad3/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
+!include <office/Devices/router>
+!include <office/Devices/switch>
+!include <office/Servers/server_generic>
+!include <tupadr3/font-awesome-5/globe>
+!include <tupadr3/font-awesome-5/users>
+skinparam defaultFontName Arial
+skinparam nodesep 15
+skinparam ranksep 35
+skinparam rectangleBorderColor #5b6b7f
+skinparam rectangleBackgroundColor #ffffff
+  rectangle "border2\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.2" as border2 <<$router>>
+  rectangle "core2\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.12" as core2 <<$switch>>
+border2 -- core2
+@enduml
+```
+
+```plantuml
+' result: artifact:efe18128faa3f13e/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
+!include <office/Devices/router>
+!include <office/Devices/switch>
+!include <office/Servers/server_generic>
+!include <tupadr3/font-awesome-5/globe>
+!include <tupadr3/font-awesome-5/users>
+skinparam defaultFontName Arial
+skinparam nodesep 15
+skinparam ranksep 35
+skinparam rectangleBorderColor #5b6b7f
+skinparam rectangleBackgroundColor #ffffff
+  rectangle "core1\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.11" as core1 <<$switch>>
+  rectangle "core2\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.12" as core2 <<$switch>>
+core1 -- core2
+@enduml
+```
+
+```plantuml
+' result: artifact:21d739a5bf41de0a/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
+!include <office/Devices/router>
+!include <office/Devices/switch>
+!include <office/Servers/server_generic>
+!include <tupadr3/font-awesome-5/globe>
+!include <tupadr3/font-awesome-5/users>
+skinparam defaultFontName Arial
+skinparam nodesep 15
+skinparam ranksep 35
+skinparam rectangleBorderColor #5b6b7f
+skinparam rectangleBackgroundColor #ffffff
+  rectangle "bng1\nCCR2116-\n12G-4S+\nlo 10.255.0.21" as bng1 <<$server_generic>>
+  rectangle "core1\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.11" as core1 <<$switch>>
+bng1 -- core1
+@enduml
+```
+
+```plantuml
+' result: artifact:acfdf89bedd1ed6f/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
+!include <office/Devices/router>
+!include <office/Devices/switch>
+!include <office/Servers/server_generic>
+!include <tupadr3/font-awesome-5/globe>
+!include <tupadr3/font-awesome-5/users>
+skinparam defaultFontName Arial
+skinparam nodesep 15
+skinparam ranksep 35
+skinparam rectangleBorderColor #5b6b7f
+skinparam rectangleBackgroundColor #ffffff
+  rectangle "bng1\nCCR2116-\n12G-4S+\nlo 10.255.0.21" as bng1 <<$server_generic>>
+  rectangle "core2\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.12" as core2 <<$switch>>
+bng1 -- core2
+@enduml
+```
+
+```plantuml
+' result: artifact:a4cd3cafc06c9575/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
+!include <office/Devices/router>
+!include <office/Devices/switch>
+!include <office/Servers/server_generic>
+!include <tupadr3/font-awesome-5/globe>
+!include <tupadr3/font-awesome-5/users>
+skinparam defaultFontName Arial
+skinparam nodesep 15
+skinparam ranksep 35
+skinparam rectangleBorderColor #5b6b7f
+skinparam rectangleBackgroundColor #ffffff
+  rectangle "bng2\nCCR2116-\n12G-4S+\nlo 10.255.0.22" as bng2 <<$server_generic>>
+  rectangle "core1\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.11" as core1 <<$switch>>
+bng2 -- core1
+@enduml
+```
+
+```plantuml
+' result: artifact:5592f78f506b2b0d/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
+!include <office/Devices/router>
+!include <office/Devices/switch>
+!include <office/Servers/server_generic>
+!include <tupadr3/font-awesome-5/globe>
+!include <tupadr3/font-awesome-5/users>
+skinparam defaultFontName Arial
+skinparam nodesep 15
+skinparam ranksep 35
+skinparam rectangleBorderColor #5b6b7f
+skinparam rectangleBackgroundColor #ffffff
+  rectangle "bng2\nCCR2116-\n12G-4S+\nlo 10.255.0.22" as bng2 <<$server_generic>>
+  rectangle "core2\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.12" as core2 <<$switch>>
+bng2 -- core2
+@enduml
+```
+
+```plantuml
+' result: artifact:741ca1fcfc76d87e/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
+!include <office/Devices/router>
+!include <office/Devices/switch>
+!include <office/Servers/server_generic>
+!include <tupadr3/font-awesome-5/globe>
+!include <tupadr3/font-awesome-5/users>
+skinparam defaultFontName Arial
+skinparam nodesep 15
+skinparam ranksep 35
+skinparam rectangleBorderColor #5b6b7f
+skinparam rectangleBackgroundColor #ffffff
+  rectangle "bng1\nCCR2116-\n12G-4S+\nlo 10.255.0.21" as bng1 <<$server_generic>>
+rectangle "Агрегация\nVLAN 100 PPPoE" as access <<$switch>>
+bng1 -- access
+@enduml
+```
+
+```plantuml
+' result: artifact:be6d4995a19daaf6/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
+!include <office/Devices/router>
+!include <office/Devices/switch>
+!include <office/Servers/server_generic>
+!include <tupadr3/font-awesome-5/globe>
+!include <tupadr3/font-awesome-5/users>
+skinparam defaultFontName Arial
+skinparam nodesep 15
+skinparam ranksep 35
+skinparam rectangleBorderColor #5b6b7f
+skinparam rectangleBackgroundColor #ffffff
+  rectangle "bng2\nCCR2116-\n12G-4S+\nlo 10.255.0.22" as bng2 <<$server_generic>>
+rectangle "Агрегация\nVLAN 100 PPPoE" as access <<$switch>>
+bng2 -- access
+@enduml
+```
+
+```plantuml
+' result: artifact:48a701e060ee3396/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
+!include <office/Devices/router>
+!include <office/Devices/switch>
+!include <office/Servers/server_generic>
+!include <tupadr3/font-awesome-5/globe>
+!include <tupadr3/font-awesome-5/users>
+skinparam defaultFontName Arial
+skinparam nodesep 15
+skinparam ranksep 35
+skinparam rectangleBorderColor #5b6b7f
+skinparam rectangleBackgroundColor #ffffff
 rectangle "Агрегация\nVLAN 100 PPPoE" as access <<$switch>>
 rectangle "Абоненты" as subs <<$users>>
-inet -- upstream_a
-inet -- upstream_b
-upstream_a -- border1
-upstream_b -- border2
-border1 -- core1
-border1 -- core2
-border2 -- core1
-border2 -- core2
-core1 -- core2
-bng1 -- core1
-bng1 -- core2
-bng2 -- core1
-bng2 -- core2
-bng1 -- access
-bng2 -- access
 access -- subs
 @enduml
 ```
 
 **Адресный план, PlantUML nwdiag**
 
+Адресные сети по две точки подключения на вид; все участники каждой сети сохранены.
+
 ```plantuml
-' result: artifact:33abc2dab273586b/diagram.svg
+' result: artifact:275bc81285009749/diagram.svg
 ' build: plantuml-1.2026.9-asl
 @startnwdiag
 nwdiag {
@@ -81,40 +439,157 @@ nwdiag {
     description = "upstream-a AS 64496"
     border1 [description = "border1\n192.0.2.1"];
   }
+}
+@endnwdiag
+```
+
+```plantuml
+' result: artifact:18003bda8782fd21/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startnwdiag
+nwdiag {
   network upstream_b {
     address = "192.0.2.2/31"
     description = "upstream-b AS 64497"
     border2 [description = "border2\n192.0.2.3"];
   }
+}
+@endnwdiag
+```
+
+```plantuml
+' result: artifact:9724f7c87b14fb49/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startnwdiag
+nwdiag {
   network core {
-    address = "10.0.0.0/24 (/31) и lo 10.255.0.0/24"
+    address = "10.0.0.0/24 (/31)\nи lo 10.255.0.0/24"
     border1 [description = "border1\nlo 10.255.0.1"];
     border2 [description = "border2\nlo 10.255.0.2"];
+  }
+}
+@endnwdiag
+```
+
+```plantuml
+' result: artifact:3f3aa315a89a6137/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startnwdiag
+nwdiag {
+  network core {
+    address = "10.0.0.0/24 (/31)\nи lo 10.255.0.0/24"
     core1 [description = "core1\nlo 10.255.0.11"];
     core2 [description = "core2\nlo 10.255.0.12"];
+  }
+}
+@endnwdiag
+```
+
+```plantuml
+' result: artifact:4b51d52bcd9b420a/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startnwdiag
+nwdiag {
+  network core {
+    address = "10.0.0.0/24 (/31)\nи lo 10.255.0.0/24"
     bng1 [description = "bng1\nlo 10.255.0.21"];
     bng2 [description = "bng2\nlo 10.255.0.22"];
   }
+}
+@endnwdiag
+```
+
+```plantuml
+' result: artifact:cd9e6bb6f42f0f27/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startnwdiag
+nwdiag {
   network services {
     address = "10.10.0.0/24"
-    core1;
+    core1 [description = "core1\nlo 10.255.0.11"];
     radius [description = "RADIUS\n10.10.0.10"];
+  }
+}
+@endnwdiag
+```
+
+```plantuml
+' result: artifact:cd9f4f278d9b4c72/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startnwdiag
+nwdiag {
+  network services {
+    address = "10.10.0.0/24"
     dns [description = "DNS\n10.10.0.53"];
   }
+}
+@endnwdiag
+```
+
+```plantuml
+' result: artifact:2f7819696c812fa2/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startnwdiag
+nwdiag {
   network pppoe {
-    address = "VLAN 100, 100.64.0.0/17 и 100.64.128.0/17"
-    bng1;
-    bng2;
+    address = "VLAN 100\n100.64.0.0/17\n100.64.128.0/17"
+    bng1 [description = "bng1\nlo 10.255.0.21"];
+    bng2 [description = "bng2\nlo 10.255.0.22"];
+  }
+}
+@endnwdiag
+```
+
+```plantuml
+' result: artifact:e8bdc12ea9aabd35/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startnwdiag
+nwdiag {
+  network pppoe {
+    address = "VLAN 100\n100.64.0.0/17\n100.64.128.0/17"
     access [description = "агрегация"];
   }
+}
+@endnwdiag
+```
+
+```plantuml
+' result: artifact:67b16222edf01461/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startnwdiag
+nwdiag {
   network oob {
     address = "172.16.0.0/24 (VRF mgmt)"
-    border1;
-    border2;
-    core1;
-    core2;
-    bng1;
-    bng2;
+    border1 [description = "border1\nlo 10.255.0.1"];
+    border2 [description = "border2\nlo 10.255.0.2"];
+  }
+}
+@endnwdiag
+```
+
+```plantuml
+' result: artifact:834b7ec1a5fca834/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startnwdiag
+nwdiag {
+  network oob {
+    address = "172.16.0.0/24 (VRF mgmt)"
+    core1 [description = "core1\nlo 10.255.0.11"];
+    core2 [description = "core2\nlo 10.255.0.12"];
+  }
+}
+@endnwdiag
+```
+
+```plantuml
+' result: artifact:ced073a010937f0b/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startnwdiag
+nwdiag {
+  network oob {
+    address = "172.16.0.0/24 (VRF mgmt)"
+    bng1 [description = "bng1\nlo 10.255.0.21"];
+    bng2 [description = "bng2\nlo 10.255.0.22"];
   }
 }
 @endnwdiag
@@ -122,36 +597,184 @@ nwdiag {
 
 **Топология, D2**
 
+Участки одной сети; повторённое имя обозначает то же устройство. Все связи исходной топологии сохранены.
+
+Площадки: Ядро AS 64500.
+
 ```d2
-classes: { dev: { shape: image; label.near: outside-right-center } }
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+core: "" {
+  border1: border1\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.1 { class: dev; icon: affinity:router }
+  core1: core1\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.11 { class: dev; icon: affinity:switch-multilayer }
+}
+core.border1 -- core.core1
+```
+
+Площадки: Ядро AS 64500.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+core: "" {
+  border1: border1\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.1 { class: dev; icon: affinity:router }
+  core2: core2\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.12 { class: dev; icon: affinity:switch-multilayer }
+}
+core.border1 -- core.core2
+```
+
+Площадки: Ядро AS 64500.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+core: "" {
+  border2: border2\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.2 { class: dev; icon: affinity:router }
+  core1: core1\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.11 { class: dev; icon: affinity:switch-multilayer }
+}
+core.border2 -- core.core1
+```
+
+Площадки: Ядро AS 64500.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+core: "" {
+  bng1: bng1\nCCR2116-\n12G-4S+\nlo 10.255.0.21 { class: dev; icon: affinity:server-green }
+  core1: core1\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.11 { class: dev; icon: affinity:switch-multilayer }
+}
+core.bng1 -- core.core1
+```
+
+Площадки: Ядро AS 64500.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+core: "" {
+  bng2: bng2\nCCR2116-\n12G-4S+\nlo 10.255.0.22 { class: dev; icon: affinity:server-green }
+  core1: core1\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.11 { class: dev; icon: affinity:switch-multilayer }
+}
+core.bng2 -- core.core1
+```
+
+Площадки: Ядро AS 64500.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+core: "" {
+  border2: border2\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.2 { class: dev; icon: affinity:router }
+  core2: core2\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.12 { class: dev; icon: affinity:switch-multilayer }
+}
+core.border2 -- core.core2
+```
+
+Площадки: Ядро AS 64500.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+core: "" {
+  core1: core1\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.11 { class: dev; icon: affinity:switch-multilayer }
+  core2: core2\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.12 { class: dev; icon: affinity:switch-multilayer }
+}
+core.core1 -- core.core2
+```
+
+Площадки: Ядро AS 64500.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+core: "" {
+  bng1: bng1\nCCR2116-\n12G-4S+\nlo 10.255.0.21 { class: dev; icon: affinity:server-green }
+  core2: core2\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.12 { class: dev; icon: affinity:switch-multilayer }
+}
+core.bng1 -- core.core2
+```
+
+Площадки: Ядро AS 64500.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+core: "" {
+  bng2: bng2\nCCR2116-\n12G-4S+\nlo 10.255.0.22 { class: dev; icon: affinity:server-green }
+  core2: core2\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.12 { class: dev; icon: affinity:switch-multilayer }
+}
+core.bng2 -- core.core2
+```
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
 direction: down
 inet: Интернет { class: dev; icon: affinity:globe }
 upstream-a: upstream-a\nAS64496 { class: dev; icon: affinity:router-gray }
-upstream-b: upstream-b\nAS64497 { class: dev; icon: affinity:router-gray }
-core: Ядро AS 64500 {
-  border1: border1\nCCR2216-1G-12XS-2XQ\nlo 10.255.0.1 { class: dev; icon: affinity:router }
-  border2: border2\nCCR2216-1G-12XS-2XQ\nlo 10.255.0.2 { class: dev; icon: affinity:router }
-  core1: core1\nCCR2216-1G-12XS-2XQ\nlo 10.255.0.11 { class: dev; icon: affinity:switch-multilayer }
-  core2: core2\nCCR2216-1G-12XS-2XQ\nlo 10.255.0.12 { class: dev; icon: affinity:switch-multilayer }
-  bng1: bng1\nCCR2116-12G-4S+\nlo 10.255.0.21 { class: dev; icon: affinity:server-green }
-  bng2: bng2\nCCR2116-12G-4S+\nlo 10.255.0.22 { class: dev; icon: affinity:server-green }
-  border1 -- core1
-  border1 -- core2
-  border2 -- core1
-  border2 -- core2
-  core1 -- core2
-  bng1 -- core1
-  bng1 -- core2
-  bng2 -- core1
-  bng2 -- core2
-}
 inet -- upstream-a
+```
+
+Площадки: Ядро AS 64500.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+core: "" {
+  border1: border1\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.1 { class: dev; icon: affinity:router }
+}
+upstream-a: upstream-a\nAS64496 { class: dev; icon: affinity:router-gray }
 upstream-a -- core.border1
+```
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+inet: Интернет { class: dev; icon: affinity:globe }
+upstream-b: upstream-b\nAS64497 { class: dev; icon: affinity:router-gray }
 inet -- upstream-b
+```
+
+Площадки: Ядро AS 64500.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+core: "" {
+  border2: border2\nCCR2216-1G-\n12XS-2XQ\nlo 10.255.0.2 { class: dev; icon: affinity:router }
+}
+upstream-b: upstream-b\nAS64497 { class: dev; icon: affinity:router-gray }
 upstream-b -- core.border2
+```
+
+Площадки: Ядро AS 64500.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
 access: Агрегация\nVLAN 100 PPPoE { class: dev; icon: affinity:switch-gray }
+core: "" {
+  bng1: bng1\nCCR2116-\n12G-4S+\nlo 10.255.0.21 { class: dev; icon: affinity:server-green }
+}
 core.bng1 -- access
+```
+
+Площадки: Ядро AS 64500.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+access: Агрегация\nVLAN 100 PPPoE { class: dev; icon: affinity:switch-gray }
+core: "" {
+  bng2: bng2\nCCR2116-\n12G-4S+\nlo 10.255.0.22 { class: dev; icon: affinity:server-green }
+}
 core.bng2 -- access
+```
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+access: Агрегация\nVLAN 100 PPPoE { class: dev; icon: affinity:switch-gray }
 subs: Абоненты { class: dev; icon: affinity:house-gray }
 access -- subs
 ```
@@ -174,7 +797,7 @@ access -- subs
 - **OSPF, а не IS-IS.** В RouterOS 7 OSPFv2/v3 — основной и наиболее отлаженный IGP; IS-IS появился позже и в нём меньше возможностей. Для шести маршрутизаторов разницы в масштабе нет.
 - **BGP-free core через LDP.** Маршруты по умолчанию от границ приходят на BNG с next-hop = loopback границы; путь к нему — LSP по LDP. Ядро коммутирует по меткам и не держит интернет-таблицу.
 - **RR на маршрутизаторах ядра.** Шесть устройств — полная связность iBGP ещё возможна, но RR избавляет от правки всех конфигов при добавлении третьего BNG.
-- **Маршрут по умолчанию вместо полной таблицы на BNG.** У `CCR2116-12G-4S+` хватит памяти и на полную таблицу, но выигрыша для абонентского трафика нет: выход один — граница.
+- **Маршрут по умолчанию вместо полной таблицы на BNG.** У `CCR2116-\n12G-4S+` хватит памяти и на полную таблицу, но выигрыша для абонентского трафика нет: выход один — граница.
 - **CGNAT на BNG, а не на границе.** Нагрузка трансляции делится по BNG; пулы `198.51.100.0/27` и `198.51.100.32/27` анонсируются от «своего» BNG, обратный трафик приходит туда же.
 - **netmap.** Детерминированная трансляция: по внешнему адресу и порту абонент вычисляется без журнала NAT — это проще хранить, чем терабайты логов.
 
@@ -184,17 +807,20 @@ access -- subs
 
 **Loopback и управление**
 
+```table
 | Устройство | Модель | Роль | Loopback | OOB (ether1) |
 | --- | --- | --- | --- | --- |
-| `border1` | `CCR2216-1G-12XS-2XQ` | граница | `10.255.0.1/32` | `172.16.0.1/24` |
-| `border2` | `CCR2216-1G-12XS-2XQ` | граница | `10.255.0.2/32` | `172.16.0.2/24` |
-| `core1` | `CCR2216-1G-12XS-2XQ` | ядро, RR | `10.255.0.11/32` | `172.16.0.11/24` |
-| `core2` | `CCR2216-1G-12XS-2XQ` | ядро, RR | `10.255.0.12/32` | `172.16.0.12/24` |
-| `bng1` | `CCR2116-12G-4S+` | BNG, CGNAT | `10.255.0.21/32` | `172.16.0.21/24` |
-| `bng2` | `CCR2116-12G-4S+` | BNG, CGNAT | `10.255.0.22/32` | `172.16.0.22/24` |
+| `border1` | `CCR2216-1G-\n12XS-2XQ` | граница | `10.255.0.1/32` | `172.16.0.1/24` |
+| `border2` | `CCR2216-1G-\n12XS-2XQ` | граница | `10.255.0.2/32` | `172.16.0.2/24` |
+| `core1` | `CCR2216-1G-\n12XS-2XQ` | ядро, RR | `10.255.0.11/32` | `172.16.0.11/24` |
+| `core2` | `CCR2216-1G-\n12XS-2XQ` | ядро, RR | `10.255.0.12/32` | `172.16.0.12/24` |
+| `bng1` | `CCR2116-\n12G-4S+` | BNG, CGNAT | `10.255.0.21/32` | `172.16.0.21/24` |
+| `bng2` | `CCR2116-\n12G-4S+` | BNG, CGNAT | `10.255.0.22/32` | `172.16.0.22/24` |
+```
 
 **Линки ядра (/31)**
 
+```table
 | A | Интерфейс A | IP A | B | Интерфейс B | IP B | Скорость |
 | --- | --- | --- | --- | --- | --- | --- |
 | `border1` | `qsfp28-1-1` | `10.0.0.0` | `core1` | `qsfp28-1-1` | `10.0.0.1` | 100G |
@@ -206,6 +832,7 @@ access -- subs
 | `bng1` | `sfp-sfpplus2` | `10.0.0.12` | `core2` | `sfp28-3` | `10.0.0.13` | 10G |
 | `bng2` | `sfp-sfpplus1` | `10.0.0.14` | `core1` | `sfp28-4` | `10.0.0.15` | 10G |
 | `bng2` | `sfp-sfpplus2` | `10.0.0.16` | `core2` | `sfp28-4` | `10.0.0.17` | 10G |
+```
 
 **Внешние и абонентские сети**
 

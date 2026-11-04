@@ -11,7 +11,7 @@ Azure, Font Awesome, логотипы) — внутри PlantUML; интерне
 ## Последовательность
 
 ```plantuml
-' result: artifact:7cc5f65fac945583/diagram.svg
+' result: artifact:cde6602206eba345/diagram.svg
 ' build: plantuml-1.2026.9-asl
 @startuml
 !theme plain
@@ -30,7 +30,7 @@ M --> Ученик: подсказка, не ответ
 Подсети полосами; адреса узлов — в подписи узла (`description`), а не полем `address`: его nwdiag пишет поверх линии подключения.
 
 ```plantuml
-' result: artifact:940db6e372c37233/diagram.svg
+' result: artifact:1af5ae8c6eaa2af2/diagram.svg
 ' build: plantuml-1.2026.9-asl
 @startnwdiag
 nwdiag {
@@ -54,46 +54,130 @@ nwdiag {
 `!include` с адреса C4-PlantUML на GitHub шлюз сам подменил на копию из стандартной библиотеки
 и сообщил об этом в ответе.
 
+Два вида одной системы: чтение и утверждение документов; инструменты модели и песочницы. Контейнер «Документы» общий.
+
+Внешние участники и их обращения к рендеру:
+
 ```plantuml
-' result: artifact:b9e3c7003037c477/diagram.svg
+' result: artifact:065d0643c0ad017a/diagram.svg
 ' build: plantuml-1.2026.9-asl
 @startuml
-!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+skinparam defaultFontSize 16
+!include <C4/C4_Context>
+LAYOUT_TOP_DOWN()
+Person(user, "Ученик", "читает документы\nи задаёт вопросы")
+Person(teacher, "Учитель", "проверяет\nи утверждает")
+System(s, "Spiridus", "Рендер документа")
+Rel_D(user, s, "читает")
+Rel_D(teacher, s, "правит\nи утверждает")
+@enduml
+```
+
+Внутренние контейнеры Spiridus:
+
+```plantuml
+' result: artifact:e2aaa7e09142c3ba/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
+!include <C4/C4_Container>
+LAYOUT_TOP_DOWN()
 UpdateElementStyle("external_system", $bgColor="#4b5563", $borderColor="#374151")
 !include <tupadr3/font-awesome-5/server>
 !include <logos/postgresql>
-Person(user, "Ученик", "читает документы и задаёт вопросы")
-Person(teacher, "Учитель", "проверяет и утверждает")
 System_Boundary(s, "Spiridus") {
   Container(web, "Рендер", "TypeScript", "рисует документ в браузере", $sprite="server")
-  Container(mcp, "Шлюз MCP", "Node.js", "инструменты для моделей")
-  Container(sb, "Песочницы", "изолированные контейнеры", "FreeCAD, PlantUML, Blender")
   ContainerDb(db, "Документы", "файлы", "", $sprite="postgresql")
 }
+Rel_D(web, db, " берёт")
+@enduml
+```
+
+Внешние участники и их обращения к шлюзу MCP:
+
+```plantuml
+' result: artifact:ea9c2d5abfc56f13/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startuml
+skinparam defaultFontSize 16
+!include <C4/C4_Context>
+LAYOUT_TOP_DOWN()
+UpdateElementStyle("external_system", $bgColor="#4b5563", $borderColor="#374151")
 System_Ext(llm, "LLM", "модель в комнате")
-Rel(user, web, "читает")
-Rel(teacher, web, "правит и утверждает")
-Rel(llm, mcp, " вызывает инструменты", "MCP")
-Rel(mcp, sb, " задания")
-Rel(mcp, db, "пишет результат")
-Rel(web, db, " берёт")
+System(s, "Spiridus", "Шлюз MCP")
+Rel_D(llm, s, "​        вызывает\n​        инструменты по MCP")
+@enduml
+```
+
+Внутренние контейнеры Spiridus:
+
+```plantuml
+' result: artifact:7992218a122b0955/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
+!include <C4/C4_Container>
+LAYOUT_TOP_DOWN()
+UpdateElementStyle("external_system", $bgColor="#4b5563", $borderColor="#374151")
+!include <tupadr3/font-awesome-5/server>
+!include <logos/postgresql>
+System_Boundary(s, "Spiridus") {
+  Container(mcp, "Шлюз MCP", "Node.js", "инструменты для моделей")
+  Container(sb, "Песочницы", "изолированные контейнеры", "FreeCAD, PlantUML, Blender")
+}
+Rel_D(mcp, sb, " задания")
+@enduml
+```
+
+```plantuml
+' result: artifact:20f25b277ef3cb8b/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
+!include <C4/C4_Container>
+LAYOUT_TOP_DOWN()
+UpdateElementStyle("external_system", $bgColor="#4b5563", $borderColor="#374151")
+!include <tupadr3/font-awesome-5/server>
+!include <logos/postgresql>
+System_Boundary(s, "Spiridus") {
+  Container(mcp, "Шлюз MCP", "Node.js", "инструменты для моделей")
+  ContainerDb(db, "Документы", "файлы", "", $sprite="postgresql")
+}
+Rel_D(mcp, db, "​        пишет\n​        результат")
 @enduml
 ```
 
 ## Состояния документа
 
 ```plantuml
-' result: artifact:2719815268cdecd3/diagram.svg
+' result: artifact:e740a7eb07322bd3/diagram.svg
 ' build: plantuml-1.2026.9-asl
 @startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
 !theme plain
 [*] --> Черновик
-Черновик --> НаПроверке : ​   автор отправил
+Черновик --> НаПроверке : ​        автор отправил
 НаПроверке --> Черновик : замечания
 НаПроверке --> Утверждён : учитель подтвердил
-Утверждён --> Архив : ​   год прошёл
+Утверждён --> Архив : ​        год прошёл
 Архив --> [*]
-НаПроверке : модель проверила render_check
+НаПроверке : модель проверила\nrender_check
 Утверждён : виден ученикам
 @enduml
 ```
@@ -101,9 +185,14 @@ Rel(web, db, " берёт")
 ## Классы
 
 ```plantuml
-' result: artifact:ed4b5e72ec91ec6d/diagram.svg
+' result: artifact:49c5d1dc9f8b4831/diagram.svg
 ' build: plantuml-1.2026.9-asl
 @startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
 skinparam classAttributeIconSize 0
 class Документ {
   +заголовок: string
@@ -115,28 +204,114 @@ abstract class Блок {
   +исходник: string
   {abstract} +нарисовать()
 }
+Документ "1" *-down- "много" Блок
+@enduml
+```
+
+Реализации одного абстрактного контракта; повторённый «Блок» — тот же класс.
+
+```plantuml
+' result: artifact:98450800ef3694c8/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
+skinparam classAttributeIconSize 0
+abstract class Блок {
+  +язык: string
+  +исходник: string
+  {abstract} +нарисовать()
+}
 class Схема extends Блок
+@enduml
+```
+
+```plantuml
+' result: artifact:d50810cf68700f1a/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
+skinparam classAttributeIconSize 0
+abstract class Блок {
+  +язык: string
+  +исходник: string
+  {abstract} +нарисовать()
+}
 class Формула extends Блок
+@enduml
+```
+
+```plantuml
+' result: artifact:19886c3bf8fdadc5/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
+skinparam classAttributeIconSize 0
+abstract class Блок {
+  +язык: string
+  +исходник: string
+  {abstract} +нарисовать()
+}
 class Модель3D extends Блок
-Документ "1" *-- "много" Блок
-note right of Модель3D : считается в песочнице,\nстраница показывает STL
+note bottom of Модель3D : считается в песочнице,\nстраница показывает STL
 @enduml
 ```
 
 ## Mindmap
 
+Четыре ветви одной карты «Силы в механике»:
+
 ```plantuml
-' result: artifact:49c8a145d493b3ee/diagram.svg
+' result: artifact:c67e82fbf38c53a7/diagram.svg
 ' build: plantuml-1.2026.9-asl
 @startmindmap
-* Силы в механике
+skinparam defaultFontSize 18
+* Силы\nв механике
 ** Тяжести
-*** mg, к центру Земли
+*** mg, к центру\nЗемли
+@endmindmap
+```
+
+```plantuml
+' result: artifact:6ed2a9cc64e61f1b/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startmindmap
+skinparam defaultFontSize 18
+* Силы\nв механике
 ** Упругости
-*** закон Гука F = −kx
+*** закон Гука\nF = −kx
+@endmindmap
+```
+
+```plantuml
+' result: artifact:397c75b20f6890d0/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startmindmap
+skinparam defaultFontSize 18
+* Силы\nв механике
 ** Трения
 *** покоя
-*** скольжения: μN
+*** скольжения:\nμN
+@endmindmap
+```
+
+```plantuml
+' result: artifact:4457bf49d3851170/diagram.svg
+' build: plantuml-1.2026.9-asl
+@startmindmap
+skinparam defaultFontSize 18
+* Силы\nв механике
 ** Архимеда
 *** ρ g V
 @endmindmap

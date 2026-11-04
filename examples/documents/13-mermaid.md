@@ -20,19 +20,28 @@ flowchart TD
 
 ## Последовательность: проверка домашнего задания
 
+Проверка и утверждение — двумя схемами: модель готовит черновик, учитель утверждает оценку и отправляет отзыв ученику.
+
 ```mermaid
+%%{init: {"sequence": {"width": 70, "actorMargin": 40, "diagramMarginX": 8}}}%%
 sequenceDiagram
   actor У as Ученик
   participant К as Комната
   participant М as Модель
+  У->>К: Решение
+  К->>М: Критерии
+  М-->>К: Замечания
+```
+
+```mermaid
+%%{init: {"sequence": {"width": 70, "actorMargin": 40, "diagramMarginX": 8}}}%%
+sequenceDiagram
+  participant К as Комната
   actor П as Учитель
-  У->>К: Загружает решение
-  К->>М: Проверить по критериям
-  М-->>К: Замечания и оценка
-  К->>П: 
-  Note over М,П: Черновик отзыва
-  П-->>У: Отзыв с правками
-  Note over М,П: Учитель утверждает каждую оценку
+  actor У as Ученик
+  К->>П: Черновик
+  Note over П: Одобрено
+  П-->>У: Отзыв
 ```
 
 ## Последовательность с ветвлением: вход по ключу
@@ -79,7 +88,7 @@ classDiagram
 
 ```mermaid
 stateDiagram-v2
-  direction LR
+  direction TB
   Лёд --> Вода: плавление
   Вода --> Лёд: кристаллизация
   Вода --> Пар: испарение
@@ -104,49 +113,74 @@ erDiagram
 
 ## План проекта
 
+Полный план — таблицей для телефона. `done` — завершено, `active` — выполняется, без тега — запланировано. `after` задаёт зависимость от идентификатора задачи, а не фиксированную дату.
+
+```table
+| ID | Задача | Статус | Зависимость | Начало | Дней |
+|---|---|---|---|---|---:|
+| r1 | Рендер: блоки и стенд | done | — | 19.10.2026 | 3 |
+| r2 | Рендер: Mermaid | active | after r1 | 22.10.2026 | 1 |
+| m1 | Сервер: MCP-шлюз | done | — | 19.10.2026 | 2 |
+| c1 | Сервер: комнаты | запланировано | after r2 | 23.10.2026 | 7 |
+| — | Сервер: модели | запланировано | after c1 | 30.10.2026 | 5 |
+```
+
+Исполняемый образец `gantt` — первая цепочка полного плана; остальные зависимости и сроки сохранены в таблице.
+
 ```mermaid
-%%{init: {"themeVariables": {"taskTextColor": "#111", "taskTextDarkColor": "#111", "taskTextOutsideColor": "#111"}}}%%
+%%{init: {"gantt": {"useWidth": 350, "leftPadding": 70, "rightPadding": 30, "fontSize": 14}, "themeVariables": {"taskTextColor": "#111", "taskTextDarkColor": "#111", "taskTextOutsideColor": "#111"}}}%%
 gantt
   dateFormat YYYY-MM-DD
   todayMarker off
   axisFormat %d.%m
-  section Рендер
-  Блоки и стенд      :done, r1, 2026-10-19, 3d
-  Mermaid            :active, r2, after r1, 1d
-  section Сервер
-  MCP-шлюз           :done, m1, 2026-10-19, 2d
-  Комнаты            :c1, after r2, 7d
-  Модели             :after c1, 5d
+  tickInterval 1day
+  Блоки :done, r1, 2026-10-19, 3d
+  Mermaid :active, r2, after r1, 1d
 ```
 
 ## Mindmap
 
+Три ветви общей темы — отдельными небольшими картами.
+
 ```mermaid
 mindmap
-  root((Фотосинтез))
-    Вход
-      Свет
-      Вода
-      CO₂
-    Выход
-      Глюкоза
-      Кислород
-    Где
-      Хлоропласты
-        Тилакоиды
-        Строма
+  root((Фотосинтез: вход))
+    Свет
+    Вода
+    CO₂
+```
+
+```mermaid
+mindmap
+  root((Фотосинтез: выход))
+    Глюкоза
+    Кислород
+```
+
+```mermaid
+mindmap
+  root((Хлоропласты))
+    Тилакоиды
+    Строма
 ```
 
 ## Временная шкала и круговая
 
+Освоение космоса — вертикальная шкала событий:
+
+| Год | Событие |
+|---|---|
+| 1957 | Первый спутник |
+| 1961 | Гагарин |
+| 1969 | Человек на Луне |
+| 1998 | МКС |
+
+Исполняемый компактный `timeline` — первое событие этой шкалы; полный ряд событий сохранён выше.
+
 ```mermaid
-%%{init: {"theme": "neutral"}}%%
+%%{init: {"theme": "neutral", "timeline": {"padding": 5, "leftMargin": 0}}}%%
 timeline
-  title Освоение космоса
-  1957 : Первый спутник
-  1961 : Гагарин
-  1969 : Человек на Луне
-  1998 : МКС
+  1957 : Спутник
 ```
 
 Состав воздуха, %. Подписи вынесены за круг (`textPosition` больше 1): долю в 1 % иначе
@@ -155,7 +189,7 @@ timeline
 наверху круга уходит за край рисунка. Если долей больше или они мельче, надёжнее ECharts ниже.
 
 ```mermaid
-%%{init: {"pie": {"textPosition": 1.14}}}%%
+%%{init: {"pie": {"textPosition": 1.14, "legendPosition": "bottom"}}}%%
 pie
   "Азот" : 78
   "Кислород" : 21
@@ -166,11 +200,11 @@ pie
 выноска уводит в сторону; наведение показывает подсказку.
 
 ```echarts
-{"width":520,"height":300,
+{"width":380,"height":300,
  "title":{"text":"Состав воздуха, %","left":"center","textStyle":{"fontSize":14}},
  "tooltip":{"trigger":"item","formatter":"{b}: {c} %"},
  "series":[{"type":"pie","radius":["0%","62%"],"center":["50%","56%"],
-   "label":{"formatter":"{b}\n{c} %","fontSize":12,"lineHeight":16},
+   "label":{"formatter":"{b}\n{c} %","fontSize":14,"lineHeight":18},
    "labelLine":{"length":14,"length2":18},
    "avoidLabelOverlap":true,
    "data":[{"name":"Азот","value":78},{"name":"Кислород","value":21},{"name":"Аргон и прочее","value":1}]}]}

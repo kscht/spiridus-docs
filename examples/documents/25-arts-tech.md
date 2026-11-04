@@ -73,16 +73,31 @@ mindmap
       альт
       виолончель
       контрабас
+```
+
+```mermaid
+mindmap
+  root((Оркестр))
     Деревянные духовые
       флейта
       гобой
       кларнет
       фагот
+```
+
+```mermaid
+mindmap
+  root((Оркестр))
     Медные духовые
       труба
       валторна
       тромбон
       туба
+```
+
+```mermaid
+mindmap
+  root((Оркестр))
     Ударные
       литавры
       ксилофон
@@ -166,7 +181,7 @@ mindmap
 ### Орнамент: розетка и меандр
 
 ```svg
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" width="600" height="200">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" width="380" height="127">
   <rect x="0" y="0" width="600" height="200" fill="#fff8ec"/>
   <g fill="#c62828" stroke="#7f1d1d" stroke-width="2">
     <ellipse cx="100" cy="62" rx="12" ry="32"/>
@@ -331,6 +346,10 @@ difference() {
 ### Робототехника: движение по линии
 
 ```mermaid
+---
+config:
+  layout: elk
+---
 flowchart TD
   A([Старт]) --> B[Прочитать датчик освещённости]
   B --> C{Под датчиком чёрное?}
@@ -347,7 +366,7 @@ flowchart TD
 ### План эвакуации этажа
 
 ```svg
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" width="640" height="380" font-family="sans-serif" font-size="13">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" width="560" height="380" font-family="sans-serif" font-size="18">
   <rect x="0" y="0" width="640" height="380" fill="#ffffff"/>
   <g fill="#f3f4f6" stroke="#111827" stroke-width="3">
     <rect x="20" y="20" width="150" height="120"/>
@@ -380,44 +399,50 @@ flowchart TD
   </g>
   <rect x="0" y="152" width="14" height="36" fill="#15803d"/>
   <rect x="626" y="152" width="14" height="36" fill="#15803d"/>
-  <text x="34" y="194" fill="#15803d" font-weight="bold">ВЫХОД</text>
-  <text x="606" y="194" fill="#15803d" font-weight="bold" text-anchor="end">ВЫХОД</text>
+  <text x="34" y="220" fill="#15803d" font-weight="bold">ВЫХОД</text>
+  <text x="606" y="220" fill="#15803d" font-weight="bold" text-anchor="end">ВЫХОД</text>
   <circle cx="395" cy="110" r="9" fill="#dc2626"/>
-  <text x="410" y="115" fill="#dc2626" font-size="12">Вы здесь</text>
   <rect x="160" y="148" width="14" height="14" fill="#dc2626"/>
-  <text x="167" y="159" fill="#fff" font-size="10" text-anchor="middle">ОТ</text>
-  <g font-size="12" fill="#111827">
-    <line x1="20" y1="350" x2="60" y2="350" stroke="#15803d" stroke-width="5"/>
-    <text x="68" y="354">путь эвакуации</text>
-    <circle cx="210" cy="350" r="7" fill="#dc2626"/><text x="224" y="354">место нахождения</text>
-    <rect x="360" y="343" width="14" height="14" fill="#dc2626"/><text x="382" y="354">огнетушитель</text>
-    <rect x="490" y="343" width="14" height="14" fill="#15803d"/><text x="512" y="354">эвакуационный выход</text>
-  </g>
+
 </svg>
 ```
 
+Легенда: зелёная стрелка — путь эвакуации; красный круг — «Вы здесь»; красный квадрат — огнетушитель; зелёный прямоугольник — эвакуационный выход.
+
 ### Первая помощь: порядок действий
+
+Проверку сознания и последующие действия показывают три связанных этапа. Номера переходов относятся к тем же действиям в соседней схеме.
 
 ```mermaid
 flowchart TD
   A[Опасности нет?] --> B{В сознании?}
   B -- нет --> C[Позвать помощь, 112]
-  C --> D{Дышит?}
-  D -- нет --> E["СЛР: 30 нажатий, 2 вдоха"]
-  D -- да --> F[Боковое положение]
-  B -- да --> G{Сильное кровотечение?}
-  G -- да --> H[Давление на рану, повязка, жгут]
-  G -- нет --> I[Осмотр, удобное положение]
-  H --> J[112, следить до приезда скорой]
-  I --> J
+  C --> N[1. Проверить дыхание]
+  B -- да --> G[2. Проверить кровотечение]
+```
+
+```mermaid
+flowchart TD
+  N{1. Дышит?}
+  N -- нет --> E["СЛР: 30 нажатий,<br>2 вдоха"]
+  N -- да --> F[Боковое положение]
+  E --> J[112, следить<br>до приезда скорой]
   F --> J
-  E --> J
+```
+
+```mermaid
+flowchart TD
+  G{2. Сильное<br>кровотечение?}
+  G -- да --> H[Давление на рану,<br>повязка, жгут]
+  G -- нет --> I[Осмотр,<br>удобное положение]
+  H --> J[112, следить<br>до приезда скорой]
+  I --> J
 ```
 
 ### Знаки безопасности (ГОСТ 12.4.026)
 
 ```svg
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 210" width="640" height="210" font-family="sans-serif" font-size="12">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 210" width="560" height="210" font-family="sans-serif" font-size="18">
   <rect x="0" y="0" width="640" height="210" fill="#ffffff"/>
   <!-- запрещающий -->
   <circle cx="64" cy="70" r="50" fill="#fff" stroke="#d32f2f" stroke-width="10"/>
@@ -427,13 +452,13 @@ flowchart TD
   <!-- предупреждающий -->
   <polygon points="192,22 248,118 136,118" fill="#fbc02d" stroke="#111" stroke-width="6" stroke-linejoin="round"/>
   <polygon points="198,48 178,88 192,88 184,110 208,74 194,74 204,48" fill="#111"/>
-  <text x="192" y="150" text-anchor="middle">Опасность</text><text x="192" y="166" text-anchor="middle">поражения током</text>
+  <text x="192" y="150" text-anchor="middle">Опасность</text><text x="192" y="166" text-anchor="middle">удар током</text>
   <!-- предписывающий -->
   <circle cx="320" cy="70" r="50" fill="#1565c0"/>
   <circle cx="302" cy="72" r="13" fill="none" stroke="#fff" stroke-width="6"/>
   <circle cx="338" cy="72" r="13" fill="none" stroke="#fff" stroke-width="6"/>
   <path d="M315,70H325M289,70L276,62M351,70L364,62" stroke="#fff" stroke-width="5"/>
-  <text x="320" y="150" text-anchor="middle">Работать в</text><text x="320" y="166" text-anchor="middle">защитных очках</text>
+  <text x="320" y="150" text-anchor="middle">Работать в</text><text x="320" y="166" text-anchor="middle">очках</text>
   <!-- эвакуационный -->
   <rect x="398" y="30" width="100" height="80" fill="#2e7d32"/>
   <rect x="408" y="40" width="34" height="60" fill="none" stroke="#fff" stroke-width="5"/>
@@ -444,9 +469,10 @@ flowchart TD
   <rect x="564" y="48" width="24" height="60" rx="8" fill="#fff"/>
   <path d="M576,48V36H596" stroke="#fff" stroke-width="6" fill="none"/>
   <text x="576" y="150" text-anchor="middle">Огнетушитель</text>
-  <text x="320" y="200" text-anchor="middle" fill="#555">запрещающий · предупреждающий · предписывающий · эвакуационный · пожарный</text>
 </svg>
 ```
+
+Предупреждающий знак означает опасность поражения электрическим током; предписывающий требует работать в защитных очках. Виды знаков слева направо: запрещающий, предупреждающий, предписывающий, эвакуационный, пожарный.
 
 ### Топография: азимут и условные знаки
 
@@ -494,7 +520,7 @@ flowchart TD
   \draw[very thick] (0,0) rectangle (18,9);
   \draw[very thick] (9,-0.6) -- (9,9.6) node[above] {сетка};
   \draw[thick] (6,0) -- (6,9) (12,0) -- (12,9);
-  \node at (6,-0.5) {линия атаки}; 
+  \node at (6,-0.5) {линия атаки};
   \foreach \z/\x/\y in {1/1.5/1.5, 2/7.5/1.5, 3/7.5/4.5, 4/7.5/7.5, 5/1.5/7.5, 6/1.5/4.5}
     \node[circle, draw, fill=white, inner sep=1.5pt] at (\x,\y) {\z};
   \draw[<->] (0,-1.5) -- node[below] {18 м} (18,-1.5);
@@ -529,22 +555,12 @@ flowchart TD
 ### Пульс на уроке: кривая нагрузки
 
 ```echarts
-{"width":620,"height":300,
- "title":{"text":"Частота сердечных сокращений, уд/мин","left":"center","textStyle":{"fontSize":14}},
- "tooltip":{"trigger":"axis"},
- "grid":{"left":50,"right":20,"top":50,"bottom":40},
- "xAxis":{"type":"category","name":"мин","data":["0","5","10","15","20","25","30","35","40","45"]},
- "yAxis":{"type":"value","min":60,"max":200},
- "series":[{"type":"line","smooth":true,"data":[78,110,135,150,165,170,160,145,120,95],
-   "markArea":{"itemStyle":{"opacity":0.15},"data":[
-     [{"name":"разминка","xAxis":"0"},{"xAxis":"10"}],
-     [{"name":"основная часть","xAxis":"10"},{"xAxis":"35"}],
-     [{"name":"заключительная","xAxis":"35"},{"xAxis":"45"}]]},
-   "markLine":{"symbol":"none","lineStyle":{"type":"dashed"},"data":[{"yAxis":180,"name":"предел"}]}}]}
+{"width":380,"height":300,"title":{"text":"Частота сердечных сокращений,\nуд/мин","left":"center","textStyle":{"fontSize":14}},"tooltip":{"trigger":"axis"},"grid":{"left":50,"right":20,"top":90,"bottom":40},"xAxis":{"type":"category","name":"мин","data":["0","5","10","15","20","25","30","35","40","45"],"axisLabel":{"fontSize":12}},"yAxis":{"type":"value","min":60,"max":200,"axisLabel":{"fontSize":12}},"series":[{"type":"line","smooth":true,"data":[78,110,135,150,165,170,160,145,120,95],"markArea":{"itemStyle":{"opacity":0.15},"data":[[{"name":"разминка","xAxis":"0"},{"xAxis":"10"}],[{"name":"основная часть","xAxis":"10"},{"xAxis":"35"}],[{"name":"заключительная","xAxis":"35"},{"xAxis":"45"}]]},"markLine":{"symbol":"none","lineStyle":{"type":"dashed"},"data":[{"yAxis":180,"name":"предел"}]}}]}
 ```
 
 ### Нормативы (примерные, 7 класс)
 
+```table
 | Упражнение | Мальчики «5» | «4» | «3» | Девочки «5» | «4» | «3» |
 |---|---|---|---|---|---|---|
 | Бег 60 м, с | 9,4 | 10,2 | 11,0 | 9,8 | 10,4 | 11,2 |
@@ -552,3 +568,4 @@ flowchart TD
 | Прыжок в длину с места, см | 190 | 175 | 160 | 175 | 160 | 145 |
 | Подтягивание / отжимание, раз | 8 | 6 | 4 | 15 | 10 | 6 |
 | Наклон вперёд сидя, см | 9 | 6 | 3 | 13 | 9 | 5 |
+```

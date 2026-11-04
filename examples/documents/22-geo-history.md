@@ -9,78 +9,54 @@
 
 ### Политическая карта мира (7, 10 класс)
 
+**Крупнейшие по площади страны мира, млн км²**
+
 ```echarts
-{"width":720,"height":400,"title":{"text":"Крупнейшие по площади страны мира, млн км²","left":"center","textStyle":{"fontSize":14}},
- "visualMap":{"type":"continuous","min":2.5,"max":17.1,"orient":"horizontal","left":"center","bottom":0,"text":["17","2,5"],"inRange":{"color":["#fde68a","#f97316","#9a3412"]}},
- "series":[{"type":"map","map":"мир","top":40,"bottom":50,"itemStyle":{"areaColor":"#eef2f7","borderColor":"#94a3b8","borderWidth":0.4},
-  "data":[{"name":"Россия","value":17.1},{"name":"Канада","value":10.0},{"name":"Китай","value":9.6},{"name":"США","value":9.5},{"name":"Бразилия","value":8.5},{"name":"Австралия","value":7.7},{"name":"Индия","value":3.3},{"name":"Аргентина","value":2.8},{"name":"Казахстан","value":2.7}]}]}
+{"width":380,"height":400,"visualMap":{"type":"continuous","min":2.5,"max":17.1,"orient":"horizontal","left":"center","bottom":0,"text":["17","2,5"],"inRange":{"color":["#fde68a","#f97316","#9a3412"]}},"series":[{"type":"map","map":"мир","top":20,"bottom":50,"itemStyle":{"areaColor":"#eef2f7","borderColor":"#94a3b8","borderWidth":0.4},"data":[{"name":"Россия","value":17.1},{"name":"Канада","value":10.0},{"name":"Китай","value":9.6},{"name":"США","value":9.5},{"name":"Бразилия","value":8.5},{"name":"Австралия","value":7.7},{"name":"Индия","value":3.3},{"name":"Аргентина","value":2.8},{"name":"Казахстан","value":2.7}]}]}
 ```
 
 ### Федеральные округа и города-миллионники (8–9 класс)
 
+**Население федеральных округов, млн чел. (2024, округлённо)**
+
 ```echarts
-{"width":720,"height":420,"title":{"text":"Население федеральных округов, млн чел. (2024, округлённо)","left":"center","textStyle":{"fontSize":14}},
- "geo":{"map":"федеральные округа","top":40,"bottom":50,"itemStyle":{"borderColor":"#475569"}},
- "visualMap":{"type":"continuous","seriesIndex":0,"min":7,"max":41,"text":["41","7"],"orient":"horizontal","left":"center","bottom":0,"inRange":{"color":["#e0f2fe","#0369a1"]}},
- "series":[
-  {"type":"map","geoIndex":0,"data":[{"name":"Центральный","value":40.2},{"name":"Северо-Западный","value":13.9},{"name":"Южный","value":16.5},{"name":"Северо-Кавказский","value":10.2},{"name":"Приволжский","value":28.7},{"name":"Уральский","value":12.3},{"name":"Сибирский","value":16.6},{"name":"Дальневосточный","value":7.9}]},
-  {"type":"scatter","coordinateSystem":"geo","symbolSize":7,"itemStyle":{"color":"#b91c1c"},"label":{"color":"#111","textBorderColor":"#fff","textBorderWidth":3,"show":true,"formatter":"{b}","position":"right","fontSize":10},
-   "data":[{"name":"Москва","value":[37.6,55.75]},{"name":"Санкт-Петербург","value":[30.3,59.94]},{"name":"Новосибирск","value":[82.9,55.03]},{"name":"Екатеринбург","value":[60.6,56.84]},{"name":"Казань","value":[49.1,55.79]},{"name":"Красноярск","value":[92.9,56.01]},{"name":"Омск","value":[73.4,54.99]}]}]}
+{"width":380,"height":420,"geo":{"map":"федеральные округа","top":20,"bottom":100,"itemStyle":{"borderColor":"#475569"}},"visualMap":{"type":"continuous","seriesIndex":0,"min":7,"max":41,"text":["41","7"],"orient":"horizontal","left":"center","bottom":0,"inRange":{"color":["#e0f2fe","#0369a1"]}},"series":[{"type":"map","geoIndex":0,"data":[{"name":"Центральный","value":40.2},{"name":"Северо-Западный","value":13.9},{"name":"Южный","value":16.5},{"name":"Северо-Кавказский","value":10.2},{"name":"Приволжский","value":28.7},{"name":"Уральский","value":12.3},{"name":"Сибирский","value":16.6},{"name":"Дальневосточный","value":7.9}],"top":20},{"type":"scatter","coordinateSystem":"geo","symbolSize":7,"itemStyle":{"color":"#b91c1c"},"label":{"color":"#111","textBorderColor":"#fff","textBorderWidth":3,"show":false,"formatter":"{b}","position":"right","fontSize":12},"data":[{"name":"Москва","value":[37.6,55.75]},{"name":"Санкт-Петербург","value":[30.3,59.94]},{"name":"Новосибирск","value":[82.9,55.03]},{"name":"Екатеринбург","value":[60.6,56.84]},{"name":"Казань","value":[49.1,55.79]},{"name":"Красноярск","value":[92.9,56.01]},{"name":"Омск","value":[73.4,54.99]}]}],"tooltip":{"trigger":"item","formatter":"{b}"}}
 ```
+
+Точки на карте (названия также в подсказках): Москва, Санкт-Петербург, Новосибирск, Екатеринбург, Казань, Красноярск, Омск.
 
 ### Часовые пояса России (8 класс)
 
 Не названные на карте субъекты живут по московскому времени (МСК = UTC+3). Якутия показана по большей части своей территории (МСК+6).
 
+**Часовые пояса России: разница с Москвой**
+
 ```echarts
-{"width":720,"height":420,"title":{"text":"Часовые пояса России: разница с Москвой","left":"center","textStyle":{"fontSize":14}},
- "visualMap":{"type":"piecewise","orient":"horizontal","left":"center","bottom":0,"itemWidth":14,"textStyle":{"fontSize":11},
-  "pieces":[{"value":-1,"label":"−1","color":"#a5b4fc"},{"value":0,"label":"МСК","color":"#e2e8f0"},{"value":1,"label":"+1","color":"#fef08a"},{"value":2,"label":"+2","color":"#fde047"},{"value":3,"label":"+3","color":"#fdba74"},{"value":4,"label":"+4","color":"#fb923c"},{"value":5,"label":"+5","color":"#f87171"},{"value":6,"label":"+6","color":"#86efac"},{"value":7,"label":"+7","color":"#4ade80"},{"value":8,"label":"+8","color":"#22d3ee"},{"value":9,"label":"+9","color":"#60a5fa"}]},
- "series":[{"type":"map","map":"Россия","top":40,"bottom":60,"itemStyle":{"areaColor":"#e2e8f0","borderColor":"#64748b","borderWidth":0.4},
-  "data":[{"name":"Москва","value":0},{"name":"Калининградская область","value":-1},
-   {"name":"Астраханская область","value":1},{"name":"Самарская область","value":1},{"name":"Саратовская область","value":1},{"name":"Удмуртская Республика","value":1},{"name":"Ульяновская область","value":1},
-   {"name":"Республика Башкортостан","value":2},{"name":"Курганская область","value":2},{"name":"Оренбургская область","value":2},{"name":"Пермский край","value":2},{"name":"Свердловская область","value":2},{"name":"Тюменская область","value":2},{"name":"Ханты-Мансийский автономный округ — Югра","value":2},{"name":"Ямало-Ненецкий автономный округ","value":2},{"name":"Челябинская область","value":2},
-   {"name":"Омская область","value":3},
-   {"name":"Алтайский край","value":4},{"name":"Республика Алтай","value":4},{"name":"Кемеровская область — Кузбасс","value":4},{"name":"Красноярский край","value":4},{"name":"Новосибирская область","value":4},{"name":"Томская область","value":4},{"name":"Республика Тыва","value":4},{"name":"Республика Хакасия","value":4},
-   {"name":"Иркутская область","value":5},{"name":"Республика Бурятия","value":5},
-   {"name":"Забайкальский край","value":6},{"name":"Амурская область","value":6},{"name":"Республика Саха (Якутия)","value":6},
-   {"name":"Приморский край","value":7},{"name":"Хабаровский край","value":7},{"name":"Еврейская автономная область","value":7},
-   {"name":"Магаданская область","value":8},{"name":"Сахалинская область","value":8},
-   {"name":"Камчатский край","value":9},{"name":"Чукотский автономный округ","value":9}]}]}
+{"width":380,"height":420,"visualMap":{"type":"piecewise","orient":"vertical","left":null,"bottom":null,"itemWidth":14,"textStyle":{"fontSize":12},"pieces":[{"value":-1,"label":"−1","color":"#a5b4fc"},{"value":0,"label":"МСК","color":"#e2e8f0"},{"value":1,"label":"+1","color":"#fef08a"},{"value":2,"label":"+2","color":"#fde047"},{"value":3,"label":"+3","color":"#fdba74"},{"value":4,"label":"+4","color":"#fb923c"},{"value":5,"label":"+5","color":"#f87171"},{"value":6,"label":"+6","color":"#86efac"},{"value":7,"label":"+7","color":"#4ade80"},{"value":8,"label":"+8","color":"#22d3ee"},{"value":9,"label":"+9","color":"#60a5fa"}],"right":0,"top":10},"series":[{"type":"map","map":"Россия","top":20,"bottom":20,"itemStyle":{"areaColor":"#e2e8f0","borderColor":"#64748b","borderWidth":0.4},"data":[{"name":"Москва","value":0},{"name":"Калининградская область","value":-1},{"name":"Астраханская область","value":1},{"name":"Самарская область","value":1},{"name":"Саратовская область","value":1},{"name":"Удмуртская Республика","value":1},{"name":"Ульяновская область","value":1},{"name":"Республика Башкортостан","value":2},{"name":"Курганская область","value":2},{"name":"Оренбургская область","value":2},{"name":"Пермский край","value":2},{"name":"Свердловская область","value":2},{"name":"Тюменская область","value":2},{"name":"Ханты-Мансийский автономный округ — Югра","value":2},{"name":"Ямало-Ненецкий автономный округ","value":2},{"name":"Челябинская область","value":2},{"name":"Омская область","value":3},{"name":"Алтайский край","value":4},{"name":"Республика Алтай","value":4},{"name":"Кемеровская область — Кузбасс","value":4},{"name":"Красноярский край","value":4},{"name":"Новосибирская область","value":4},{"name":"Томская область","value":4},{"name":"Республика Тыва","value":4},{"name":"Республика Хакасия","value":4},{"name":"Иркутская область","value":5},{"name":"Республика Бурятия","value":5},{"name":"Забайкальский край","value":6},{"name":"Амурская область","value":6},{"name":"Республика Саха (Якутия)","value":6},{"name":"Приморский край","value":7},{"name":"Хабаровский край","value":7},{"name":"Еврейская автономная область","value":7},{"name":"Магаданская область","value":8},{"name":"Сахалинская область","value":8},{"name":"Камчатский край","value":9},{"name":"Чукотский автономный округ","value":9}],"right":85}]}
 ```
 
 ### Климатограмма (6 и 8 класс)
 
+**Москва: температура и осадки по месяцам**
+
 ```echarts
-{"width":620,"height":320,"title":{"text":"Москва: температура и осадки по месяцам","left":"center","textStyle":{"fontSize":14}},
- "legend":{"bottom":0},"grid":{"left":50,"right":50,"top":50,"bottom":60},
- "xAxis":{"type":"category","data":["Я","Ф","М","А","М","И","И","А","С","О","Н","Д"]},
- "yAxis":[{"type":"value","name":"осадки, мм","min":0,"max":100},{"type":"value","name":"t, °C","min":-10,"max":25,"splitLine":{"show":false}}],
- "series":[{"name":"осадки, мм","type":"bar","itemStyle":{"color":"#60a5fa"},"data":[53,44,39,37,61,78,84,83,68,71,55,52]},
-  {"name":"температура, °C","type":"line","yAxisIndex":1,"itemStyle":{"color":"#dc2626"},"data":[-6.5,-6.7,-1.0,6.7,13.2,17.0,19.2,17.0,11.3,5.6,-0.8,-4.9]}]}
+{"width":380,"height":320,"legend":{"bottom":0},"grid":{"left":50,"right":50,"top":35,"bottom":60},"xAxis":{"type":"category","data":["Я","Ф","М","А","М","И","И","А","С","О","Н","Д"],"axisLabel":{"fontSize":12}},"yAxis":[{"type":"value","name":"осадки, мм","min":0,"max":100,"axisLabel":{"fontSize":12}},{"type":"value","name":"t, °C","min":-10,"max":25,"splitLine":{"show":false},"axisLabel":{"fontSize":12}}],"series":[{"name":"осадки, мм","type":"bar","itemStyle":{"color":"#60a5fa"},"data":[53,44,39,37,61,78,84,83,68,71,55,52]},{"name":"температура, °C","type":"line","yAxisIndex":1,"itemStyle":{"color":"#dc2626"},"data":[-6.5,-6.7,-1.0,6.7,13.2,17.0,19.2,17.0,11.3,5.6,-0.8,-4.9]}]}
 ```
 
 ### Роза ветров (6 класс)
 
+**Роза ветров за январь, число дней**
+
 ```echarts
-{"width":420,"height":380,"title":{"text":"Роза ветров за январь, число дней","left":"center","textStyle":{"fontSize":14}},
- "polar":{"radius":["0%","70%"],"center":["50%","55%"]},
- "angleAxis":{"type":"category","data":["С","СВ","В","ЮВ","Ю","ЮЗ","З","СЗ"],"startAngle":112.5},
- "radiusAxis":{"min":0,"max":9,"interval":3,"axisLabel":{"show":false}},
- "series":[{"type":"bar","coordinateSystem":"polar","data":[2,1,2,3,5,7,8,3],"itemStyle":{"color":"#0369a1"},"barCategoryGap":"8%",
-  "label":{"show":true,"position":"insideEnd","fontSize":11,"color":"#fff"}}]}
+{"width":380,"height":380,"polar":{"radius":["0%","70%"],"center":["50%","55%"]},"angleAxis":{"type":"category","data":["С","СВ","В","ЮВ","Ю","ЮЗ","З","СЗ"],"startAngle":112.5,"axisLabel":{"fontSize":12}},"radiusAxis":{"min":0,"max":9,"interval":3,"axisLabel":{"show":false,"fontSize":12}},"series":[{"type":"bar","coordinateSystem":"polar","data":[2,1,2,3,5,7,8,3],"itemStyle":{"color":"#0369a1"},"barCategoryGap":"8%","label":{"show":true,"position":"insideEnd","fontSize":12,"color":"#fff"}}]}
 ```
 
 ### Профиль рельефа (6 и 8 класс)
 
+**Профиль рельефа по 60° с. ш. (упрощённо)**
+
 ```echarts
-{"width":680,"height":300,"title":{"text":"Профиль рельефа по 60° с. ш. (упрощённо)","left":"center","textStyle":{"fontSize":14}},
- "grid":{"left":60,"right":30,"top":50,"bottom":50},
- "xAxis":{"type":"value","name":"км","nameLocation":"middle","nameGap":28,"min":0,"max":3200},
- "yAxis":{"type":"value","name":"высота, м","min":0,"max":1600},
- "series":[{"type":"line","smooth":true,"symbol":"none","lineStyle":{"color":"#78350f"},"areaStyle":{"color":"#d6b98c"},
-  "data":[[0,5],[250,250],[500,150],[900,200],[1300,120],[1600,250],[1750,500],[1850,1400],[1950,600],[2100,150],[2500,60],[2900,50],[3200,90]],
-  "markPoint":{"symbol":"pin","symbolSize":30,"label":{"fontSize":9},"data":[{"name":"Урал","coord":[1850,1400],"value":"Урал"}]}}]}
+{"width":380,"height":300,"grid":{"left":60,"right":30,"top":35,"bottom":50},"xAxis":{"type":"value","name":"км","nameLocation":"middle","nameGap":28,"min":0,"max":3200,"axisLabel":{"fontSize":12}},"yAxis":{"type":"value","name":"высота, м","min":0,"max":1600,"axisLabel":{"fontSize":12}},"series":[{"type":"line","smooth":true,"symbol":"none","lineStyle":{"color":"#78350f"},"areaStyle":{"color":"#d6b98c"},"data":[[0,5],[250,250],[500,150],[900,200],[1300,120],[1600,250],[1750,500],[1850,1400],[1950,600],[2100,150],[2500,60],[2900,50],[3200,90]],"markPoint":{"symbol":"pin","symbolSize":30,"label":{"fontSize":12},"data":[{"name":"Урал","coord":[1850,1400],"value":"Урал"}]}}]}
 ```
 
 Подписи частей профиля: Санкт-Петербург (0 км) → Валдайская возвышенность → Восточно-Европейская равнина → Уральские горы → Западно-Сибирская равнина.
@@ -141,26 +117,18 @@
 
 ### Половозрастная пирамида (8–9 класс)
 
+**Половозрастной состав населения России, млн чел. (около 2021 г.)**
+
 ```echarts
-{"width":680,"height":360,"title":{"text":"Половозрастной состав населения России, млн чел. (около 2021 г.)","left":"center","textStyle":{"fontSize":14}},
- "legend":{"bottom":0,"data":["мужчины","женщины"]},
- "grid":[{"left":"6%","width":"40%","top":50,"bottom":50},{"left":"54%","width":"40%","top":50,"bottom":50}],
- "xAxis":[{"type":"value","gridIndex":0,"inverse":true,"max":13},{"type":"value","gridIndex":1,"max":13}],
- "yAxis":[{"type":"category","gridIndex":0,"position":"right","axisLabel":{"show":false},"data":["0–9","10–19","20–29","30–39","40–49","50–59","60–69","70–79","80+"]},
-          {"type":"category","gridIndex":1,"position":"left","axisLabel":{"margin":30,"fontSize":10,"align":"center"},"data":["0–9","10–19","20–29","30–39","40–49","50–59","60–69","70–79","80+"]}],
- "series":[{"name":"мужчины","type":"bar","xAxisIndex":0,"yAxisIndex":0,"itemStyle":{"color":"#3b82f6"},"data":[9.3,8.0,7.3,11.8,9.8,8.6,7.2,2.9,1.0]},
-           {"name":"женщины","type":"bar","xAxisIndex":1,"yAxisIndex":1,"itemStyle":{"color":"#ec4899"},"data":[8.8,7.6,7.1,12.0,10.4,10.2,10.2,5.6,3.1]}]}
+{"width":380,"height":360,"legend":{"bottom":0,"data":["мужчины","женщины"]},"grid":[{"left":"2%","width":"36%","top":25,"bottom":50},{"left":"62%","width":"36%","top":25,"bottom":50}],"xAxis":[{"type":"value","gridIndex":0,"inverse":true,"max":13,"axisLabel":{"fontSize":12}},{"type":"value","gridIndex":1,"max":13,"axisLabel":{"fontSize":12}}],"yAxis":[{"type":"category","gridIndex":0,"position":"right","axisLabel":{"show":false,"fontSize":12},"data":["0–9","10–19","20–29","30–39","40–49","50–59","60–69","70–79","80+"]},{"type":"category","gridIndex":1,"position":"left","axisLabel":{"margin":46,"fontSize":12,"align":"center"},"data":["0–9","10–19","20–29","30–39","40–49","50–59","60–69","70–79","80+"]}],"series":[{"name":"мужчины","type":"bar","xAxisIndex":0,"yAxisIndex":0,"itemStyle":{"color":"#3b82f6"},"data":[9.3,8.0,7.3,11.8,9.8,8.6,7.2,2.9,1.0]},{"name":"женщины","type":"bar","xAxisIndex":1,"yAxisIndex":1,"itemStyle":{"color":"#ec4899"},"data":[8.8,7.6,7.1,12.0,10.4,10.2,10.2,5.6,3.1]}]}
 ```
 
 ### Структура хозяйства (8–11 класс)
 
+**Структура ВВП по секторам, % (округлённо)**
+
 ```echarts
-{"width":620,"height":320,"title":{"text":"Структура ВВП по секторам, % (округлённо)","left":"center","textStyle":{"fontSize":14}},
- "legend":{"bottom":0},"grid":{"left":80,"right":30,"top":45,"bottom":55},
- "xAxis":{"type":"value","max":100},"yAxis":{"type":"category","data":["Эфиопия","Индия","Китай","Россия","США"]},
- "series":[{"name":"сельское хозяйство","type":"bar","stack":"s","itemStyle":{"color":"#3f6212"},"label":{"show":true},"data":[33,17,7,4,1]},
-  {"name":"промышленность","type":"bar","stack":"s","itemStyle":{"color":"#ea580c"},"label":{"show":true},"data":[23,26,39,32,18]},
-  {"name":"услуги","type":"bar","stack":"s","itemStyle":{"color":"#2563eb"},"label":{"show":true},"data":[44,57,54,64,81]}]}
+{"width":380,"height":320,"legend":{"bottom":0},"grid":{"left":80,"right":30,"top":35,"bottom":55},"xAxis":{"type":"value","max":100,"axisLabel":{"fontSize":12}},"yAxis":{"type":"category","data":["Эфиопия","Индия","Китай","Россия","США"],"axisLabel":{"fontSize":12}},"series":[{"name":"сельское хозяйство","type":"bar","stack":"s","itemStyle":{"color":"#3f6212"},"label":{"show":true},"data":[33,17,7,4,1]},{"name":"промышленность","type":"bar","stack":"s","itemStyle":{"color":"#ea580c"},"label":{"show":true},"data":[23,26,39,32,18]},{"name":"услуги","type":"bar","stack":"s","itemStyle":{"color":"#2563eb"},"label":{"show":true},"data":[44,57,54,64,81]}]}
 ```
 
 ## История
@@ -183,7 +151,7 @@
 digraph {
   rankdir=TB
   node [shape=box, style="rounded,filled", fillcolor="#fef3c7", fontsize=11]
-  edge [arrowsize=0.6]
+  edge [arrowsize=0.6, fontsize=14]
   r [label="Рюрик\n† 879"]
   i [label="Игорь\n912–945"]
   o [label="Ольга\n945–960-е", fillcolor="#fce7f3"]
@@ -200,7 +168,7 @@ digraph {
   ms [label="Мстислав Великий"]
   yu [label="Юрий Долгорукий"]
   r -> i
-  {rank=same; i -> o [dir=none, style=dashed, label="брак", fontsize=9]}
+  {rank=same; i -> o [dir=none, style=dashed, label="брак", fontsize=14]}
   i -> s; o -> s [style=invis]
   s -> yp; s -> ol; s -> v
   v -> y; v -> bg
@@ -220,46 +188,37 @@ digraph {
 | Софья (регент) | 1682–1689 | Вечный мир с Польшей, Крымские походы |
 | Пётр I | 1682–1725 | Северная война, Табель о рангах, провозглашение империи |
 
+**Правления и войны XVII – начала XVIII века**
+
+Строки шкалы: 1 — Михаил Фёдорович; 2 — Алексей Михайлович; 3 — Фёдор Алексеевич; 4 — Софья (регент); 5 — Пётр I; 6 — Смоленская война; 7 — Русско-польская война; 8 — Северная война. Полные даты подписаны у полос.
+
 ```echarts
-{"width":680,"height":300,"title":{"text":"Правления и войны XVII – начала XVIII века","left":"center","textStyle":{"fontSize":14}},
- "grid":{"left":150,"right":30,"top":45,"bottom":35},
- "xAxis":{"type":"value","min":1610,"max":1740,"interval":10,"axisLabel":{"show":false}},
- "yAxis":{"type":"category","inverse":true,"axisLabel":{"fontSize":11},"data":["Михаил Фёдорович","Алексей Михайлович","Фёдор Алексеевич","Софья (регент)","Пётр I","Смоленская война","Русско-польская война","Северная война"]},
- "series":[{"type":"bar","stack":"t","silent":true,"itemStyle":{"color":"transparent"},"data":[1613,1645,1676,1682,1682,1632,1654,1700]},
-  {"type":"bar","stack":"t","barWidth":14,"label":{"show":true,"position":"right","fontSize":9},
-   "data":[{"value":32,"itemStyle":{"color":"#2563eb"},"label":{"formatter":"1613–1645"}},{"value":31,"itemStyle":{"color":"#2563eb"},"label":{"formatter":"1645–1676"}},{"value":6,"itemStyle":{"color":"#2563eb"},"label":{"formatter":"1676–1682"}},{"value":7,"itemStyle":{"color":"#a855f7"},"label":{"formatter":"1682–1689"}},{"value":43,"itemStyle":{"color":"#2563eb"},"label":{"formatter":"1682–1725"}},{"value":2,"itemStyle":{"color":"#dc2626"},"label":{"formatter":"1632–1634"}},{"value":13,"itemStyle":{"color":"#dc2626"},"label":{"formatter":"1654–1667"}},{"value":21,"itemStyle":{"color":"#dc2626"},"label":{"formatter":"1700–1721"}}]}]}
+{"width":380,"height":500,"grid":{"left":30,"right":85,"top":25,"bottom":35},"xAxis":{"type":"value","min":1610,"max":1740,"interval":10,"axisLabel":{"show":false,"fontSize":12}},"yAxis":{"type":"category","inverse":true,"axisLabel":{"fontSize":14,"show":true},"data":["1","2","3","4","5","6","7","8"]},"series":[{"type":"bar","stack":"t","silent":true,"itemStyle":{"color":"transparent"},"data":[{"value":1613,"label":{"formatter":"Михаил Фёдорович"}},{"value":1645,"label":{"formatter":"Алексей Михайлович"}},{"value":1676,"label":{"formatter":"Фёдор Алексеевич"}},{"value":1682,"label":{"formatter":"Софья (регент)"}},{"value":1682,"label":{"formatter":"Пётр I"}},{"value":1632,"label":{"formatter":"Смоленская война"}},{"value":1654,"label":{"formatter":"Русско-польская\nвойна"}},{"value":1700,"label":{"formatter":"Северная война"}}],"label":{"show":false,"position":"insideTopRight","fontSize":14,"offset":[0,-24]}},{"type":"bar","stack":"t","barWidth":14,"label":{"show":true,"position":"right","fontSize":14},"data":[{"value":32,"itemStyle":{"color":"#2563eb"},"label":{"formatter":"1613–1645"}},{"value":31,"itemStyle":{"color":"#2563eb"},"label":{"formatter":"1645–1676"}},{"value":6,"itemStyle":{"color":"#2563eb"},"label":{"formatter":"1676–1682"}},{"value":7,"itemStyle":{"color":"#a855f7"},"label":{"formatter":"1682–1689"}},{"value":43,"itemStyle":{"color":"#2563eb"},"label":{"formatter":"1682–1725"}},{"value":2,"itemStyle":{"color":"#dc2626"},"label":{"formatter":"1632–1634"}},{"value":13,"itemStyle":{"color":"#dc2626"},"label":{"formatter":"1654–1667"}},{"value":21,"itemStyle":{"color":"#dc2626"},"label":{"formatter":"1700–1721"}}]}]}
 ```
 
 ### Великие географические открытия (7 класс история, 5 класс география)
 
+**Плавания Колумба, да Гамы и Магеллана**
+
 ```echarts
-{"width":720,"height":420,"title":{"text":"Плавания Колумба, да Гамы и Магеллана","left":"center","textStyle":{"fontSize":14}},
- "legend":{"bottom":0},
- "geo":{"map":"мир","top":40,"bottom":40,"itemStyle":{"areaColor":"#f1f5f9","borderColor":"#94a3b8","borderWidth":0.4}},
- "series":[
-  {"name":"Колумб, 1492","type":"lines","coordinateSystem":"geo","polyline":true,"lineStyle":{"color":"#dc2626","width":2},"data":[{"coords":[[-6.9,37.2],[-15.4,28.1],[-40,26],[-74.5,24.1]]}]},
-  {"name":"Васко да Гама, 1497–1498","type":"lines","coordinateSystem":"geo","polyline":true,"lineStyle":{"color":"#16a34a","width":2},"data":[{"coords":[[-9.1,38.7],[-20,12],[-15,-15],[18.5,-35.5],[35,-25],[40.1,-3.2],[60,6],[75.8,11.2]]}]},
-  {"name":"Магеллан и Элькано, 1519–1522","type":"lines","coordinateSystem":"geo","polyline":true,"lineStyle":{"color":"#2563eb","width":2,"type":"dashed"},"data":[{"coords":[[-6.0,37.4],[-25,5],[-43,-23],[-60,-45],[-70,-53],[-80,-40],[-110,-15],[-160,8],[-180,10]]},{"coords":[[180,10],[145,13],[124,10],[120,-5],[100,-15],[60,-30],[18.5,-35.5],[-15,-5],[-20,20],[-6.0,37.4]]}]},
-  {"type":"scatter","coordinateSystem":"geo","symbolSize":6,"itemStyle":{"color":"#111827"},"label":{"color":"#111","textBorderColor":"#fff","textBorderWidth":3,"show":true,"formatter":"{b}","position":"right","fontSize":9},
-   "data":[{"name":"Палос","value":[-6.9,37.2]},{"name":"Сан-Сальвадор","value":[-74.5,24.1]},{"name":"мыс Доброй Надежды","value":[18.5,-34.4]},{"name":"Каликут","value":[75.8,11.2]},{"name":"Магелланов пролив","value":[-70,-53]},{"name":"Филиппины","value":[124,10]}]}]}
+{"width":380,"height":420,"legend":{"bottom":0,"orient":"vertical","left":10},"geo":{"map":"мир","top":20,"bottom":120,"itemStyle":{"areaColor":"#f1f5f9","borderColor":"#94a3b8","borderWidth":0.4}},"series":[{"name":"Колумб, 1492","type":"lines","coordinateSystem":"geo","polyline":true,"lineStyle":{"color":"#dc2626","width":2},"data":[{"coords":[[-6.9,37.2],[-15.4,28.1],[-40,26],[-74.5,24.1]]}]},{"name":"Васко да Гама, 1497–1498","type":"lines","coordinateSystem":"geo","polyline":true,"lineStyle":{"color":"#16a34a","width":2},"data":[{"coords":[[-9.1,38.7],[-20,12],[-15,-15],[18.5,-35.5],[35,-25],[40.1,-3.2],[60,6],[75.8,11.2]]}]},{"name":"Магеллан и Элькано, 1519–1522","type":"lines","coordinateSystem":"geo","polyline":true,"lineStyle":{"color":"#2563eb","width":2,"type":"dashed"},"data":[{"coords":[[-6.0,37.4],[-25,5],[-43,-23],[-60,-45],[-70,-53],[-80,-40],[-110,-15],[-160,8],[-180,10]]},{"coords":[[180,10],[145,13],[124,10],[120,-5],[100,-15],[60,-30],[18.5,-35.5],[-15,-5],[-20,20],[-6.0,37.4]]}]},{"type":"scatter","coordinateSystem":"geo","symbolSize":6,"itemStyle":{"color":"#111827"},"label":{"color":"#111","textBorderColor":"#fff","textBorderWidth":3,"show":false,"formatter":"{b}","position":"right","fontSize":12},"data":[{"name":"Палос","value":[-6.9,37.2]},{"name":"Сан-Сальвадор","value":[-74.5,24.1]},{"name":"мыс Доброй Надежды","value":[18.5,-34.4]},{"name":"Каликут","value":[75.8,11.2]},{"name":"Магелланов пролив","value":[-70,-53]},{"name":"Филиппины","value":[124,10]}]}],"tooltip":{"trigger":"item","formatter":"{b}"}}
 ```
+
+Точки на карте (названия также в подсказках): Палос, Сан-Сальвадор, мыс Доброй Надежды, Каликут, Магелланов пролив, Филиппины.
 
 ### Карта похода: Отечественная война 1812 года (8 класс)
 
 Современные границы даны для ориентира: исторических карт в пакете нет.
 
+**Наступление и отступление армии Наполеона, 1812**
+
 ```echarts
-{"width":720,"height":420,"title":{"text":"Наступление и отступление армии Наполеона, 1812","left":"center","textStyle":{"fontSize":14,"textBorderColor":"#fff","textBorderWidth":3}},
- "legend":{"bottom":0,"textStyle":{"textBorderColor":"#fff","textBorderWidth":3}},
- "geo":{"map":"мир","center":[30.8,55],"zoom":30,"top":40,"bottom":40,"silent":true,"label":{"show":false},"itemStyle":{"areaColor":"#f8fafc","borderColor":"#94a3b8","borderWidth":0.6}},
- "series":[
-  {"name":"наступление (июнь–сентябрь)","type":"lines","coordinateSystem":"geo","polyline":true,"lineStyle":{"color":"#b45309","width":4},"data":[{"coords":[[23.9,54.9],[25.3,54.7],[30.2,55.2],[32.0,54.8],[34.3,55.2],[35.8,55.5],[37.6,55.75]]}]},
-  {"name":"отступление (октябрь–декабрь)","type":"lines","coordinateSystem":"geo","polyline":true,"lineStyle":{"color":"#111827","width":2,"type":"dashed"},"data":[{"coords":[[37.6,55.75],[36.5,55.0],[35.4,55.3],[34.3,55.1],[32.0,54.7],[30.4,54.5],[28.4,54.3],[25.3,54.6],[23.9,54.8]]}]},
-  {"type":"effectScatter","coordinateSystem":"geo","symbolSize":10,"itemStyle":{"color":"#dc2626"},"label":{"color":"#111","textBorderColor":"#fff","textBorderWidth":3,"show":true,"formatter":"{b}","position":"top","fontSize":10},
-   "data":[{"name":"Бородино","value":[35.8,55.5]},{"name":"Малоярославец","value":[36.5,55.0]},{"name":"Березина","value":[28.4,54.3]},{"name":"Смоленск","value":[32.0,54.8]}]},
-  {"type":"scatter","coordinateSystem":"geo","symbolSize":6,"itemStyle":{"color":"#1e3a8a"},"label":{"color":"#111","textBorderColor":"#fff","textBorderWidth":3,"show":true,"formatter":"{b}","position":"bottom","fontSize":10},
-   "data":[{"name":"Москва","value":[37.6,55.75]},{"name":"Вильна","value":[25.3,54.7]},{"name":"Ковно","value":[23.9,54.9]},{"name":"Витебск","value":[30.2,55.2]}]}]}
+{"width":380,"height":420,"legend":{"bottom":0,"textStyle":{"textBorderColor":"#fff","textBorderWidth":3},"orient":"vertical","left":5},"geo":{"map":"мир","center":[30.8,55],"zoom":20,"top":20,"bottom":100,"silent":true,"label":{"show":false},"itemStyle":{"areaColor":"#f8fafc","borderColor":"#94a3b8","borderWidth":0.6}},"series":[{"name":"наступление (июнь–сентябрь)","type":"lines","coordinateSystem":"geo","polyline":true,"lineStyle":{"color":"#b45309","width":4},"data":[{"coords":[[23.9,54.9],[25.3,54.7],[30.2,55.2],[32.0,54.8],[34.3,55.2],[35.8,55.5],[37.6,55.75]]}]},{"name":"отступление (октябрь–декабрь)","type":"lines","coordinateSystem":"geo","polyline":true,"lineStyle":{"color":"#111827","width":2,"type":"dashed"},"data":[{"coords":[[37.6,55.75],[36.5,55.0],[35.4,55.3],[34.3,55.1],[32.0,54.7],[30.4,54.5],[28.4,54.3],[25.3,54.6],[23.9,54.8]]}]},{"type":"effectScatter","coordinateSystem":"geo","symbolSize":10,"itemStyle":{"color":"#dc2626"},"label":{"color":"#111","textBorderColor":"#fff","textBorderWidth":3,"show":false,"formatter":"{b}","position":"top","fontSize":12},"data":[{"name":"Бородино","value":[35.8,55.5]},{"name":"Малоярославец","value":[36.5,55.0]},{"name":"Березина","value":[28.4,54.3]},{"name":"Смоленск","value":[32.0,54.8]}]},{"type":"scatter","coordinateSystem":"geo","symbolSize":6,"itemStyle":{"color":"#1e3a8a"},"label":{"color":"#111","textBorderColor":"#fff","textBorderWidth":3,"show":false,"formatter":"{b}","position":"bottom","fontSize":12},"data":[{"name":"Москва","value":[37.6,55.75]},{"name":"Вильна","value":[25.3,54.7]},{"name":"Ковно","value":[23.9,54.9]},{"name":"Витебск","value":[30.2,55.2]}]}],"tooltip":{"trigger":"item","formatter":"{b}"}}
 ```
+
+Точки на карте (названия также в подсказках): Бородино, Малоярославец, Березина, Смоленск.
+
+Точки на карте (названия также в подсказках): Москва, Вильна, Ковно, Витебск.
 
 ### Схема сражения: Куликовская битва, 1380 (6 класс)
 
@@ -293,13 +252,22 @@ digraph {
 
 ```mermaid
 flowchart TD
-  imp[Император] --> sen[Правительствующий сенат]
-  imp --> syn[Святейший синод]
+  imp[Император] --> sen[Правительствующий<br>сенат]
+  sen --> kol[Коллегии: 12<br>вместо приказов]
+  prk[Генерал-прокурор] -. надзор .-> sen
+```
+
+```mermaid
+flowchart TD
+  imp[Император] --> syn[Святейший синод]
   imp --> tk[Тайная канцелярия]
-  sen --> kol[Коллегии: 12 вместо приказов]
+```
+
+```mermaid
+flowchart TD
+  imp[Император] --> sen[Правительствующий<br>сенат]
   sen --> gub[Губернии]
   gub --> pro[Провинции] --> uez[Уезды]
-  prk[Генерал-прокурор] -. надзор .-> sen
 ```
 
 ### Произведение эпохи Возрождения (7 класс)
@@ -312,17 +280,45 @@ flowchart TD
 
 ```dot
 digraph {
-  rankdir=LR
-  node [shape=box, style="rounded,filled", fontsize=11]
+  rankdir=TB
+  node [shape=box, style="rounded,filled", fontsize=14]
   root [label="Общество", shape=ellipse, fillcolor="#fde68a"]
-  node [fillcolor="#dbeafe"]
-  e [label="Экономическая"]; s [label="Социальная"]; p [label="Политическая"]; d [label="Духовная"]
-  node [fillcolor="#f8fafc", fontsize=10]
-  root -> {e s p d}
-  e -> e1 [arrowhead=none]; e1 [label="производство, обмен,\nраспределение, потребление"]
-  s -> s1 [arrowhead=none]; s1 [label="классы и слои,\nсемья, нации"]
-  p -> p1 [arrowhead=none]; p1 [label="государство,\nпартии, выборы"]
-  d -> d1 [arrowhead=none]; d1 [label="наука, религия,\nискусство, образование"]
+  e [label="Экономическая", fillcolor="#dbeafe"]
+  e1 [label="производство, обмен,\nраспределение, потребление", fillcolor="#f8fafc"]
+  root -> e; e -> e1 [arrowhead=none]
+}
+```
+
+```dot
+digraph {
+  rankdir=TB
+  node [shape=box, style="rounded,filled", fontsize=14]
+  root [label="Общество", shape=ellipse, fillcolor="#fde68a"]
+  s [label="Социальная", fillcolor="#dbeafe"]
+  s1 [label="классы и слои,\nсемья, нации", fillcolor="#f8fafc"]
+  root -> s; s -> s1 [arrowhead=none]
+}
+```
+
+```dot
+digraph {
+  rankdir=TB
+  node [shape=box, style="rounded,filled", fontsize=14]
+  root [label="Общество", shape=ellipse, fillcolor="#fde68a"]
+  p [label="Политическая", fillcolor="#dbeafe"]
+  p1 [label="государство,\nпартии, выборы", fillcolor="#f8fafc"]
+  root -> p; p -> p1 [arrowhead=none]
+}
+```
+
+```dot
+digraph {
+  rankdir=TB
+  node [shape=box, style="rounded,filled", fontsize=14]
+  root [label="Общество", shape=ellipse, fillcolor="#fde68a"]
+  d [label="Духовная", fillcolor="#dbeafe"]
+  d1 [label="наука, религия,\nискусство, образование", fillcolor="#f8fafc"]
+  root -> d; d -> d1 [arrowhead=none]
 }
 ```
 
@@ -336,24 +332,42 @@ digraph {
   subgraph cluster_l { label="Законодательная"; fontsize=11; style="rounded,filled"; fillcolor="#dbeafe"
     fs [label="Федеральное Собрание"]; sf [label="Совет\nФедерации"]; gd [label="Государственная\nДума"]
     fs -> sf; fs -> gd }
+  pr -> fs [label=" послание", fontsize=9]
+}
+```
+
+```dot
+digraph {
+  rankdir=TB; compound=true; nodesep=0.5; ranksep=0.7; labelloc=b
+  node [shape=box, style="rounded,filled", fillcolor="#f8fafc", fontsize=10]
+  pr [label="Президент РФ\nглава государства", fillcolor="#fde68a", fontsize=12]
   subgraph cluster_e { label="Исполнительная"; fontsize=11; style="rounded,filled"; fillcolor="#dcfce7"
     gov [label="Правительство РФ"]; min [label="министерства\nи ведомства"]
     gov -> min }
+  pr -> gov [label=" назначает\n Председателя", fontsize=9]
+}
+```
+
+```dot
+digraph {
+  rankdir=TB; compound=true; nodesep=0.5; ranksep=0.7; labelloc=b
+  node [shape=box, style="rounded,filled", fillcolor="#f8fafc", fontsize=10]
+  pr [label="Президент РФ\nглава государства", fillcolor="#fde68a", fontsize=12]
   subgraph cluster_s { label="Судебная"; fontsize=11; style="rounded,filled"; fillcolor="#fee2e2"
     ks [label="Конституционный\nСуд"]; vs [label="Верховный\nСуд"] }
-  pr -> fs [label=" послание", fontsize=9]
-  pr -> gov [label=" назначает\n Председателя", fontsize=9]
   pr -> ks [label=" кандидатуры\n судей", fontsize=9, lhead=cluster_s]
 }
 ```
 
 ### Формы государства (9 и 11 класс)
 
+```table
 | Признак | Варианты | Примеры |
 |---|---|---|
 | Форма правления | монархия (абсолютная, конституционная); республика (президентская, парламентская, смешанная) | Саудовская Аравия, Великобритания; США, Германия, Россия |
 | Форма устройства | унитарное, федеративное государство, конфедерация | Франция; Россия, Германия |
 | Политический режим | демократический, авторитарный, тоталитарный | — |
+```
 
 ### Спрос и предложение (8 и 11 класс)
 
@@ -381,8 +395,8 @@ digraph {
 
 ### Структура расходов семьи (7 класс)
 
+**Расходы семьи за месяц, %**
+
 ```echarts
-{"width":520,"height":320,"title":{"text":"Расходы семьи за месяц, %","left":"center","textStyle":{"fontSize":14}},
- "series":[{"type":"pie","radius":["35%","65%"],"center":["50%","56%"],"label":{"formatter":"{b}: {c}%"},
-  "data":[{"name":"питание","value":35},{"name":"жильё и ЖКУ","value":15},{"name":"транспорт","value":10},{"name":"одежда","value":10},{"name":"образование","value":8},{"name":"отдых","value":7},{"name":"сбережения","value":15}]}]}
+{"width":380,"height":320,"series":[{"type":"pie","radius":["35%","65%"],"center":["50%","56%"],"label":{"formatter":"{b}: {c}%"},"data":[{"name":"питание","value":35},{"name":"жильё и ЖКУ","value":15},{"name":"транспорт","value":10},{"name":"одежда","value":10},{"name":"образование","value":8},{"name":"отдых","value":7},{"name":"сбережения","value":15}]}]}
 ```

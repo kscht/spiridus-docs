@@ -18,6 +18,7 @@ G | E E D E | C G G2 | E E D E | C2 z
 
 Та же «Ёлочка» — для соло-гитары, органа, акустической гитары с боем, ритм-гитары, баса и барабанов:
 вступление, куплеты, припев, соло, брейк и последний куплет на тон выше, около полутора минут.
+В «Куплете II» орган удваивает мелодию; в первом припеве соло-гитара играет октавой выше («↑8»). «Финал» — последний припев и концовка.
 Каждый голос играет своим инструментом — строка `%%MIDI program` под голосом (номер по списку General
 MIDI), барабаны — `%%MIDI channel 10`, а `%%percmap` назначает нотам на ударном стане звуки: бочку,
 малый барабан, хай-хэт, тарелку и томы. Музыка Леонида Бекмана — общественное достояние; стихи Раисы
@@ -85,7 +86,7 @@ V:6
 [Fa] g [cg] g [Fg] [Fg] [cg] g | [Fg] g [cg] g [Fg] [Fg] [cg] g | [Fg] g [cg] g [Fg] [Fg] [cg] g | [Fg] g [cg] g [Fg] [Fg] [cg] g |
 % Куплет: орган удваивает мелодию
 V:1
-"^Куплет: орган удваивает мелодию" E E D E C G G2 | E E D E C2 z G | A A F A G E C2 | D D E D C2 z G |
+"^Куплет II" E E D E C G G2 | E E D E C2 z G | A A F A G E C2 | D D E D C2 z G |
 V:2
 e e d e c g g2 | e e d e c2 z g | a a f a g e c2 | d d e d c2 z g |
 V:3
@@ -98,7 +99,7 @@ V:6
 [Fa] g [cg] g [Fg] [Fg] [cg] g | [Fg] g [cg] g [Fg] [Fg] [cg] g | [Fg] g [cg] g [Fg] [Fg] [cg] g | [Fg] g [cg] g [Fg] [Fg] [cg] g |
 % Припев: мелодия октавой выше
 V:1
-"^Припев: мелодия октавой выше" e e d e c g g2 | e e d e c2 z g | a a f a g e c2 | d d e d c2 z g |
+"^Припев ↑8" e e d e c g g2 | e e d e c2 z g | a a f a g e c2 | d d e d c2 z g |
 V:2
 [CEG]8 | [A,CE]8 | [A,CF]4 [CEG]4 | [B,DG]4 [CEG]4 |
 V:3
@@ -176,7 +177,7 @@ V:6
 [Fa] g [cg] g [Fg] [Fg] [cg] g | [Fg] g [cg] g [Fg] [Fg] [cg] g | [Fg] g [cg] g [Fg] [Fg] [cg] g | [Fg] g [cg] g [Fg] [Fg] [cg] g |
 % Припев и концовка
 V:1
-"^Припев и концовка" f f e f d a a2 | f f e f d2 z a | b b g b a f d2 | d'8 |]
+"^Финал" f f e f d a a2 | f f e f d2 z a | b b g b a f d2 | d'8 |]
 V:2
 [DFA]8 | [B,DF]8 | [B,DG]4 [DFA]4 | [DFA]8 |]
 V:3

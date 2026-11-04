@@ -55,10 +55,12 @@
 Основные действия с дробями:
 
 $$
-\frac{a}{b} + \frac{c}{d} = \frac{ad + bc}{bd}, \qquad
-\frac{a}{b} \cdot \frac{c}{d} = \frac{ac}{bd}, \qquad
-\frac{a}{b} : \frac{c}{d} = \frac{ad}{bc}, \qquad
+\begin{gathered}
+\frac{a}{b} + \frac{c}{d} = \frac{ad + bc}{bd}, \\
+\frac{a}{b} \cdot \frac{c}{d} = \frac{ac}{bd}, \\
+\frac{a}{b} : \frac{c}{d} = \frac{ad}{bc}, \\
 p\,\% \text{ от } A = \frac{A \cdot p}{100}.
+\end{gathered}
 $$
 
 ## Алгебра 7–9
@@ -100,8 +102,13 @@ $y = x^2 - 2x - 3 = (x-1)^2 - 4$: вершина $(1;\,-4)$, нули $x_1 = -1$
 ```
 
 $$
-ax^2 + bx + c = 0,\quad D = b^2 - 4ac,\quad x_{1,2} = \frac{-b \pm \sqrt{D}}{2a};
-\qquad x_1 + x_2 = -\frac{b}{a},\quad x_1 x_2 = \frac{c}{a}.
+\begin{gathered}
+ax^2 + bx + c = 0, \\
+D = b^2 - 4ac, \\
+x_{1,2} = \frac{-b \pm \sqrt{D}}{2a}; \\
+x_1 + x_2 = -\frac{b}{a}, \\
+x_1 x_2 = \frac{c}{a}.
+\end{gathered}
 $$
 
 ### Корень и модуль
@@ -485,20 +492,7 @@ $$P(A \cup B) = P(A) + P(B) - P(A \cap B).$$
 Рост учеников класса (см), 30 человек.
 
 ```echarts
-{"width":620,"height":300,
- "title":[{"text":"Гистограмма","left":"22%","textAlign":"center","textStyle":{"fontSize":14}},
-          {"text":"Ящик с усами","left":"78%","textAlign":"center","textStyle":{"fontSize":14}}],
- "dataset":[{"source":[[148,152,155,156,158,159,160,161,161,162,163,163,164,165,165,166,166,167,168,168,169,170,171,172,173,175,176,178,181,186]]},
-            {"transform":{"type":"boxplot","config":{"itemNameFormatter":"рост"}},"fromDatasetIndex":0}],
- "grid":[{"left":40,"right":"52%","top":55,"bottom":50},{"left":"60%","right":20,"top":55,"bottom":50}],
- "xAxis":[{"gridIndex":0,"type":"category","name":"рост, см (начало интервала по 5 см)","nameLocation":"center","nameGap":30,
-           "data":["145","150","155","160","165","170","175","180","185"]},
-          {"gridIndex":1,"type":"category"}],
- "yAxis":[{"gridIndex":0,"name":"чел."},{"gridIndex":1,"min":140,"max":190}],
- "series":[{"type":"bar","xAxisIndex":0,"yAxisIndex":0,"barCategoryGap":"0%",
-            "itemStyle":{"borderColor":"#fff","borderWidth":1},"label":{"show":true,"position":"top"},
-            "data":[1,1,4,7,8,4,3,1,1]},
-           {"type":"boxplot","xAxisIndex":1,"yAxisIndex":1,"datasetIndex":1}]}
+{"width":380,"height":560,"title":[{"text":"Гистограмма","left":"50%","textAlign":"center","textStyle":{"fontSize":14},"top":0},{"text":"Ящик с усами","left":"50%","textAlign":"center","textStyle":{"fontSize":14},"top":292}],"dataset":[{"source":[[148,152,155,156,158,159,160,161,161,162,163,163,164,165,165,166,166,167,168,168,169,170,171,172,173,175,176,178,181,186]]},{"transform":{"type":"boxplot","config":{"itemNameFormatter":"рост"}},"fromDatasetIndex":0}],"grid":[{"left":48,"right":24,"top":56,"height":170},{"left":48,"right":24,"top":340,"bottom":40}],"xAxis":[{"gridIndex":0,"type":"category","name":"рост, см (шаг 5 см)","nameLocation":"center","nameGap":30,"data":["145","150","155","160","165","170","175","180","185"]},{"gridIndex":1,"type":"category"}],"yAxis":[{"gridIndex":0,"name":"чел."},{"gridIndex":1,"min":140,"max":190}],"series":[{"type":"bar","xAxisIndex":0,"yAxisIndex":0,"barCategoryGap":"0%","itemStyle":{"borderColor":"#fff","borderWidth":1},"label":{"show":true,"position":"top"},"data":[1,1,4,7,8,4,3,1,1]},{"type":"boxplot","xAxisIndex":1,"yAxisIndex":1,"datasetIndex":1}]}
 ```
 
 Среднее $\bar x = \dfrac{x_1 + \dots + x_n}{n}$, медиана — середина упорядоченного ряда, размах $= x_{\max} - x_{\min} = 38$.

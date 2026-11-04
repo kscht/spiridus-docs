@@ -17,15 +17,65 @@ Vega-Lite — грамматика графиков: данные, метка и
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "title": "Средний балл по четвертям (условные данные)",
-  "width": 320, "height": 200,
-  "data": {"values": [
-    {"четверть": "I", "балл": 4.1}, {"четверть": "II", "балл": 4.3},
-    {"четверть": "III", "балл": 3.9}, {"четверть": "IV", "балл": 4.4}
-  ]},
-  "mark": {"type": "bar", "tooltip": true},
+  "width": 280,
+  "height": 200,
+  "data": {
+    "values": [
+      {
+        "четверть": "I",
+        "балл": 4.1
+      },
+      {
+        "четверть": "II",
+        "балл": 4.3
+      },
+      {
+        "четверть": "III",
+        "балл": 3.9
+      },
+      {
+        "четверть": "IV",
+        "балл": 4.4
+      }
+    ]
+  },
+  "mark": {
+    "type": "bar",
+    "tooltip": true
+  },
   "encoding": {
-    "x": {"field": "четверть", "type": "ordinal", "title": "Четверть", "axis": {"labelAngle": 0}},
-    "y": {"field": "балл", "type": "quantitative", "title": "Средний балл", "scale": {"domain": [0, 5]}}
+    "x": {
+      "field": "четверть",
+      "type": "ordinal",
+      "title": "Четверть",
+      "axis": {
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "балл",
+      "type": "quantitative",
+      "title": "Средний балл",
+      "scale": {
+        "domain": [
+          0,
+          5
+        ]
+      }
+    }
+  },
+  "config": {
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    },
+    "legend": {
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    },
+    "title": {
+      "fontSize": 14
+    }
   }
 }
 ```
@@ -50,18 +100,87 @@ Vega-Lite — грамматика графиков: данные, метка и
 ```vega-lite
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "title": {"text": "Третий закон Кеплера", "subtitle": "период обращения и большая полуось орбиты"},
-  "width": 420, "height": 300,
-  "data": {"url": "file:планеты.csv"},
+  "title": {
+    "text": "Третий закон Кеплера",
+    "subtitle": "период обращения и большая полуось орбиты"
+  },
+  "width": 280,
+  "height": 300,
+  "data": {
+    "url": "file:планеты.csv"
+  },
   "encoding": {
-    "x": {"field": "полуось_ае", "type": "quantitative", "scale": {"type": "log"}, "title": "Большая полуось, а. е."},
-    "y": {"field": "период_лет", "type": "quantitative", "scale": {"type": "log"}, "title": "Период обращения, лет"}
+    "x": {
+      "field": "полуось_ае",
+      "type": "quantitative",
+      "scale": {
+        "type": "log"
+      },
+      "title": "Большая полуось, а. е."
+    },
+    "y": {
+      "field": "период_лет",
+      "type": "quantitative",
+      "scale": {
+        "type": "log"
+      },
+      "title": "Период обращения, лет"
+    }
   },
   "layer": [
-    {"mark": {"type": "line", "color": "#bbb", "strokeDash": [4, 3]}, "transform": [{"regression": "период_лет", "on": "полуось_ае", "method": "pow"}]},
-    {"mark": {"type": "point", "filled": true, "size": 60, "tooltip": true}},
-    {"mark": {"type": "text", "align": "left", "dx": 7, "dy": 4, "fontSize": 11}, "encoding": {"text": {"field": "планета"}}}
-  ]
+    {
+      "mark": {
+        "type": "line",
+        "color": "#bbb",
+        "strokeDash": [
+          4,
+          3
+        ]
+      },
+      "transform": [
+        {
+          "regression": "период_лет",
+          "on": "полуось_ае",
+          "method": "pow"
+        }
+      ]
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 60,
+        "tooltip": true
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 7,
+        "dy": 4,
+        "fontSize": 11
+      },
+      "encoding": {
+        "text": {
+          "field": "планета"
+        }
+      }
+    }
+  ],
+  "config": {
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    },
+    "legend": {
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    },
+    "title": {
+      "fontSize": 14
+    }
+  }
 }
 ```
 
@@ -90,16 +209,80 @@ Vega-Lite — грамматика графиков: данные, метка и
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "title": "Москва: температура и осадки по месяцам",
-  "width": 460, "height": 260,
-  "data": {"url": "file:москва.csv"},
-  "encoding": {"x": {"field": "месяц", "type": "ordinal", "sort": {"field": "номер", "op": "min"}, "title": null, "axis": {"labelAngle": 0}}},
+  "width": 280,
+  "height": 260,
+  "data": {
+    "url": "file:москва.csv"
+  },
+  "encoding": {
+    "x": {
+      "field": "месяц",
+      "type": "ordinal",
+      "sort": {
+        "field": "номер",
+        "op": "min"
+      },
+      "title": null,
+      "axis": {
+        "labelAngle": 0
+      }
+    }
+  },
   "layer": [
-    {"mark": {"type": "bar", "color": "#9ecae9", "tooltip": true},
-     "encoding": {"y": {"field": "осадки", "type": "quantitative", "title": "Осадки, мм", "axis": {"titleColor": "#4c78a8"}}}},
-    {"mark": {"type": "line", "color": "#e45756", "point": true, "tooltip": true},
-     "encoding": {"y": {"field": "температура", "type": "quantitative", "title": "Температура, °C", "axis": {"titleColor": "#e45756"}}}}
+    {
+      "mark": {
+        "type": "bar",
+        "color": "#9ecae9",
+        "tooltip": true
+      },
+      "encoding": {
+        "y": {
+          "field": "осадки",
+          "type": "quantitative",
+          "title": "Осадки, мм",
+          "axis": {
+            "titleColor": "#4c78a8"
+          }
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "line",
+        "color": "#e45756",
+        "point": true,
+        "tooltip": true
+      },
+      "encoding": {
+        "y": {
+          "field": "температура",
+          "type": "quantitative",
+          "title": "Температура, °C",
+          "axis": {
+            "titleColor": "#e45756"
+          }
+        }
+      }
+    }
   ],
-  "resolve": {"scale": {"y": "independent"}}
+  "resolve": {
+    "scale": {
+      "y": "independent"
+    }
+  },
+  "config": {
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    },
+    "legend": {
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    },
+    "title": {
+      "fontSize": 14
+    }
+  }
 }
 ```
 
@@ -140,15 +323,53 @@ Vega-Lite — грамматика графиков: данные, метка и
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "title": "Рост учеников (условные данные)",
-  "data": {"url": "file:рост.csv"},
-  "mark": {"type": "bar", "tooltip": true},
-  "encoding": {
-    "column": {"field": "класс", "type": "ordinal", "title": "Класс"},
-    "x": {"field": "рост", "type": "quantitative", "bin": {"step": 5}, "title": "Рост, см"},
-    "y": {"aggregate": "count", "type": "quantitative", "title": "Учеников"},
-    "color": {"field": "класс", "type": "nominal", "legend": null}
+  "data": {
+    "url": "file:рост.csv"
   },
-  "width": 200, "height": 160
+  "mark": {
+    "type": "bar",
+    "tooltip": true
+  },
+  "encoding": {
+    "x": {
+      "field": "рост",
+      "type": "quantitative",
+      "bin": {
+        "step": 5
+      },
+      "title": "Рост, см"
+    },
+    "y": {
+      "aggregate": "count",
+      "type": "quantitative",
+      "title": "Учеников"
+    },
+    "color": {
+      "field": "класс",
+      "type": "nominal",
+      "legend": null
+    },
+    "row": {
+      "field": "класс",
+      "type": "ordinal",
+      "title": "Класс"
+    }
+  },
+  "width": 280,
+  "height": 160,
+  "config": {
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    },
+    "legend": {
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    },
+    "title": {
+      "fontSize": 14
+    }
+  }
 }
 ```
 
@@ -160,29 +381,131 @@ Vega-Lite — грамматика графиков: данные, метка и
 ```vega
 {
   "$schema": "https://vega.github.io/schema/vega/v6.json",
-  "width": 360, "height": 200, "padding": 5,
-  "signals": [{"name": "скругление", "value": 2, "bind": {"input": "range", "min": 0, "max": 12, "step": 1}}],
-  "data": [{"name": "t", "values": [
-    {"месяц": "сен", "дни": 21}, {"месяц": "окт", "дни": 22}, {"месяц": "ноя", "дни": 16}, {"месяц": "дек", "дни": 20}
-  ]}],
+  "width": 280,
+  "height": 200,
+  "padding": 5,
+  "signals": [
+    {
+      "name": "скругление",
+      "value": 2,
+      "bind": {
+        "input": "range",
+        "min": 0,
+        "max": 12,
+        "step": 1
+      }
+    }
+  ],
+  "data": [
+    {
+      "name": "t",
+      "values": [
+        {
+          "месяц": "сен",
+          "дни": 21
+        },
+        {
+          "месяц": "окт",
+          "дни": 22
+        },
+        {
+          "месяц": "ноя",
+          "дни": 16
+        },
+        {
+          "месяц": "дек",
+          "дни": 20
+        }
+      ]
+    }
+  ],
   "scales": [
-    {"name": "x", "type": "band", "domain": {"data": "t", "field": "месяц"}, "range": "width", "padding": 0.2},
-    {"name": "y", "type": "linear", "domain": {"data": "t", "field": "дни"}, "range": "height", "nice": true}
+    {
+      "name": "x",
+      "type": "band",
+      "domain": {
+        "data": "t",
+        "field": "месяц"
+      },
+      "range": "width",
+      "padding": 0.2
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "domain": {
+        "data": "t",
+        "field": "дни"
+      },
+      "range": "height",
+      "nice": true
+    }
   ],
   "axes": [
-    {"orient": "bottom", "scale": "x"},
-    {"orient": "left", "scale": "y", "title": "Учебных дней (условно)"}
-  ],
-  "marks": [{
-    "type": "rect", "from": {"data": "t"},
-    "encode": {
-      "enter": {
-        "x": {"scale": "x", "field": "месяц"}, "width": {"scale": "x", "band": 1},
-        "y": {"scale": "y", "field": "дни"}, "y2": {"scale": "y", "value": 0},
-        "fill": {"value": "#4c78a8"}, "tooltip": {"field": "дни"}
-      },
-      "update": {"cornerRadiusTopLeft": {"signal": "скругление"}, "cornerRadiusTopRight": {"signal": "скругление"}}
+    {
+      "orient": "bottom",
+      "scale": "x"
+    },
+    {
+      "orient": "left",
+      "scale": "y",
+      "title": "Учебных дней (условно)"
     }
-  }]
+  ],
+  "marks": [
+    {
+      "type": "rect",
+      "from": {
+        "data": "t"
+      },
+      "encode": {
+        "enter": {
+          "x": {
+            "scale": "x",
+            "field": "месяц"
+          },
+          "width": {
+            "scale": "x",
+            "band": 1
+          },
+          "y": {
+            "scale": "y",
+            "field": "дни"
+          },
+          "y2": {
+            "scale": "y",
+            "value": 0
+          },
+          "fill": {
+            "value": "#4c78a8"
+          },
+          "tooltip": {
+            "field": "дни"
+          }
+        },
+        "update": {
+          "cornerRadiusTopLeft": {
+            "signal": "скругление"
+          },
+          "cornerRadiusTopRight": {
+            "signal": "скругление"
+          }
+        }
+      }
+    }
+  ],
+  "config": {
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    },
+    "legend": {
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    },
+    "title": {
+      "fontSize": 14
+    }
+  }
 }
 ```

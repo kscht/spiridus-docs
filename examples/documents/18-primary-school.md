@@ -127,7 +127,7 @@ $$
 
 ```echarts
 {
-  "width": 520, "height": 260,
+  "width": 380, "height": 260,
   "xAxis": { "type": "category", "data": ["Аня", "Боря", "Вика", "Гриша", "Даша"] },
   "yAxis": { "type": "value", "name": "книг" },
   "series": [{ "type": "bar", "data": [4, 7, 3, 5, 6], "label": { "show": true, "position": "top" } }]
@@ -195,7 +195,7 @@ $$
 ### Цепь питания
 
 ```mermaid
-flowchart LR
+flowchart TD
   Трава --> Заяц --> Лиса
   Трава --> Кузнечик --> Лягушка --> Цапля
 ```

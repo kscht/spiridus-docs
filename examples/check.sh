@@ -11,8 +11,13 @@ curl -fsS -X POST "$API/api/v1/tools/render_check" \
   -H "Authorization: Bearer $SPIRIDUS_KEY" -H 'content-type: application/json' \
   --data-binary "$BODY" | python3 -c '
 import json, sys
-d = json.load(sys.stdin)["data"]
+response = json.load(sys.stdin)
+d = response.get("data")
+if response.get("ok") is not True or not isinstance(d, dict):
+    print("ошибка HTTP или инструмента", file=sys.stderr)
+    sys.exit(1)
 print("чисто" if d.get("clean") else "есть замечания")
 for i in d.get("issues", []):
     print("  строка", i.get("line"), "—", i["kind"] + ":", i["text"])
+sys.exit(0 if d.get("clean") is True else 1)
 '

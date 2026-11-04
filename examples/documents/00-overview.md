@@ -30,7 +30,7 @@ $$\int_0^1 x^2\,dx = \frac{1}{3}$$
 ```
 
 ```echarts
-{"width":520,"height":300,"title":{"text":"Осадки, мм","left":"center"},
+{"width":380,"height":300,"title":{"text":"Осадки, мм","left":"center"},
  "xAxis":{"type":"category","data":["янв","фев","мар","апр","май","июн"]},"yAxis":{},
  "series":[{"type":"bar","data":[53,44,39,37,61,77]}]}
 ```

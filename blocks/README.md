@@ -44,6 +44,7 @@
 | [`svg`](svg.md) | svg — произвольный рисунок |
 | [`table`](table.md) | table — таблица с объединёнными ячейками |
 | [`tabulator`](tabulator.md) | tabulator — интерактивная таблица Tabulator |
+| [`terminal`](terminal.md) | Учебный терминал |
 | [`tikz`](tikz.md) | tikz — рисунки на TeX |
 | [`tts`](tts.md) | tts — сохранённая синтезированная речь |
 | [`vcd`](vcd.md) | vcd — осциллограммы симуляции |

@@ -24,9 +24,14 @@
 о симметричном ключе и ставят электронные подписи.
 
 ```plantuml
-' result: artifact:2be347d488720ae2/diagram.svg
+' result: artifact:1e9636e2a83efb9d/diagram.svg
 ' build: plantuml-1.2026.9-asl
 @startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
 skinparam defaultFontName Arial
 skinparam shadowing false
 skinparam sequenceMessageAlign center
@@ -56,18 +61,7 @@ note over A, B : сеансовый ключ знают только Алиса 
 куб длины числа в битах. Сравним — по вертикали порядок числа операций (степень десятки):
 
 ```echarts
-{
-  "title": {"text": "Сколько операций нужно, чтобы разложить ключ RSA", "left": "center", "textStyle": {"fontSize": 14}},
-  "tooltip": {"trigger": "axis"},
-  "legend": {"bottom": 0, "data": ["Обычный компьютер (решето)", "Квантовый (Шор)"]},
-  "grid": {"left": 60, "right": 20, "top": 50, "bottom": 70},
-  "xAxis": {"type": "category", "name": "длина ключа, бит", "nameLocation": "middle", "nameGap": 28, "data": ["256", "512", "1024", "2048", "3072", "4096"]},
-  "yAxis": {"type": "value", "name": "степень десятки: 10ˣ операций", "nameLocation": "middle", "nameGap": 36, "max": 50},
-  "series": [
-    {"name": "Обычный компьютер (решето)", "type": "line", "data": [14.0, 19.2, 26.1, 35.2, 41.8, 47.1], "label": {"show": true, "position": "top"}, "lineStyle": {"width": 3}},
-    {"name": "Квантовый (Шор)", "type": "line", "data": [7.2, 8.1, 9.0, 9.9, 10.5, 10.8], "label": {"show": true, "position": "bottom"}, "lineStyle": {"width": 3}}
-  ]
-}
+{"title":{"text":"Сколько операций нужно, чтобы\nразложить ключ RSA","left":"center","textStyle":{"fontSize":14}},"tooltip":{"trigger":"axis"},"legend":{"bottom":0,"data":["Обычный компьютер (решето)","Квантовый (Шор)"]},"grid":{"left":60,"right":20,"top":50,"bottom":70},"xAxis":{"type":"category","name":"длина ключа, бит","nameLocation":"middle","nameGap":28,"data":["256","512","1024","2048","3072","4096"],"axisLabel":{"fontSize":12}},"yAxis":{"type":"value","name":"степень десятки: 10ˣ операций","nameLocation":"middle","nameGap":36,"max":50,"axisLabel":{"fontSize":12}},"series":[{"name":"Обычный компьютер (решето)","type":"line","data":[14.0,19.2,26.1,35.2,41.8,47.1],"label":{"show":true,"position":"top"},"lineStyle":{"width":3}},{"name":"Квантовый (Шор)","type":"line","data":[7.2,8.1,9.0,9.9,10.5,10.8],"label":{"show":true,"position":"bottom"},"lineStyle":{"width":3}}],"width":380}
 ```
 
 Для RSA-2048 это $10^{35}$ операций против примерно $10^{10}$. Самый быстрый суперкомпьютер делает
@@ -119,21 +113,17 @@ $\ket{+}$.
 ```
 
 ```echarts
-{
-  "title": {"text": "После H на трёх кубитах: каждое из 8 чисел с вероятностью 1/8", "left": "center", "textStyle": {"fontSize": 13}},
-  "grid": {"left": 60, "right": 20, "top": 45, "bottom": 40},
-  "xAxis": {"type": "category", "name": "результат", "nameLocation": "middle", "nameGap": 26, "data": ["000", "001", "010", "011", "100", "101", "110", "111"]},
-  "yAxis": {"type": "value", "max": 0.25, "name": "вероятность", "nameLocation": "middle", "nameGap": 42},
-  "series": [{"type": "bar", "data": [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125], "label": {"show": true, "position": "top"}}]
-}
+{"title":{"text":"После H на трёх кубитах:\nкаждое из 8 чисел с\nвероятностью 1/8","left":"center","textStyle":{"fontSize":14}},"grid":{"left":60,"right":20,"top":45,"bottom":40},"xAxis":{"type":"category","name":"результат","nameLocation":"middle","nameGap":26,"data":["000","001","010","011","100","101","110","111"],"axisLabel":{"fontSize":12}},"yAxis":{"type":"value","max":0.25,"name":"вероятность","nameLocation":"middle","nameGap":42,"axisLabel":{"fontSize":12}},"series":[{"type":"bar","data":[0.125,0.125,0.125,0.125,0.125,0.125,0.125,0.125],"label":{"show":true,"position":"top"}}],"width":380}
 ```
 
+```table
 | Кубитов | Амплитуд $2^n$ | Чтобы хранить их на обычном компьютере |
 |---|---|---|
 | 10 | 1 024 | 16 КБ |
 | 30 | ≈ 10⁹ | 16 ГБ — хороший ноутбук |
 | 50 | ≈ 10¹⁵ | 16 ПБ — больше памяти крупнейших суперкомпьютеров |
 | 300 | ≈ 10⁹⁰ | невозможно: во Вселенной ~10⁸⁰ атомов |
+```
 
 Но прочитать все амплитуды нельзя: измерение даёт **одно** случайное число. Вся сила квантового
 алгоритма — устроить так, чтобы перед измерением **правильный ответ** набрал большую амплитуду.
@@ -152,17 +142,7 @@ $\tfrac{1}{\sqrt2}$, а после второго вклады в $\ket{1}$ — 
 ```
 
 ```echarts
-{
-  "title": {"text": "Амплитуды по шагам: |1⟩ гасится интерференцией", "left": "center", "textStyle": {"fontSize": 13}},
-  "legend": {"bottom": 0, "data": ["амплитуда |0⟩", "амплитуда |1⟩"]},
-  "grid": {"left": 50, "right": 20, "top": 45, "bottom": 60},
-  "xAxis": {"type": "category", "data": ["начало", "после H", "после H·H"]},
-  "yAxis": {"type": "value", "min": 0, "max": 1.2},
-  "series": [
-    {"name": "амплитуда |0⟩", "type": "bar", "data": [1, 0.71, 1], "label": {"show": true, "position": "top"}},
-    {"name": "амплитуда |1⟩", "type": "bar", "data": [0, 0.71, 0], "label": {"show": true, "position": "top"}}
-  ]
-}
+{"title":{"text":"Амплитуды по шагам: |1⟩\nгасится интерференцией","left":"center","textStyle":{"fontSize":14}},"legend":{"bottom":0,"data":["амплитуда |0⟩","амплитуда |1⟩"]},"grid":{"left":50,"right":20,"top":45,"bottom":60},"xAxis":{"type":"category","data":["начало","после H","после H·H"],"axisLabel":{"fontSize":12}},"yAxis":{"type":"value","min":0,"max":1.2,"axisLabel":{"fontSize":12}},"series":[{"name":"амплитуда |0⟩","type":"bar","data":[1,0.71,1],"label":{"show":true,"position":"top"}},{"name":"амплитуда |1⟩","type":"bar","data":[0,0.71,0],"label":{"show":true,"position":"top"}}],"width":380}
 ```
 
 Именно так работают алгоритмы Шора и Гровера: неправильные ответы гасят друг друга,
@@ -182,23 +162,19 @@ $\tfrac{1}{\sqrt2}$, а после второго вклады в $\ket{1}$ — 
 ```
 
 ```echarts
-{
-  "title": {"text": "Состояние Белла: только 00 или 11", "left": "center", "textStyle": {"fontSize": 13}},
-  "grid": {"left": 60, "right": 20, "top": 45, "bottom": 40},
-  "xAxis": {"type": "category", "name": "результат", "nameLocation": "middle", "nameGap": 26, "data": ["00", "01", "10", "11"]},
-  "yAxis": {"type": "value", "max": 0.7, "name": "вероятность", "nameLocation": "middle", "nameGap": 42},
-  "series": [{"type": "bar", "data": [0.5, 0, 0, 0.5], "label": {"show": true, "position": "top"}}]
-}
+{"title":{"text":"Состояние Белла: только 00 или\n11","left":"center","textStyle":{"fontSize":14}},"grid":{"left":60,"right":20,"top":45,"bottom":40},"xAxis":{"type":"category","name":"результат","nameLocation":"middle","nameGap":26,"data":["00","01","10","11"],"axisLabel":{"fontSize":12}},"yAxis":{"type":"value","max":0.7,"name":"вероятность","nameLocation":"middle","nameGap":42,"axisLabel":{"fontSize":12}},"series":[{"type":"bar","data":[0.5,0,0,0.5],"label":{"show":true,"position":"top"}}],"width":380}
 ```
 
 ### Из чего делают кубиты
 
+```table
 | Технология | Кубит — это | Кто строит | Особенность |
 |---|---|---|---|
 | Сверхпроводящие схемы | ток в кольце из сверхпроводника | Google, IBM | охлаждение до ~0,01 К, быстрые вентили |
 | Ионы в ловушках | уровни энергии иона | Quantinuum, IonQ | точные вентили, но медленнее |
 | Нейтральные атомы | атомы в «оптических пинцетах» | QuEra, Atom Computing | сотни кубитов в одной решётке |
 | Фотоны | поляризация или путь фотона | PsiQuantum, Xanadu | при комнатной температуре, трудно запутывать |
+```
 
 В России в 2024 году показали 50-кубитные прототипы на ионах и на нейтральных атомах. Главная
 трудность у всех — **ошибки**: кубит теряет состояние от малейшего шума (декогеренция), поэтому
@@ -210,13 +186,7 @@ $\tfrac{1}{\sqrt2}$, а после второго вклады в $\ket{1}$ — 
 $a^x \bmod N$. Возьмём $N = 15$ и $a = 7$:
 
 ```echarts
-{
-  "title": {"text": "7ˣ mod 15 повторяется через 4 шага", "left": "center", "textStyle": {"fontSize": 14}},
-  "grid": {"left": 50, "right": 20, "top": 50, "bottom": 40},
-  "xAxis": {"type": "category", "name": "x", "nameLocation": "middle", "nameGap": 26, "data": ["0", "1", "2", "3", "4", "5", "6", "7", "8"]},
-  "yAxis": {"type": "value", "name": "7ˣ mod 15", "nameLocation": "middle", "nameGap": 30, "max": 16},
-  "series": [{"type": "line", "data": [1, 7, 4, 13, 1, 7, 4, 13, 1], "symbolSize": 8, "label": {"show": true, "position": "top", "distance": 8}}]
-}
+{"title":{"text":"7ˣ mod 15 повторяется через 4\nшага","left":"center","textStyle":{"fontSize":14}},"grid":{"left":50,"right":20,"top":50,"bottom":40},"xAxis":{"type":"category","name":"x","nameLocation":"middle","nameGap":26,"data":["0","1","2","3","4","5","6","7","8"],"axisLabel":{"fontSize":12}},"yAxis":{"type":"value","name":"7ˣ mod 15","nameLocation":"middle","nameGap":30,"max":16,"axisLabel":{"fontSize":12}},"series":[{"type":"line","data":[1,7,4,13,1,7,4,13,1],"symbolSize":8,"label":{"show":true,"position":"top","distance":8}}],"width":380}
 ```
 
 Период $r = 4$. Дальше — обычная арифметика: $7^{r/2} = 49$, и
@@ -242,12 +212,14 @@ $\text{НОД}(49 - 1, 15) = 3$, $\text{НОД}(49 + 1, 15) = 5$. Получил
 Для AES квантовый компьютер даёт **алгоритм Гровера**: перебор $2^k$ ключей занимает около
 $2^{k/2}$ шагов. Это не взлом, а «ослабление вдвое» по длине ключа — лечится длинным ключом.
 
+```table
 | Шифр | Что лежит в основе | Обычный компьютер | Квантовый компьютер | Что делать |
 |---|---|---|---|---|
 | RSA-2048 | разложение на множители | ~$10^{35}$ операций — безопасно | Шор: взлом за часы–дни | заменить |
 | Эллиптические кривые (ECDSA, ГОСТ Р 34.10) | дискретный логарифм | безопасно | Шор: взлом | заменить |
 | AES-128 | перебор ключа | $2^{128}$ — безопасно | Гровер: $2^{64}$ — мало | AES-256 |
 | AES-256, «Кузнечик» | перебор ключа | $2^{256}$ | Гровер: $2^{128}$ — безопасно | оставить |
+```
 
 ## 6. Угроза уже сейчас: «собери сейчас — расшифруй потом»
 
@@ -257,9 +229,14 @@ $2^{k/2}$ шагов. Это не взлом, а «ослабление вдво
 сейчас.
 
 ```plantuml
-' result: artifact:b5ba05a96d9bcda0/diagram.svg
+' result: artifact:6ae7e097b91e0521/diagram.svg
 ' build: plantuml-1.2026.9-asl
 @startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
 skinparam defaultFontName Arial
 skinparam shadowing false
 start
@@ -283,18 +260,7 @@ stop
 физических. Оценки для взлома RSA-2048 и самые крупные построенные машины:
 
 ```echarts
-{
-  "title": {"text": "Физические кубиты: есть и нужно", "subtext": "логарифмическая шкала", "left": "center", "textStyle": {"fontSize": 14}},
-  "tooltip": {"trigger": "axis"},
-  "grid": {"left": 150, "right": 70, "top": 60, "bottom": 30},
-  "yAxis": {"type": "category", "inverse": true, "axisLabel": {"fontSize": 11},
-    "data": ["Google Sycamore, 2019", "IBM Eagle, 2021", "IBM Osprey, 2022", "IBM Condor, 2023", "Google Willow, 2024", "Нужно (оценка 2025)", "Нужно (оценка 2019)"]},
-  "xAxis": {"type": "log", "min": 10, "max": 100000000, "axisLabel": {"show": false}},
-  "series": [{"type": "bar", "barWidth": "60%", "label": {"show": true, "position": "right", "fontSize": 11, "formatter": "ru"},
-    "data": [53, 127, 433, 1121, 105,
-      {"value": 1000000, "itemStyle": {"color": "#c0392b"}},
-      {"value": 20000000, "itemStyle": {"color": "#c0392b"}}]}]
-}
+{"title":{"text":"Физические кубиты: есть и\nнужно","subtext":"логарифмическая шкала","left":"center","textStyle":{"fontSize":14}},"tooltip":{"trigger":"axis"},"grid":{"left":150,"right":70,"top":60,"bottom":30},"yAxis":{"type":"category","inverse":true,"axisLabel":{"fontSize":12},"data":["Google Sycamore, 2019","IBM Eagle, 2021","IBM Osprey, 2022","IBM Condor, 2023","Google Willow, 2024","Нужно (оценка 2025)","Нужно (оценка 2019)"]},"xAxis":{"type":"log","min":10,"max":100000000,"axisLabel":{"show":false,"fontSize":12}},"series":[{"type":"bar","barWidth":"60%","label":{"show":true,"position":"right","fontSize":12,"formatter":"ru"},"data":[53,127,433,1121,105,{"value":1000000,"itemStyle":{"color":"#c0392b"}},{"value":20000000,"itemStyle":{"color":"#c0392b"}}]}],"width":380}
 ```
 
 В 2019 году К. Гидни и М. Экеро оценили взлом RSA-2048 примерно в 20 млн физических кубитов и 8
@@ -318,9 +284,14 @@ stop
 Алиса с Бобом это замечают:
 
 ```plantuml
-' result: artifact:ddd32c9638f0871a/diagram.svg
+' result: artifact:45a504b61f7ed1ee/diagram.svg
 ' build: plantuml-1.2026.9-asl
 @startuml
+skinparam defaultFontSize 16
+skinparam wrapWidth 140
+skinparam maxMessageSize 100
+skinparam nodesep 25
+skinparam ranksep 40
 skinparam defaultFontName Arial
 skinparam shadowing false
 start
@@ -335,7 +306,8 @@ endif
 в случайных базисах;
 :Сверяют базисы
 по открытому каналу;
-if (Ошибок в проверочных битах больше 11 %?) then
+:Проверить долю ошибок\nв проверочных битах;
+if (Больше 11 %?) then
   :Да: подслушивали —
   ключ выбросить; <<#fde2e2>>
 else

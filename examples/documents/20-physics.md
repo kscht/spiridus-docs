@@ -32,7 +32,11 @@
 ```
 
 $$
-v_x = v_{0x} + a_x t, \qquad x = x_0 + v_{0x} t + \frac{a_x t^2}{2}, \qquad v_x^2 - v_{0x}^2 = 2 a_x s_x
+\begin{gathered}
+v_x = v_{0x} + a_x t, \\
+x = x_0 + v_{0x} t + \frac{a_x t^2}{2}, \\
+v_x^2 - v_{0x}^2 = 2 a_x s_x
+\end{gathered}
 $$
 
 ### Силы на теле: брусок на наклонной плоскости
@@ -56,7 +60,11 @@ $$
 ```
 
 $$
-Ox:\; F_{\text{тр}} - mg\sin\alpha = ma, \qquad Oy:\; N - mg\cos\alpha = 0, \qquad F_{\text{тр}} \le \mu N
+\begin{gathered}
+Ox:\; F_{\text{тр}} - mg\sin\alpha = ma, \\
+Oy:\; N - mg\cos\alpha = 0, \\
+F_{\text{тр}} \le \mu N
+\end{gathered}
 $$
 
 ### Блоки
@@ -139,9 +147,10 @@ end Projectile;
 
 $$
 \begin{aligned}
-&m_1\vec v_1 + m_2\vec v_2 = m_1\vec v_1\,' + m_2\vec v_2\,' &&\text{импульс}\\
-&\frac{mv^2}{2} + mgh + \frac{kx^2}{2} = \text{const} &&\text{механическая энергия}\\
-&A = Fs\cos\alpha, \quad N = \frac{A}{t} &&\text{работа и мощность}
+&m_1\vec v_1 + m_2\vec v_2 = m_1\vec v_1\,' + m_2\vec v_2\,' \\ &\text{импульс}\\
+&\frac{mv^2}{2} + mgh + \frac{kx^2}{2} = \text{const} \\ &\text{механическая энергия}\\
+&A = Fs\cos\alpha, \\
+N = \frac{A}{t} \\ &\text{работа и мощность}
 \end{aligned}
 $$
 
@@ -183,7 +192,12 @@ $$
 ```
 
 $$
-Q = cm\Delta t, \qquad Q = \lambda m, \qquad Q = Lm, \qquad Q = qm
+\begin{gathered}
+Q = cm\Delta t, \\
+Q = \lambda m, \\
+Q = Lm, \\
+Q = qm
+\end{gathered}
 $$
 
 ### Изотермы идеального газа
@@ -232,7 +246,11 @@ $$
 ```
 
 $$
-\Delta U = Q - A, \qquad \eta = \frac{Q_1 - Q_2}{Q_1}, \qquad \eta_{\max} = 1 - \frac{T_2}{T_1}
+\begin{gathered}
+\Delta U = Q - A, \\
+\eta = \frac{Q_1 - Q_2}{Q_1}, \\
+\eta_{\max} = 1 - \frac{T_2}{T_1}
+\end{gathered}
 $$
 
 ## Электродинамика
@@ -251,26 +269,18 @@ $$
 ```
 
 $$
-I = \frac{U}{R}, \qquad R_{\text{посл}} = R_1 + R_2, \qquad \frac{1}{R_{\text{пар}}} = \frac{1}{R_2} + \frac{1}{R_3}, \qquad I = \frac{\mathcal{E}}{R + r}
+\begin{gathered}
+I = \frac{U}{R}, \\
+R_{\text{посл}} = R_1 + R_2, \\
+\frac{1}{R_{\text{пар}}} = \frac{1}{R_2} + \frac{1}{R_3}, \\
+I = \frac{\mathcal{E}}{R + r}
+\end{gathered}
 $$
 
 ### Вольт-амперные характеристики
 
 ```echarts
-{"width":560,"height":340,
- "title":{"text":"I(U): резистор, лампа накаливания, диод","left":"center","textStyle":{"fontSize":14}},
- "legend":{"top":36},
- "grid":{"left":60,"right":24,"top":70,"bottom":50},
- "tooltip":{"trigger":"axis"},
- "xAxis":{"type":"value","name":"U, В","nameLocation":"middle","nameGap":28,"min":0,"max":10},
- "yAxis":{"type":"value","name":"I, А","max":1.2},
- "series":[
-  {"name":"резистор 10 Ом","type":"line","showSymbol":false,"data":[[0,0],[10,1]]},
-  {"name":"лампа","type":"line","smooth":true,"showSymbol":false,
-   "data":[[0,0],[0.5,0.12],[1,0.2],[2,0.3],[3,0.38],[4,0.44],[6,0.54],[8,0.62],[10,0.69]]},
-  {"name":"диод (прямое включение)","type":"line","smooth":true,"showSymbol":false,
-   "data":[[0,0],[0.4,0.002],[0.55,0.02],[0.65,0.1],[0.72,0.35],[0.77,0.7],[0.8,1.0],[0.82,1.2]]}
- ]}
+{"width":380,"height":340,"title":{"text":"I(U): резистор, лампа\nнакаливания, диод","left":"center","textStyle":{"fontSize":14}},"legend":{"top":36},"grid":{"left":60,"right":24,"top":70,"bottom":50},"tooltip":{"trigger":"axis"},"xAxis":{"type":"value","name":"U, В","nameLocation":"middle","nameGap":28,"min":0,"max":10,"axisLabel":{"fontSize":12}},"yAxis":{"type":"value","name":"I, А","max":1.2,"axisLabel":{"fontSize":12}},"series":[{"name":"резистор 10 Ом","type":"line","showSymbol":false,"data":[[0,0],[10,1]]},{"name":"лампа","type":"line","smooth":true,"showSymbol":false,"data":[[0,0],[0.5,0.12],[1,0.2],[2,0.3],[3,0.38],[4,0.44],[6,0.54],[8,0.62],[10,0.69]]},{"name":"диод (прямое включение)","type":"line","smooth":true,"showSymbol":false,"data":[[0,0],[0.4,0.002],[0.55,0.02],[0.65,0.1],[0.72,0.35],[0.77,0.7],[0.8,1.0],[0.82,1.2]]}]}
 ```
 
 ### Силовые линии электрического поля
@@ -301,7 +311,12 @@ $$
 ```
 
 $$
-F = k\frac{|q_1||q_2|}{r^2}, \qquad E = \frac{F}{q}, \qquad E = k\frac{|q|}{r^2}, \qquad C = \frac{\varepsilon\varepsilon_0 S}{d}
+\begin{gathered}
+F = k\frac{|q_1||q_2|}{r^2}, \\
+E = \frac{F}{q}, \\
+E = k\frac{|q|}{r^2}, \\
+C = \frac{\varepsilon\varepsilon_0 S}{d}
+\end{gathered}
 $$
 
 ### Магнитное поле тока и сила Ампера
@@ -331,7 +346,12 @@ $$
 ```
 
 $$
-F_A = IBl\sin\alpha, \qquad F_\text{Л} = qvB\sin\alpha, \qquad \mathcal{E}_i = -\frac{\Delta\Phi}{\Delta t}, \qquad \Phi = BS\cos\alpha
+\begin{gathered}
+F_A = IBl\sin\alpha, \\
+F_\text{Л} = qvB\sin\alpha, \\
+\mathcal{E}_i = -\frac{\Delta\Phi}{\Delta t}, \\
+\Phi = BS\cos\alpha
+\end{gathered}
 $$
 
 ### Трансформатор
@@ -346,7 +366,12 @@ $$
 ```
 
 $$
-\frac{U_1}{U_2} = \frac{N_1}{N_2} = k, \qquad T = 2\pi\sqrt{LC}, \qquad X_L = \omega L, \qquad X_C = \frac{1}{\omega C}
+\begin{gathered}
+\frac{U_1}{U_2} = \frac{N_1}{N_2} = k, \\
+T = 2\pi\sqrt{LC}, \\
+X_L = \omega L, \\
+X_C = \frac{1}{\omega C}
+\end{gathered}
 $$
 
 ## Оптика
@@ -377,7 +402,11 @@ $$
 ```
 
 $$
-\gamma = \alpha, \qquad n_1\sin\alpha = n_2\sin\beta, \qquad \sin\alpha_0 = \frac{n_2}{n_1}\ \ (\text{полное отражение, } n_1 > n_2)
+\begin{gathered}
+\gamma = \alpha, \\
+n_1\sin\alpha = n_2\sin\beta, \\
+\sin\alpha_0 = \frac{n_2}{n_1}\\ (\text{полное отражение, } n_1 > n_2)
+\end{gathered}
 $$
 
 ### Построение изображения в собирающей линзе
@@ -427,13 +456,17 @@ $$
 ```
 
 $$
-\Delta d = k\lambda\ (\text{максимум}), \qquad \Delta d = (2k+1)\frac{\lambda}{2}\ (\text{минимум}), \qquad d\sin\varphi = k\lambda
+\begin{gathered}
+\Delta d = k\lambda\ (\text{максимум}), \\
+\Delta d = (2k+1)\frac{\lambda}{2}\ (\text{минимум}), \\
+d\sin\varphi = k\lambda
+\end{gathered}
 $$
 
 ### Сплошной спектр и линии водорода
 
 ```svg
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 575 132" width="560" height="132" font-family="sans-serif" font-size="12" text-anchor="middle">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -15 575 147" width="560" height="147" font-family="sans-serif" font-size="17" text-anchor="middle">
   <defs>
     <linearGradient id="sp" x1="0" x2="1" y1="0" y2="0">
       <stop offset="0" stop-color="#610061"/><stop offset="0.1" stop-color="#6a00ff"/>
@@ -444,7 +477,7 @@ $$
     </linearGradient>
   </defs>
   <text x="114" y="22">400</text><text x="174" y="22">450</text><text x="234" y="22">500</text><text x="294" y="22">550</text><text x="354" y="22">600</text><text x="414" y="22">650</text><text x="474" y="22">700</text><text x="534" y="22">750</text>
-  <text x="330" y="8" font-size="11">λ, нм</text>
+  <text x="330" y="-1" font-size="17">λ, нм</text>
   <rect x="90" y="30" width="480" height="40" fill="url(#sp)"/>
   <rect x="90" y="82" width="480" height="30" fill="#000"/>
   <rect x="420.1" y="82" width="3" height="30" fill="#ff0000"/><text x="421.6" y="126">Hα</text><rect x="215.8" y="82" width="3" height="30" fill="#00d8ff"/><text x="217.3" y="126">Hβ</text><rect x="153.3" y="82" width="3" height="30" fill="#3d00ff"/><text x="154.8" y="126">Hγ</text><rect x="124.7" y="82" width="3" height="30" fill="#7a00ff"/><text x="126.2" y="126">Hδ</text>
@@ -478,7 +511,12 @@ $$
 ```
 
 $$
-E = h\nu, \qquad h\nu = A_{\text{вых}} + \frac{mv^2}{2}, \qquad h\nu = E_k - E_n, \qquad E_n = -\frac{13{,}6\ \text{эВ}}{n^2}
+\begin{gathered}
+E = h\nu, \\
+h\nu = A_{\text{вых}} + \frac{mv^2}{2}, \\
+h\nu = E_k - E_n, \\
+E_n = -\frac{13{,}6\ \text{эВ}}{n^2}
+\end{gathered}
 $$
 
 ### Закон радиоактивного распада
@@ -505,11 +543,11 @@ $$
 
 $$
 \begin{aligned}
-&\ce{^{238}_{92}U -> ^{234}_{90}Th + ^{4}_{2}He} &&\alpha\text{-распад}\\
-&\ce{^{14}_{6}C -> ^{14}_{7}N + ^{0}_{-1}e + \tilde{\nu}} &&\beta\text{-распад}\\
-&\ce{^{14}_{7}N + ^{4}_{2}He -> ^{17}_{8}O + ^{1}_{1}p} &&\text{открытие протона}\\
-&\ce{^{235}_{92}U + ^{1}_{0}n -> ^{141}_{56}Ba + ^{92}_{36}Kr + 3^{1}_{0}n} &&\text{деление урана}\\
-&\ce{^{2}_{1}H + ^{3}_{1}H -> ^{4}_{2}He + ^{1}_{0}n} &&\text{синтез}
+&\ce{^{238}_{92}U -> ^{234}_{90}Th + ^{4}_{2}He} \\ &\alpha\text{-распад}\\
+&\ce{^{14}_{6}C -> ^{14}_{7}N + ^{0}_{-1}e + \tilde{\nu}} \\ &\beta\text{-распад}\\
+&\ce{^{14}_{7}N + ^{4}_{2}He -> ^{17}_{8}O + ^{1}_{1}p} \\ &\text{открытие протона}\\
+&\ce{^{235}_{92}U + ^{1}_{0}n -> ^{141}_{56}Ba + ^{92}_{36}Kr + 3^{1}_{0}n} \\ &\text{деление урана}\\
+&\ce{^{2}_{1}H + ^{3}_{1}H -> ^{4}_{2}He + ^{1}_{0}n} \\ &\text{синтез}
 \end{aligned}
 $$
 
@@ -551,15 +589,15 @@ $$
 
 ### Планета на эллиптической орбите
 
-Единицы — астрономическая единица и год, тогда $GM_\odot = 4\pi^2$. Планету отпустили на расстоянии 1 а. е. со скоростью меньше круговой: орбита — эллипс, у перигелия планета движется быстрее (второй закон Кеплера), а энергия $E$ и момент импульса $L$ не меняются.
+Синий кружок — планета, охристый — звезда. Единицы — астрономическая единица и год, тогда $GM_\odot = 4\pi^2$. Планету отпустили на расстоянии 1 а. е. со скоростью меньше круговой: орбита — эллипс, у перигелия планета движется быстрее (второй закон Кеплера), а энергия $E$ и момент импульса $L$ не меняются.
 
 ```modelica
 // result: artifact:46b7fd5183f8b39e/result.csv
 // build: openmodelica-1.27.1
-// animate: circle x=0 y=0 r=0.06 color=#d69e2e | звезда
+// animate: circle x=0 y=0 r=0.06 color=#805800 | звезда
 // animate: trace x=x y=y color=#2f6fb3
 // animate: line 0,0 x,y color=#999
-// animate: circle x=x y=y r=0.03 color=#2f6fb3 | планета
+// animate: circle x=x y=y r=0.03 color=#2f6fb3
 // plot: r, v
 // plot: E, L
 model Orbit "Планета на эллиптической орбите вокруг звезды (а. е., годы)"
@@ -587,6 +625,7 @@ $$
 
 ### Планеты Солнечной системы
 
+```table
 | Планета | Радиус, $R_\oplus$ | Большая полуось, а. е. | Период, лет | $T^2/a^3$ | Спутники |
 |---|--:|--:|--:|--:|--:|
 | Меркурий | 0,38 | 0,39 | 0,24 | 0,97 | 0 |
@@ -597,34 +636,20 @@ $$
 | Сатурн | 9,45 | 9,58 | 29,46 | 0,99 | 146 |
 | Уран | 4,01 | 19,2 | 84,0 | 1,00 | 28 |
 | Нептун | 3,88 | 30,1 | 164,8 | 1,00 | 16 |
+```
 
 ### Диаграмма Герцшпрунга — Рассела
 
 Температура растёт влево, светимость — в светимостях Солнца, обе шкалы логарифмические.
 
 ```echarts
-{"width":560,"height":440,
- "title":{"text":"Диаграмма Герцшпрунга — Рассела","left":"center","textStyle":{"fontSize":14}},
- "legend":{"top":30},
- "grid":{"left":70,"right":90,"top":86,"bottom":55},
- "tooltip":{"trigger":"item","formatter":"{a}: {b}"},
- "xAxis":{"type":"log","inverse":true,"min":2500,"max":30000,"name":"Температура, К","nameLocation":"middle","nameGap":30},
- "yAxis":{"type":"log","min":0.0001,"max":1000000,"name":"L / L☉","nameGap":14},
- "series":[
-  {"name":"главная последовательность","type":"scatter","symbolSize":10,"label":{"color":"#111","textBorderColor":"#fff","textBorderWidth":3,"show":true,"formatter":"{b}","position":"right","fontSize":10},
-   "data":[{"name":"Спика","value":[22400,20000]},{"name":"Вега","value":[9600,40],"label":{"position":"left"}},{"name":"Сириус A","value":[9940,25]},
-           {"name":"Альтаир","value":[7700,10.6]},{"name":"Солнце","value":[5772,1]},{"name":"ε Эридана","value":[5084,0.34]},
-           {"name":"Звезда Барнарда","value":[3134,0.0035],"label":{"position":"left"}},{"name":"Проксима","value":[3042,0.0017]}]},
-  {"name":"гиганты","type":"scatter","symbolSize":14,"label":{"color":"#111","textBorderColor":"#fff","textBorderWidth":3,"show":true,"formatter":"{b}","position":"right","fontSize":10},
-   "data":[{"name":"Арктур","value":[4290,170]},{"name":"Альдебаран","value":[3900,440]},{"name":"Капелла","value":[4970,79]}]},
-  {"name":"сверхгиганты","type":"scatter","symbolSize":18,"label":{"color":"#111","textBorderColor":"#fff","textBorderWidth":3,"show":true,"formatter":"{b}","position":"left","fontSize":10},
-   "data":[{"name":"Ригель","value":[12100,120000]},{"name":"Денеб","value":[8500,200000]},{"name":"Бетельгейзе","value":[3600,100000]},
-           {"name":"Антарес","label":{"position":"right"},"value":[3500,75000]},{"name":"Полярная","value":[6015,1260]}]},
-  {"name":"белые карлики","type":"scatter","symbolSize":7,"label":{"color":"#111","textBorderColor":"#fff","textBorderWidth":3,"show":true,"formatter":"{b}","position":"right","fontSize":10},
-   "data":[{"name":"Сириус B","value":[25000,0.056]},{"name":"40 Эридана B","value":[16500,0.013]},{"name":"Процион B","value":[7740,0.00049]}]}
- ]}
+{"width":380,"height":440,"title":{"text":"Герцшпрунг — Рассел","left":"center","textStyle":{"fontSize":14}},"legend":{"top":30},"grid":{"left":70,"right":90,"top":90,"bottom":55},"tooltip":{"trigger":"item","formatter":"{a}: {b}"},"xAxis":{"type":"log","inverse":true,"min":2500,"max":30000,"name":"Температура, К","nameLocation":"middle","nameGap":30,"axisLabel":{"fontSize":12}},"yAxis":{"type":"log","min":0.0001,"max":1000000,"name":"L / L☉","nameGap":45,"axisLabel":{"fontSize":12},"nameLocation":"middle"},"series":[{"name":"главная последовательность","type":"scatter","symbolSize":10,"label":{"color":"#111","textBorderColor":"#fff","textBorderWidth":3,"show":true,"formatter":"{b}","position":"right","fontSize":12},"data":[{"name":"Спика","value":[22400,20000]},{"name":"Вега","value":[9600,40],"label":{"position":"left"}},{"name":"Сириус A","value":[9940,25]},{"name":"Альтаир","value":[7700,10.6]},{"name":"Солнце","value":[5772,1]},{"name":"ε Эридана","value":[5084,0.34]},{"name":"Звезда Барнарда","value":[3134,0.0035],"label":{"position":"left"}},{"name":"Проксима","value":[3042,0.0017]}]},{"name":"гиганты","type":"scatter","symbolSize":14,"label":{"color":"#111","textBorderColor":"#fff","textBorderWidth":3,"show":true,"formatter":"{b}","position":"right","fontSize":12},"data":[{"name":"Арктур","value":[4290,170]},{"name":"Альдебаран","value":[3900,440]},{"name":"Капелла","value":[4970,79]}]},{"name":"сверхгиганты","type":"scatter","symbolSize":18,"label":{"color":"#111","textBorderColor":"#fff","textBorderWidth":3,"show":true,"formatter":"{b}","position":"left","fontSize":12},"data":[{"name":"Ригель","value":[12100,120000],"label":{"position":"left","offset":[0,0]}},{"name":"Денеб","value":[8500,200000],"label":{"position":"top"}},{"name":"Бетельгейзе","value":[3600,100000]},{"name":"Антарес","label":{"position":"right"},"value":[3500,75000]},{"name":"Полярная","value":[6015,1260]}]},{"name":"белые карлики","type":"scatter","symbolSize":7,"label":{"color":"#111","textBorderColor":"#fff","textBorderWidth":3,"show":true,"formatter":"{b}","position":"right","fontSize":12},"data":[{"name":"Сириус B","value":[25000,0.056]},{"name":"40 Эридана B","value":[16500,0.013]},{"name":"Процион B","value":[7740,0.00049]}]}]}
 ```
 
 $$
-L = 4\pi R^2 \sigma T^4, \qquad \lambda_{\max} = \frac{b}{T}, \qquad m - M = 5\lg\frac{r}{10\ \text{пк}}
+\begin{gathered}
+L = 4\pi R^2 \sigma T^4, \\
+\lambda_{\max} = \frac{b}{T}, \\
+m - M = 5\lg\frac{r}{10\ \text{пк}}
+\end{gathered}
 $$

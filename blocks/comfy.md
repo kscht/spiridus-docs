@@ -15,6 +15,32 @@ height: 1024
 ```
 
 Встроенные шаблоны: `sdxl-txt2img@1`, `flux1-schnell-txt2img@1`, `flux1-dev-txt2img@1`.
+Для RTX 3090 добавлены `flux1-schnell-fp8-txt2img@1` с явным
+`build: comfyui-0.41.0-flux1-fp8` и `flux1-dev-fp8-txt2img@1` с
+`build: comfyui-0.41.0-flux1-fp8-nc`. Обе сборки — `next`, аппаратную приёмку выполняет lead
+после слияния. Проверяемый режим — 1024×1024, batch 1, 4 шага. У dev по умолчанию
+сохранены 20 шагов; для этой приёмки нужно явно задать `steps: 4`.
+
+```comfy
+workflow: flux1-schnell-fp8-txt2img@1
+build: comfyui-0.41.0-flux1-fp8
+prompt: маяк на скале, акварель
+seed: 655
+steps: 4
+width: 1024
+height: 1024
+```
+
+Новый профиль хранит UNET в `fp8_e4m3fn`, вычисляет в fp16, VAE — в fp32;
+CLIP/T5 закреплены на CPU. Используются исходные веса из models.json с прежними sha256:
+новые файлы весов скачивать не требуется. Это преобразование при загрузке, без fast FP8.
+Настройки offload сохранены: lowvram, резерв 1 ГиБ, dynamic VRAM выключен.
+В новых сборках разрешён только этот dtype UNET; SDXL и FLUX.2 в их допуск не входят.
+Старые шаблоны, профили и образы сохранены; совпадение PNG между fp16 и fp8 не обещается.
+
+Лимит новых сборок — 22528 МиБ VRAM. До завершения аппаратной приёмки детерминизм
+и фактический запас памяти нового профиля не подтверждены.
+
 FLUX.2: `flux2-fast-4b@1`, `flux2-quality-4b@1` с явным
 `build: comfyui-0.41.0-flux2`; `flux2-fast-9b@1`, `flux2-quality-9b@1` — только с
 `build: comfyui-0.41.0-flux2-nc`. Эти сборки имеют статус next и требуют аппаратной приёмки.
@@ -43,7 +69,7 @@ Seed — целое 0..9007199254740991, `random` запрещён. Batch пер
 нет negative/CFG автора. Dev принимает guidance 0..10. Prompt — до 2000 символов.
 
 По умолчанию `build: comfyui-0.41.0`. FLUX dev разрешён только явным выбором
-`build: comfyui-0.41.0-nc` и шаблона dev; некоммерческие веса отсутствуют в основной сборке.
+`build: comfyui-0.41.0-nc` либо `build: comfyui-0.41.0-flux1-fp8-nc` и соответствующего шаблона dev; некоммерческие веса отсутствуют в основной сборке.
 Действуют лицензии SDXL (Stability AI, CreativeML Open RAIL++-M), FLUX schnell/VAE
 (Black Forest Labs, Apache-2.0), CLIP (OpenAI, MIT), T5 (Google Research, Apache-2.0).
 FLUX dev — Black Forest Labs, FLUX.1 [dev] Non-Commercial License v1.1.1:

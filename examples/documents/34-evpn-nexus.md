@@ -38,35 +38,167 @@
 
 Как это выглядит в одной фабрике — ESI-пара (leaf1, leaf2) связана только через фабрику, vPC-пара (leaf3, leaf4) — ещё и прямым peer-link (пунктир); схема своя, по описанию из [2]:
 
+Участки одной сети; повторённое имя обозначает то же устройство. Все связи исходной топологии сохранены.
+
 ```d2
-classes: { dev: { shape: image; label.near: outside-right-center } }
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
 direction: down
-sp: Spine {
-  s1: spine1 { class: dev; icon: affinity:switch-multilayer }
-  s2: spine2 { class: dev; icon: affinity:switch-multilayer }
-}
-esi: "" {
-  l1: leaf1\nESI { class: dev; icon: affinity:switch }
-  l2: leaf2\nESI { class: dev; icon: affinity:switch }
-}
 vpc: "" {
   l3: leaf3\nvPC { class: dev; icon: affinity:switch-gray }
   l4: leaf4\nvPC { class: dev; icon: affinity:switch-gray }
-  l3 -- l4: peer-link { style.stroke-dash: 4 }
+}
+vpc.l3 -- vpc.l4: peer-link { style.stroke-dash: 4 }
+```
+
+Площадки: Spine.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+sp: "" {
+  s1: spine1 { class: dev; icon: affinity:switch-multilayer }
+}
+vpc: "" {
+  l4: leaf4\nvPC { class: dev; icon: affinity:switch-gray }
+}
+sp.s1 -- vpc.l4
+```
+
+Площадки: Spine.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+sp: "" {
+  s2: spine2 { class: dev; icon: affinity:switch-multilayer }
+}
+vpc: "" {
+  l4: leaf4\nvPC { class: dev; icon: affinity:switch-gray }
+}
+sp.s2 -- vpc.l4
+```
+
+Площадки: Spine.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+esi: "" {
+  l1: leaf1\nESI { class: dev; icon: affinity:switch }
+}
+sp: "" {
+  s1: spine1 { class: dev; icon: affinity:switch-multilayer }
+}
+sp.s1 -- esi.l1
+```
+
+Площадки: Spine.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+esi: "" {
+  l1: leaf1\nESI { class: dev; icon: affinity:switch }
+}
+sp: "" {
+  s2: spine2 { class: dev; icon: affinity:switch-multilayer }
+}
+sp.s2 -- esi.l1
+```
+
+Площадки: Spine.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+esi: "" {
+  l2: leaf2\nESI { class: dev; icon: affinity:switch }
+}
+sp: "" {
+  s1: spine1 { class: dev; icon: affinity:switch-multilayer }
+}
+sp.s1 -- esi.l2
+```
+
+Площадки: Spine.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+esi: "" {
+  l2: leaf2\nESI { class: dev; icon: affinity:switch }
+}
+sp: "" {
+  s2: spine2 { class: dev; icon: affinity:switch-multilayer }
+}
+sp.s2 -- esi.l2
+```
+
+Площадки: Spine.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+sp: "" {
+  s1: spine1 { class: dev; icon: affinity:switch-multilayer }
+}
+vpc: "" {
+  l3: leaf3\nvPC { class: dev; icon: affinity:switch-gray }
+}
+sp.s1 -- vpc.l3
+```
+
+Площадки: Spine.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+sp: "" {
+  s2: spine2 { class: dev; icon: affinity:switch-multilayer }
+}
+vpc: "" {
+  l3: leaf3\nvPC { class: dev; icon: affinity:switch-gray }
+}
+sp.s2 -- vpc.l3
+```
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+esi: "" {
+  l1: leaf1\nESI { class: dev; icon: affinity:switch }
 }
 h1: srv1 { class: dev; icon: affinity:server }
-h2: srv2 { class: dev; icon: affinity:server }
-sp.s1 -- esi.l1
-sp.s1 -- esi.l2
-sp.s2 -- esi.l1
-sp.s2 -- esi.l2
-sp.s1 -- vpc.l3
-sp.s1 -- vpc.l4
-sp.s2 -- vpc.l3
-sp.s2 -- vpc.l4
 esi.l1 -- h1
+```
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+esi: "" {
+  l2: leaf2\nESI { class: dev; icon: affinity:switch }
+}
+h1: srv1 { class: dev; icon: affinity:server }
 esi.l2 -- h1
+```
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+h2: srv2 { class: dev; icon: affinity:server }
+vpc: "" {
+  l3: leaf3\nvPC { class: dev; icon: affinity:switch-gray }
+}
 vpc.l3 -- h2
+```
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+h2: srv2 { class: dev; icon: affinity:server }
+vpc: "" {
+  l4: leaf4\nvPC { class: dev; icon: affinity:switch-gray }
+}
 vpc.l4 -- h2
 ```
 
@@ -93,74 +225,309 @@ vpc.l4 -- h2
    └───────┘        └───────┘       └─────┘   └─────┘
 ```
 
+Полная топология по подключениям каждого leaf и border:
+
 ```mermaid
+%%{init: {"flowchart": {"nodeSpacing": 15, "rankSpacing": 30, "diagramPadding": 8}}}%%
 graph TD
-  spine1["spine1<br>AS 65100<br>Lo0 10.0.250.1"]
-  spine2["spine2<br>AS 65100<br>Lo0 10.0.250.2"]
-  leaf1["leaf1<br>AS 65101<br>VTEP 10.0.255.11"]
-  leaf2["leaf2<br>AS 65102<br>VTEP 10.0.255.12"]
-  leaf3["leaf3<br>AS 65103<br>VTEP 10.0.255.13"]
-  leaf4["leaf4<br>AS 65104<br>VTEP 10.0.255.14"]
-  border1["border1<br>AS 65105<br>VTEP 10.0.255.15"]
-  border2["border2<br>AS 65106<br>VTEP 10.0.255.16"]
-  spine1 ---|"Eth1/1 ↔ Eth1/49"| leaf1
-  spine1 ---|"Eth1/2 ↔ Eth1/49"| leaf2
-  spine1 ---|"Eth1/3 ↔ Eth1/49"| leaf3
-  spine1 ---|"Eth1/4 ↔ Eth1/49"| leaf4
-  spine1 ---|"Eth1/5 ↔ Eth1/49"| border1
-  spine1 ---|"Eth1/6 ↔ Eth1/49"| border2
-  spine2 ---|"Eth1/1 ↔ Eth1/50"| leaf1
-  spine2 ---|"Eth1/2 ↔ Eth1/50"| leaf2
-  spine2 ---|"Eth1/3 ↔ Eth1/50"| leaf3
-  spine2 ---|"Eth1/4 ↔ Eth1/50"| leaf4
-  spine2 ---|"Eth1/5 ↔ Eth1/50"| border1
-  spine2 ---|"Eth1/6 ↔ Eth1/50"| border2
-  srv1(["srv1"]) ---|"Po10"| leaf1
-  srv1 ---|"Po10"| leaf2
-  srv2(["srv2"]) ---|"Po10"| leaf3
-  srv2 ---|"Po10"| leaf4
-  fw1{{"FW1 AS 65500"}} ---|"Eth1/1.100 / .200"| border1
-  fw2{{"FW2 AS 65500"}} ---|"Eth1/1.100 / .200"| border2
+leaf1["leaf1<br>AS 65101<br>VTEP 10.0.255.11"]
+spine1["spine1<br>AS 65100<br>Lo0 10.0.250.1"]
+spine2["spine2<br>AS 65100<br>Lo0 10.0.250.2"]
+srv1(["srv1"])
+spine1 ---|"Eth1/1<br>↔ Eth1/49"| leaf1
+spine2 ---|"Eth1/1<br>↔ Eth1/50"| leaf1
+leaf1 ---|"Po10"| srv1
+```
+
+```mermaid
+%%{init: {"flowchart": {"nodeSpacing": 15, "rankSpacing": 30, "diagramPadding": 8}}}%%
+graph TD
+leaf2["leaf2<br>AS 65102<br>VTEP 10.0.255.12"]
+spine1["spine1<br>AS 65100<br>Lo0 10.0.250.1"]
+spine2["spine2<br>AS 65100<br>Lo0 10.0.250.2"]
+srv1(["srv1"])
+spine1 ---|"Eth1/2<br>↔ Eth1/49"| leaf2
+spine2 ---|"Eth1/2<br>↔ Eth1/50"| leaf2
+leaf2 ---|"Po10"| srv1
+```
+
+```mermaid
+%%{init: {"flowchart": {"nodeSpacing": 15, "rankSpacing": 30, "diagramPadding": 8}}}%%
+graph TD
+leaf3["leaf3<br>AS 65103<br>VTEP 10.0.255.13"]
+spine1["spine1<br>AS 65100<br>Lo0 10.0.250.1"]
+spine2["spine2<br>AS 65100<br>Lo0 10.0.250.2"]
+srv2(["srv2"])
+spine1 ---|"Eth1/3<br>↔ Eth1/49"| leaf3
+spine2 ---|"Eth1/3<br>↔ Eth1/50"| leaf3
+leaf3 ---|"Po10"| srv2
+```
+
+```mermaid
+%%{init: {"flowchart": {"nodeSpacing": 15, "rankSpacing": 30, "diagramPadding": 8}}}%%
+graph TD
+leaf4["leaf4<br>AS 65104<br>VTEP 10.0.255.14"]
+spine1["spine1<br>AS 65100<br>Lo0 10.0.250.1"]
+spine2["spine2<br>AS 65100<br>Lo0 10.0.250.2"]
+srv2(["srv2"])
+spine1 ---|"Eth1/4<br>↔ Eth1/49"| leaf4
+spine2 ---|"Eth1/4<br>↔ Eth1/50"| leaf4
+leaf4 ---|"Po10"| srv2
+```
+
+```mermaid
+%%{init: {"flowchart": {"nodeSpacing": 15, "rankSpacing": 30, "diagramPadding": 8}}}%%
+graph TD
+border1["border1<br>AS 65105<br>VTEP 10.0.255.15"]
+fw1{{"FW1 AS 65500"}}
+spine1["spine1<br>AS 65100<br>Lo0 10.0.250.1"]
+spine2["spine2<br>AS 65100<br>Lo0 10.0.250.2"]
+spine1 ---|"Eth1/5<br>↔ Eth1/49"| border1
+spine2 ---|"Eth1/5<br>↔ Eth1/50"| border1
+border1 ---|"Eth1/1.100 / .200"| fw1
+```
+
+```mermaid
+%%{init: {"flowchart": {"nodeSpacing": 15, "rankSpacing": 30, "diagramPadding": 8}}}%%
+graph TD
+border2["border2<br>AS 65106<br>VTEP 10.0.255.16"]
+fw2{{"FW2 AS 65500"}}
+spine1["spine1<br>AS 65100<br>Lo0 10.0.250.1"]
+spine2["spine2<br>AS 65100<br>Lo0 10.0.250.2"]
+spine1 ---|"Eth1/6<br>↔ Eth1/49"| border2
+spine2 ---|"Eth1/6<br>↔ Eth1/50"| border2
+border2 ---|"Eth1/1.100 / .200"| fw2
 ```
 
 Та же фабрика с иконками:
 
+Участки одной сети; повторённое имя обозначает то же устройство. Все связи исходной топологии сохранены.
+
+Площадки: Spine, AS 65100.
+
 ```d2
-classes: { dev: { shape: image; label.near: outside-right-center } }
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
 direction: down
-spines: Spine, AS 65100 {
-  spine1: spine1\nLo0 10.0.250.1 { class: dev; icon: affinity:switch-multilayer }
-  spine2: spine2\nLo0 10.0.250.2 { class: dev; icon: affinity:switch-multilayer }
-}
 leaves: "" {
   leaf1: leaf1\nAS 65101 { class: dev; icon: affinity:switch }
-  leaf2: leaf2\nAS 65102 { class: dev; icon: affinity:switch }
-  leaf3: leaf3\nAS 65103 { class: dev; icon: affinity:switch }
-  leaf4: leaf4\nAS 65104 { class: dev; icon: affinity:switch }
-  border1: border1\nAS 65105 { class: dev; icon: affinity:router-red }
-  border2: border2\nAS 65106 { class: dev; icon: affinity:router-red }
+}
+spines: "" {
+  spine1: spine1\nLo0 10.0.250.1 { class: dev; icon: affinity:switch-multilayer }
 }
 spines.spine1 -- leaves.leaf1
-spines.spine1 -- leaves.leaf2
-spines.spine1 -- leaves.leaf3
-spines.spine1 -- leaves.leaf4
-spines.spine1 -- leaves.border1
-spines.spine1 -- leaves.border2
+```
+
+Площадки: Spine, AS 65100.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+leaves: "" {
+  leaf1: leaf1\nAS 65101 { class: dev; icon: affinity:switch }
+}
+spines: "" {
+  spine2: spine2\nLo0 10.0.250.2 { class: dev; icon: affinity:switch-multilayer }
+}
 spines.spine2 -- leaves.leaf1
+```
+
+Площадки: Spine, AS 65100.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+leaves: "" {
+  leaf2: leaf2\nAS 65102 { class: dev; icon: affinity:switch }
+}
+spines: "" {
+  spine1: spine1\nLo0 10.0.250.1 { class: dev; icon: affinity:switch-multilayer }
+}
+spines.spine1 -- leaves.leaf2
+```
+
+Площадки: Spine, AS 65100.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+leaves: "" {
+  leaf2: leaf2\nAS 65102 { class: dev; icon: affinity:switch }
+}
+spines: "" {
+  spine2: spine2\nLo0 10.0.250.2 { class: dev; icon: affinity:switch-multilayer }
+}
 spines.spine2 -- leaves.leaf2
+```
+
+Площадки: Spine, AS 65100.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+leaves: "" {
+  leaf3: leaf3\nAS 65103 { class: dev; icon: affinity:switch }
+}
+spines: "" {
+  spine1: spine1\nLo0 10.0.250.1 { class: dev; icon: affinity:switch-multilayer }
+}
+spines.spine1 -- leaves.leaf3
+```
+
+Площадки: Spine, AS 65100.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+leaves: "" {
+  leaf3: leaf3\nAS 65103 { class: dev; icon: affinity:switch }
+}
+spines: "" {
+  spine2: spine2\nLo0 10.0.250.2 { class: dev; icon: affinity:switch-multilayer }
+}
 spines.spine2 -- leaves.leaf3
+```
+
+Площадки: Spine, AS 65100.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+leaves: "" {
+  leaf4: leaf4\nAS 65104 { class: dev; icon: affinity:switch }
+}
+spines: "" {
+  spine1: spine1\nLo0 10.0.250.1 { class: dev; icon: affinity:switch-multilayer }
+}
+spines.spine1 -- leaves.leaf4
+```
+
+Площадки: Spine, AS 65100.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+leaves: "" {
+  leaf4: leaf4\nAS 65104 { class: dev; icon: affinity:switch }
+}
+spines: "" {
+  spine2: spine2\nLo0 10.0.250.2 { class: dev; icon: affinity:switch-multilayer }
+}
 spines.spine2 -- leaves.leaf4
+```
+
+Площадки: Spine, AS 65100.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+leaves: "" {
+  border1: border1\nAS 65105 { class: dev; icon: affinity:router-red }
+}
+spines: "" {
+  spine1: spine1\nLo0 10.0.250.1 { class: dev; icon: affinity:switch-multilayer }
+}
+spines.spine1 -- leaves.border1
+```
+
+Площадки: Spine, AS 65100.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+leaves: "" {
+  border1: border1\nAS 65105 { class: dev; icon: affinity:router-red }
+}
+spines: "" {
+  spine2: spine2\nLo0 10.0.250.2 { class: dev; icon: affinity:switch-multilayer }
+}
 spines.spine2 -- leaves.border1
+```
+
+Площадки: Spine, AS 65100.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+leaves: "" {
+  border2: border2\nAS 65106 { class: dev; icon: affinity:router-red }
+}
+spines: "" {
+  spine1: spine1\nLo0 10.0.250.1 { class: dev; icon: affinity:switch-multilayer }
+}
+spines.spine1 -- leaves.border2
+```
+
+Площадки: Spine, AS 65100.
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+leaves: "" {
+  border2: border2\nAS 65106 { class: dev; icon: affinity:router-red }
+}
+spines: "" {
+  spine2: spine2\nLo0 10.0.250.2 { class: dev; icon: affinity:switch-multilayer }
+}
 spines.spine2 -- leaves.border2
+```
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+leaves: "" {
+  leaf1: leaf1\nAS 65101 { class: dev; icon: affinity:switch }
+}
 srv1: srv1 { class: dev; icon: affinity:server }
-srv2: srv2 { class: dev; icon: affinity:server }
-fw1: FW1\nAS 65500 { class: dev; icon: affinity:firewall-red }
-fw2: FW2\nAS 65500 { class: dev; icon: affinity:firewall-red }
 leaves.leaf1 -- srv1
+```
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+leaves: "" {
+  leaf2: leaf2\nAS 65102 { class: dev; icon: affinity:switch }
+}
+srv1: srv1 { class: dev; icon: affinity:server }
 leaves.leaf2 -- srv1
+```
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+leaves: "" {
+  leaf3: leaf3\nAS 65103 { class: dev; icon: affinity:switch }
+}
+srv2: srv2 { class: dev; icon: affinity:server }
 leaves.leaf3 -- srv2
+```
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+leaves: "" {
+  leaf4: leaf4\nAS 65104 { class: dev; icon: affinity:switch }
+}
+srv2: srv2 { class: dev; icon: affinity:server }
 leaves.leaf4 -- srv2
+```
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+fw1: FW1\nAS 65500 { class: dev; icon: affinity:firewall-red }
+leaves: "" {
+  border1: border1\nAS 65105 { class: dev; icon: affinity:router-red }
+}
 leaves.border1 -- fw1
+```
+
+```d2
+classes: { dev: { shape: image; width: 48; height: 48; style.font-size: 18; label.near: outside-right-center } }
+direction: down
+fw2: FW2\nAS 65500 { class: dev; icon: affinity:firewall-red }
+leaves: "" {
+  border2: border2\nAS 65106 { class: dev; icon: affinity:router-red }
+}
 leaves.border2 -- fw2
 ```
 
@@ -185,6 +552,7 @@ leaves.border2 -- fw2
 
 **Loopback и ASN**
 
+```table
 | Устройство | Роль | ASN | loopback0 | loopback1 (VTEP) | loopback2 (FRR) | mgmt0 |
 |---|---|---|---|---|---|---|
 | spine1 | spine | 65100 | 10.0.250.1/32 | — | — | 10.255.0.1/24 |
@@ -195,9 +563,11 @@ leaves.border2 -- fw2
 | leaf4 | leaf | 65104 | 10.0.250.14/32 | 10.0.255.14/32 | 10.0.254.14/32 | 10.255.0.14/24 |
 | border1 | border | 65105 | 10.0.250.15/32 | 10.0.255.15/32 | — | 10.255.0.15/24 |
 | border2 | border | 65106 | 10.0.250.16/32 | 10.0.255.16/32 | — | 10.255.0.16/24 |
+```
 
 **P2P-линки underlay (/31, MTU 9214)**
 
+```table
 | Устройство A | Интерфейс A | IP A | Устройство B | Интерфейс B | IP B |
 |---|---|---|---|---|---|
 | spine1 | Ethernet1/1 | 10.0.1.0/31 | leaf1 | Ethernet1/49 | 10.0.1.1/31 |
@@ -212,23 +582,28 @@ leaves.border2 -- fw2
 | spine2 | Ethernet1/4 | 10.0.2.6/31 | leaf4 | Ethernet1/50 | 10.0.2.7/31 |
 | spine2 | Ethernet1/5 | 10.0.2.8/31 | border1 | Ethernet1/50 | 10.0.2.9/31 |
 | spine2 | Ethernet1/6 | 10.0.2.10/31 | border2 | Ethernet1/50 | 10.0.2.11/31 |
+```
 
 **Border ↔ FW (eBGP, AS 65500)**
 
+```table
 | Border | Интерфейс | VRF | IP border | IP FW | FW |
 |---|---|---|---|---|---|
 | border1 | Ethernet1/1.100 | PROD | 10.100.1.0/31 | 10.100.1.1/31 | FW1 |
 | border1 | Ethernet1/1.200 | DEV | 10.100.1.2/31 | 10.100.1.3/31 | FW1 |
 | border2 | Ethernet1/1.100 | PROD | 10.100.2.0/31 | 10.100.2.1/31 | FW2 |
 | border2 | Ethernet1/1.200 | DEV | 10.100.2.2/31 | 10.100.2.3/31 | FW2 |
+```
 
 **VRF, VLAN, VNI, RT**
 
+```table
 | VRF | ID | L3VNI | RT VRF | VLAN | Имя | Подсеть / шлюз | L2VNI | RT VLAN |
 |---|---|---|---|---|---|---|---|---|
 | PROD | 1 | 50001 | 50001:50001 | 10 | PROD-WEB | 192.168.10.0/24, шлюз 192.168.10.1 | 10010 | 10010:10010 |
 | PROD | 1 | 50001 | 50001:50001 | 20 | PROD-APP | 192.168.20.0/24, шлюз 192.168.20.1 | 10020 | 10020:10020 |
 | DEV | 2 | 50002 | 50002:50002 | 110 | DEV-WEB | 192.168.110.0/24, шлюз 192.168.110.1 | 10110 | 10110:10110 |
+```
 
 **Ethernet-сегменты (ESI Type-3)**
 

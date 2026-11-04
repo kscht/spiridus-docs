@@ -31,13 +31,13 @@ end RC;
 
 ## Груз на пружине с демпфером
 
-Затухающие колебания: жёсткость 40 Н/м, масса 1 кг, демпфирование 1,5 Н·с/м. Груз отпустили, сместив на 10 см.
+Затухающие колебания: жёсткость 40 Н/м, масса 1 кг, демпфирование 1,5 Н·с/м. Груз `m` отпустили, сместив на 10 см.
 
 ```modelica
 // result: artifact:3351026a64774c42/result.csv
 // animate: line -0.3,-0.08 -0.3,0.08 color=#1c1f26 | стена
 // animate: spring -0.3,0 mass.s,0 n=10 w=0.05
-// animate: rect x=mass.s y=0 w=0.06 h=0.06 | груз
+// animate: rect x=mass.s y=0 w=0.06 h=0.06 | m
 // plot: mass.s
 // plot: mass.v, spring.f
 model MassSpringDamper "Груз на пружине с демпфером"
@@ -106,12 +106,13 @@ equation
 end Pendulum;
 ```
 
-## Модель изменили после расчёта
+## Модель изменили — результат пересчитали
 
-Сопротивление стало 2 кОм, а результат остался от 1 кОм — блок предупреждает.
+Сопротивление стало 2 кОм. С прежним результатом от 1 кОм блок предупредил бы о несовпадении. Ниже — пересчитанный результат: постоянная времени теперь 2 с.
 
 ```modelica
-// result: artifact:a73c81b07a6561f0/result.csv
+// result: artifact:21d4b96bb6493a30/result.csv
+// build: openmodelica-1.27.1
 // plot: C.v
 model RC "Заряд конденсатора через резистор"
   import Modelica.Electrical.Analog.Basic;
@@ -127,4 +128,34 @@ equation
   connect(U.n, G.p);
   annotation(experiment(StopTime = 5));
 end RC;
+```
+
+## Параметры без исходника перед глазами
+
+В прикладной статье `// code: hidden` сворачивает модель под ссылку «показать модель».
+Поля параметров, пересчёт, анимация и графики остаются видны; пояснения параметров
+становятся главными подписями полей. Это тот же мяч из примера выше.
+`// code: none` убирает раскрытие, оставляя скачивание `model.mo`;
+`// code: shown` (по умолчанию) показывает код сразу. В режиме правки исходник виден всегда.
+
+```modelica params=open
+// result: artifact:b14cb568d2e9e59f/result.csv
+// code: hidden
+// animate: line -0.4,-0.05 0.4,-0.05 color=#1c1f26 | пол
+// animate: circle x=0 y=h r=0.05 color=#c05621 | мяч
+// plot: h
+// plot: v
+model BouncingBall "Мяч отскакивает от пола и теряет энергию"
+  parameter Real e = 0.8 "коэффициент восстановления";
+  parameter Real g = 9.81 "ускорение свободного падения, м/с²";
+  Real h(start = 1, fixed = true) "высота, м";
+  Real v(start = 0, fixed = true) "скорость, м/с";
+equation
+  der(h) = v;
+  der(v) = -g;
+  when h <= 0 then
+    reinit(v, -e * pre(v));
+  end when;
+  annotation(experiment(StopTime = 3));
+end BouncingBall;
 ```
