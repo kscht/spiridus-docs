@@ -25,9 +25,8 @@
 
 Топология AS 64500 по линкам; повторённое имя — то же устройство. Связи между площадками и ядром сохранены.
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:54f3667c7e26819e/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -50,9 +49,8 @@ inet -- upstream_a
 @enduml
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:eeddb473f14d1e5b/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -75,9 +73,8 @@ inet -- upstream_b
 @enduml
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:5a80ba928c758c91/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -100,9 +97,8 @@ upstream_a -- border1
 @enduml
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:9d857b808c4cb17e/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -125,9 +121,8 @@ upstream_b -- border2
 @enduml
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:12777bfbf98fed19/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -150,9 +145,8 @@ border1 -- core1
 @enduml
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:282168a34c32cf72/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -175,9 +169,8 @@ border1 -- core2
 @enduml
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:a2c530b20bca1da4/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -200,9 +193,8 @@ border2 -- core1
 @enduml
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:834eb0aafe976ad3/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -225,9 +217,8 @@ border2 -- core2
 @enduml
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:efe18128faa3f13e/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -250,9 +241,8 @@ core1 -- core2
 @enduml
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:21d739a5bf41de0a/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -275,9 +265,8 @@ bng1 -- core1
 @enduml
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:acfdf89bedd1ed6f/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -300,9 +289,8 @@ bng1 -- core2
 @enduml
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:a4cd3cafc06c9575/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -325,9 +313,8 @@ bng2 -- core1
 @enduml
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:5592f78f506b2b0d/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -350,9 +337,8 @@ bng2 -- core2
 @enduml
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:741ca1fcfc76d87e/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -375,9 +361,8 @@ bng1 -- access
 @enduml
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:be6d4995a19daaf6/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -400,9 +385,8 @@ bng2 -- access
 @enduml
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:48a701e060ee3396/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -429,9 +413,8 @@ access -- subs
 
 Адресные сети по две точки подключения на вид; все участники каждой сети сохранены.
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:275bc81285009749/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startnwdiag
 nwdiag {
   network upstream_a {
@@ -443,9 +426,8 @@ nwdiag {
 @endnwdiag
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:18003bda8782fd21/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startnwdiag
 nwdiag {
   network upstream_b {
@@ -457,9 +439,8 @@ nwdiag {
 @endnwdiag
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:9724f7c87b14fb49/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startnwdiag
 nwdiag {
   network core {
@@ -471,9 +452,8 @@ nwdiag {
 @endnwdiag
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:3f3aa315a89a6137/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startnwdiag
 nwdiag {
   network core {
@@ -485,9 +465,8 @@ nwdiag {
 @endnwdiag
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:4b51d52bcd9b420a/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startnwdiag
 nwdiag {
   network core {
@@ -499,9 +478,8 @@ nwdiag {
 @endnwdiag
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:cd9e6bb6f42f0f27/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startnwdiag
 nwdiag {
   network services {
@@ -513,9 +491,8 @@ nwdiag {
 @endnwdiag
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:cd9f4f278d9b4c72/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startnwdiag
 nwdiag {
   network services {
@@ -526,9 +503,8 @@ nwdiag {
 @endnwdiag
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:2f7819696c812fa2/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startnwdiag
 nwdiag {
   network pppoe {
@@ -540,9 +516,8 @@ nwdiag {
 @endnwdiag
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:e8bdc12ea9aabd35/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startnwdiag
 nwdiag {
   network pppoe {
@@ -553,9 +528,8 @@ nwdiag {
 @endnwdiag
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:67b16222edf01461/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startnwdiag
 nwdiag {
   network oob {
@@ -567,9 +541,8 @@ nwdiag {
 @endnwdiag
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:834b7ec1a5fca834/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startnwdiag
 nwdiag {
   network oob {
@@ -581,9 +554,8 @@ nwdiag {
 @endnwdiag
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:ced073a010937f0b/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startnwdiag
 nwdiag {
   network oob {

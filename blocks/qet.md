@@ -2,6 +2,11 @@
 
 # `qet` — электрические схемы и символы QElectroTech
 
+Вариант без версии задаётся атрибутом строки ограждения `variant=<имя>` или аргументом MCP `variant`.
+Допустимо: `cli`, `kernel`. По умолчанию — `kernel`.
+Выбирается последняя не deprecated сборка варианта; точный `build` имеет приоритет.
+Старую строку `build:` уберите, если переходите на `variant=`.
+
 Схема или условное графическое обозначение, нарисованные в [QElectroTech](https://qelectrotech.org/)
 — свободном редакторе электрических схем. Рисует не страница, а MCP-инструмент `qet_run`:
 QElectroTech 0.200.1-dev в песочнице без экрана и сети, с библиотекой из 8839 символов. Работу
@@ -9,9 +14,8 @@ QElectroTech 0.200.1-dev в песочнице без экрана и сети, 
 раскладки. Он возвращает `artifact:<id>/…` — эту строку и пишут в начале блока, а под ней — то
 же задание JSON, что ушло в `qet_run`:
 
-```qet
+```qet variant=cli
 // result: artifact:10423b6ad24de858/folio-1.svg
-// build: qelectrotech-0.200.1-dev-f4dcbcc
 {
  "title": "Лампа с датчиком температуры",
  "symbols": [
@@ -257,9 +261,8 @@ QElectroTech 0.200.1-dev в песочнице без экрана и сети, 
   `rect`, `ellipse`, `circle`, `arc`, `polygon`, `text` в своих координатах символа, выводы
   `{"x", "y", "orientation": "n|s|e|w", "name"}`. Размеры и точку привязки он считает сам.
 
-```qet
+```qet variant=cli
 // result: artifact:3b9276936c2d9ebc/symbol.svg
-// build: qelectrotech-0.200.1-dev-f4dcbcc
 {
  "element": {
   "build": {

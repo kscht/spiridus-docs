@@ -11,15 +11,18 @@
 | [`sandbox`](sandbox.md) | Сборки песочниц |
 | [`abc`](abc.md) | abc — ноты |
 | [`argdown`](argdown.md) | argdown — карта аргументации |
+| [`base`](base.md) | Представления статей и задач (base) |
 | [`bpmn`](bpmn.md) | bpmn — процессы BPMN 2.0 |
 | [`comfy`](comfy.md) | Изображения ComfyUI |
 | [`comfy-workflow`](comfy-workflow.md) | Определение ComfyUI workflow |
 | [`conllu`](conllu.md) | conllu — синтаксический разбор предложения |
+| [`constructions`](constructions.md) | constructions — построения циркулем и линейкой |
 | [`d2`](d2.md) | d2 — схемы D2 |
 | [`digitaljs`](digitaljs.md) | digitaljs — живая логическая схема |
 | [`dot`](dot.md) | dot — графы Graphviz |
 | [`echarts`](echarts.md) | echarts — диаграммы Apache ECharts |
 | [`font`](font.md) | font — шрифт в документе |
+| [`form`](form.md) | form — анкеты, проверочные вопросы и учебные задания |
 | [`freecad`](freecad.md) | freecad — модель FreeCAD с параметрами |
 | [`glsl`](glsl.md) | glsl — шейдер GLSL ES 3.00 |
 | [`hdl`](hdl.md) | hdl — Verilog, SystemVerilog, VHDL со схемой и ресурсами |

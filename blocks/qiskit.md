@@ -2,13 +2,17 @@
 
 # `qiskit` — квантовая схема: Qiskit и ZX-исчисление
 
+Вариант без версии задаётся атрибутом строки ограждения `variant=<имя>` или аргументом MCP `variant`.
+Допустимо: `standard`. По умолчанию — `standard`.
+Выбирается последняя не deprecated сборка варианта; точный `build` имеет приоритет.
+Старую строку `build:` уберите, если переходите на `variant=`.
+
 Программа OpenQASM 2.0 или 3.0, которую разобрал и промоделировал MCP-инструмент `quantum_run`:
 Qiskit 2.5 и PyZX в песочнице без сети. Он возвращает готовый блок — строки `// result`, `// build`,
 `// view` и исходник; читатель видит выбранные картинки, а под ними — свёрнутый «показать исходник».
 
-```qiskit
+```qiskit variant=standard
 // result: artifact:ca7de9c1946963b1/circuit.svg
-// build: qiskit-2.5.2
 // view: circuit, histogram, bloch
 OPENQASM 2.0;
 include "qelib1.inc";
@@ -39,9 +43,8 @@ ZX-исчисление — графический язык квантовых �
 перерисовки упрощают диаграмму, не меняя того, что схема делает. На нём строятся оптимизаторы
 схем (меньше T-вентилей — дешевле на компьютере с исправлением ошибок). Гровер на двух кубитах:
 
-```qiskit
+```qiskit variant=standard
 // result: artifact:09b172fa98596738/circuit.svg
-// build: qiskit-2.5.2
 // view: circuit, zx, zx-reduced
 OPENQASM 2.0;
 include "qelib1.inc";

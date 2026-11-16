@@ -124,9 +124,8 @@ measure q[0] -> c[0];
 привычном по документации IBM, сферы Блоха и ZX-диаграмма. Состояние GHZ — у запутанных кубитов
 точка на сфере Блоха уходит в центр: по отдельности каждый кубит — полная неопределённость.
 
-```qiskit
+```qiskit variant=standard
 // result: artifact:ca7de9c1946963b1/circuit.svg
-// build: qiskit-2.5.2
 // view: circuit, histogram, bloch
 OPENQASM 2.0;
 include "qelib1.inc";
@@ -141,9 +140,8 @@ measure q -> c;
 Тот же Гровер в ZX-исчислении: PyZX упрощает диаграмму правилами перерисовки — из 12 вентилей
 остаётся 6, и проверка тензорами подтверждает, что схема делает то же самое.
 
-```qiskit
+```qiskit variant=standard
 // result: artifact:09b172fa98596738/circuit.svg
-// build: qiskit-2.5.2
 // view: circuit, zx, zx-reduced
 OPENQASM 2.0;
 include "qelib1.inc";

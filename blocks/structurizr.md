@@ -2,15 +2,19 @@
 
 # `structurizr` — модель C4 на Structurizr DSL
 
+Вариант без версии задаётся атрибутом строки ограждения `variant=<имя>` или аргументом MCP `variant`.
+Допустимо: `cli`, `standard`. По умолчанию — `standard`.
+Выбирается последняя не deprecated сборка варианта; точный `build` имеет приоритет.
+Старую строку `build:` уберите, если переходите на `variant=`.
+
 Архитектура ПО по модели C4 на [Structurizr DSL](https://docs.structurizr.com/dsl): люди,
 системы, контейнеры, компоненты, связи и виды. Рисует не страница, а MCP-инструмент
 `structurizr_run`: Structurizr CLI проверяет DSL, выгружает виды в C4-PlantUML, PlantUML рисует —
 всё в песочнице без сети. Инструмент возвращает `artifact:<id>/<вид>.svg` и список видов; строку
 результата пишут первой в блоке комментарием DSL:
 
-```structurizr
+```structurizr variant=standard
 # result: artifact:d07612ab232d3110/SystemContext.svg
-# build: structurizr-2025.11.09
 workspace "Spiridus" "Комнаты людей и моделей вокруг документов" {
   model {
     user = person "Ученик" "читает документы и задаёт вопросы"

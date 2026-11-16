@@ -107,9 +107,8 @@ $$
 
 Начальная скорость 15 м/с под углом 45°. Синий — без сопротивления воздуха (парабола, дальность $v_0^2 \sin 2\alpha / g \approx 23$ м), рыжий — с сопротивлением, пропорциональным квадрату скорости.
 
-```modelica
+```modelica variant=standard
 // result: artifact:6fc8a785361099e8/result.csv
-// build: openmodelica-1.27.1
 // animate: line -1,0 24,0 color=#1c1f26 | земля
 // animate: trace x=x0 y=y0 color=#2f6fb3
 // animate: circle x=x0 y=y0 r=0.4 color=#2f6fb3
@@ -591,9 +590,8 @@ $$
 
 Синий кружок — планета, охристый — звезда. Единицы — астрономическая единица и год, тогда $GM_\odot = 4\pi^2$. Планету отпустили на расстоянии 1 а. е. со скоростью меньше круговой: орбита — эллипс, у перигелия планета движется быстрее (второй закон Кеплера), а энергия $E$ и момент импульса $L$ не меняются.
 
-```modelica
+```modelica variant=standard
 // result: artifact:46b7fd5183f8b39e/result.csv
-// build: openmodelica-1.27.1
 // animate: circle x=0 y=0 r=0.06 color=#805800 | звезда
 // animate: trace x=x y=y color=#2f6fb3
 // animate: line 0,0 x,y color=#999

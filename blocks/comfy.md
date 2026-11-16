@@ -2,8 +2,27 @@
 
 # Изображения ComfyUI
 
+Вариант без версии задаётся атрибутом строки ограждения `variant=<имя>` или аргументом MCP `variant`.
+Допустимо: `flux1-fp8`, `flux1-fp8-nc`, `flux2`, `flux2-nc`, `nc`, `standard`. По умолчанию — `standard`.
+Выбирается последняя не deprecated сборка варианта; точный `build` имеет приоритет.
+Старую строку `build:` уберите, если переходите на `variant=`.
+
 `comfy` хранит рецепт txt2img и ссылку на сохранённый набор PNG + JSON. Просмотр и `render_check`
 читают набор без GPU, в том числе после снятия сборки. Явный запуск — `comfy_generate`.
+
+Выбирайте сборку по задаче:
+
+| Задача | Сборка и шаблоны |
+| --- | --- |
+| SDXL, универсальная генерация | `variant=standard` — `default`, шаблон `sdxl-txt2img@1`; `build` можно не указывать. |
+| Быстрые фото-иллюстрации, FLUX.1 schnell/dev FP8 | Явно `variant=flux1-fp8` с `flux1-schnell-fp8-txt2img@1`; dev — явно `variant=flux1-fp8-nc` с `flux1-dev-fp8-txt2img@1`, только для некоммерческого применения. |
+| Работа по референсу и композиции, FLUX.2 klein + RefControl | Явно `variant=flux2` (4B) либо `variant=flux2-nc` (9B, только для некоммерческого применения). Ноды и модели RefControl входят в сборки; передача изображений и готовые шаблоны стилизации в `comfy_generate` появятся отдельным этапом. Для txt2img доступны шаблоны fast/quality ниже. |
+
+Все четыре сборки FLUX.1 FP8 и FLUX.2 — `stable`: поддерживаются и выбираются явно
+через `variant` у инструмента или `variant=` в строке ограждения. Статус `stable` не меняет выбор по умолчанию:
+им остаётся `variant=standard`. NC-сборки выбирайте явно только для некоммерческого применения:
+FLUX.1 dev — FLUX.1 [dev] Non-Commercial License v1.1.1,
+FLUX.2 9B — FLUX Non-Commercial License v2.1.
 
 ```comfy
 workflow: sdxl-txt2img@1
@@ -16,14 +35,12 @@ height: 1024
 
 Встроенные шаблоны: `sdxl-txt2img@1`, `flux1-schnell-txt2img@1`, `flux1-dev-txt2img@1`.
 Для RTX 3090 добавлены `flux1-schnell-fp8-txt2img@1` с явным
-`build: comfyui-0.41.0-flux1-fp8` и `flux1-dev-fp8-txt2img@1` с
-`build: comfyui-0.41.0-flux1-fp8-nc`. Обе сборки — `next`, аппаратную приёмку выполняет lead
-после слияния. Проверяемый режим — 1024×1024, batch 1, 4 шага. У dev по умолчанию
-сохранены 20 шагов; для этой приёмки нужно явно задать `steps: 4`.
+`variant=flux1-fp8` и `flux1-dev-fp8-txt2img@1` с
+`variant=flux1-fp8-nc`. Пример ниже — 1024×1024, batch 1, 4 шага.
+У dev по умолчанию сохранены 20 шагов; для короткого запуска задайте `steps: 4` явно.
 
-```comfy
+```comfy variant=flux1-fp8
 workflow: flux1-schnell-fp8-txt2img@1
-build: comfyui-0.41.0-flux1-fp8
 prompt: маяк на скале, акварель
 seed: 655
 steps: 4
@@ -38,12 +55,11 @@ CLIP/T5 закреплены на CPU. Используются исходные
 В новых сборках разрешён только этот dtype UNET; SDXL и FLUX.2 в их допуск не входят.
 Старые шаблоны, профили и образы сохранены; совпадение PNG между fp16 и fp8 не обещается.
 
-Лимит новых сборок — 22528 МиБ VRAM. До завершения аппаратной приёмки детерминизм
-и фактический запас памяти нового профиля не подтверждены.
+Лимит сборок FLUX.1 FP8 — 22528 МиБ VRAM.
 
 FLUX.2: `flux2-fast-4b@1`, `flux2-quality-4b@1` с явным
-`build: comfyui-0.41.0-flux2`; `flux2-fast-9b@1`, `flux2-quality-9b@1` — только с
-`build: comfyui-0.41.0-flux2-nc`. Эти сборки имеют статус next и требуют аппаратной приёмки.
+`variant=flux2`; `flux2-fast-9b@1`, `flux2-quality-9b@1` — только с
+`variant=flux2-nc`. Обе сборки имеют статус `stable`.
 Fast использует klein FP8, 4 шага/CFG=1 по умолчанию (steps 1..8); quality — base,
 50 шагов/CFG=4 (steps 1..50). 4B base — BF16, 9B base — FP8. Энкодеры — Qwen3-4B BF16
 и Qwen3-8B FP8 соответственно; VAE — полный FLUX.2. Размеры width/height одновременно
@@ -53,9 +69,8 @@ Fast использует klein FP8, 4 шага/CFG=1 по умолчанию (s
 9B и упаковка Qwen3-8B — отдельный NC-комплект (FLUX Non-Commercial License v2.1).
 Точные авторы, источники и условия каждой части — в models.lock.json.
 
-```comfy
+```comfy variant=flux2
 workflow: flux2-fast-4b@1
-build: comfyui-0.41.0-flux2
 prompt: маяк на скале, акварель
 seed: 750
 ```
@@ -68,8 +83,8 @@ Seed — целое 0..9007199254740991, `random` запрещён. Batch пер
 У SDXL доступны negative (до 1000 символов) и sampler (euler/dpmpp_2m); у FLUX
 нет negative/CFG автора. Dev принимает guidance 0..10. Prompt — до 2000 символов.
 
-По умолчанию `build: comfyui-0.41.0`. FLUX dev разрешён только явным выбором
-`build: comfyui-0.41.0-nc` либо `build: comfyui-0.41.0-flux1-fp8-nc` и соответствующего шаблона dev; некоммерческие веса отсутствуют в основной сборке.
+По умолчанию `variant=standard`. FLUX dev разрешён только явным выбором
+`variant=nc` либо `variant=flux1-fp8-nc` и соответствующего шаблона dev; некоммерческие веса отсутствуют в основной сборке.
 Действуют лицензии SDXL (Stability AI, CreativeML Open RAIL++-M), FLUX schnell/VAE
 (Black Forest Labs, Apache-2.0), CLIP (OpenAI, MIT), T5 (Google Research, Apache-2.0).
 FLUX dev — Black Forest Labs, FLUX.1 [dev] Non-Commercial License v1.1.1:

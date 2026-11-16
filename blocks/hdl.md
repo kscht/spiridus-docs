@@ -2,15 +2,19 @@
 
 # `hdl` — Verilog, SystemVerilog, VHDL со схемой и ресурсами
 
+Вариант без версии задаётся атрибутом строки ограждения `variant=<имя>` или аргументом MCP `variant`.
+Допустимо: `standard`. По умолчанию — `standard`.
+Выбирается последняя не deprecated сборка варианта; точный `build` имеет приоритет.
+Старую строку `build:` уберите, если переходите на `variant=`.
+
 Код на Verilog, SystemVerilog или VHDL — и под ним схема RTL (регистры, мультиплексоры,
 сумматоры, вентили — как в коде), а для ПЛИС — занятость кристалла и предельная частота. Рисует
 не страница, а MCP-инструмент `hdl_synth`: Yosys 0.52, nextpnr 0.7, GHDL 5, netlistsvg — в
 песочнице без сети. Он возвращает готовый блок: первой строкой — ссылка на результат, комментарием
 языка (`//` в Verilog, `--` в VHDL), дальше — исходник.
 
-```hdl
+```hdl variant=standard
 // result: artifact:00c6233db8660c5b/schematic.svg
-// build: hdl-debian13
 module counter #(parameter W = 4) (
   input  wire clk, rst, en,
   output reg  [W-1:0] q

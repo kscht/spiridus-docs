@@ -14,9 +14,8 @@ QElectroTech.
 Символ находят инструментом `qet_symbols` по названию на любом языке, а `qet_run` с `element.path`
 показывает его и описывает выводы — в том порядке, в каком к ним подключают провода.
 
-```qet
+```qet variant=cli
 // result: artifact:595dd3e3709f2713/symbol.svg
-// build: qelectrotech-0.200.1-dev-f4dcbcc
 {
  "element": {
   "path": "common://10_electric/10_allpole/380_signaling_operating/11_optical_signaling/lampara-azul.elmt"
@@ -30,9 +29,8 @@ QElectroTech.
 координатах символа. Кнопка `.elmt` скачивает его для QElectroTech: в редакторе элементов —
 «Файл → Открыть», или в свою коллекцию, и символ появится в панели элементов.
 
-```qet
+```qet variant=cli
 // result: artifact:3b9276936c2d9ebc/symbol.svg
-// build: qelectrotech-0.200.1-dev-f4dcbcc
 {
  "element": {
   "build": {
@@ -101,9 +99,8 @@ QElectroTech.
 поля для обозначения — его добавляет `add_element_text` с `source: "info"` и `value: "label"`. После операций `qet_run`
 проверяет раскладку и правила оформления. Под схемой — проект `.qet` и символ датчика.
 
-```qet
+```qet variant=cli
 // result: artifact:10423b6ad24de858/folio-1.svg
-// build: qelectrotech-0.200.1-dev-f4dcbcc
 {
  "title": "Лампа с датчиком температуры",
  "symbols": [

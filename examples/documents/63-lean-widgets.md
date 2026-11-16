@@ -10,7 +10,6 @@
 
 ```lean build=lean-4.34.0-widgets
 -- result: artifact:b0ea20a8c599ea13/result.json
--- build: lean-4.34.0-widgets
 import ProofWidgets.Component.HtmlDisplay
 import ProofWidgets.Component.PenroseDiagram
 import Mathlib.CategoryTheory.CommSq
@@ -71,7 +70,6 @@ arrows {
 
 ```lean build=lean-4.34.0-widgets
 -- result: artifact:e04c47d3b464f9c8/result.json
--- build: lean-4.34.0-widgets
 import ProofWidgets.Component.HtmlDisplay
 import ProofWidgets.Component.PenroseDiagram
 def tensorStep (p : Nat × Nat) := (p.1 + 1, p.2 + 1)

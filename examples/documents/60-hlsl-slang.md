@@ -2,9 +2,8 @@
 
 # Шейдеры HLSL и Slang
 
-```hlsl
+```hlsl variant=slang
 // result: artifact:df95145d41246b08/shader.glsl
-// build: slang-2026.19
 cbuffer Params {
     float radius; // @range 0.1 0.8 0.35
 };
@@ -16,18 +15,16 @@ float4 mainImage(float2 fragCoord) {
 }
 ```
 
-```hlsl
+```hlsl variant=slang
 // result: artifact:c1ba954bde9ac1fa/shader.glsl
-// build: slang-2026.19
 float4 mainImage(float2 p) {
     float2 uv = p / iResolution.xy;
     return float4(uv, 0.5 + 0.5 * sin(iTime), 1.0);
 }
 ```
 
-```hlsl
+```hlsl variant=slang
 // result: artifact:7ca70c304094f403/shader.glsl
-// build: slang-2026.19
 float hash(float2 p) { return frac(sin(dot(p, float2(127.1, 311.7))) * 43758.5453); }
 float4 mainImage(float2 p) {
     float2 cell = floor(p / 12.0);
@@ -36,9 +33,8 @@ float4 mainImage(float2 p) {
 }
 ```
 
-```hlsl
+```hlsl variant=slang
 // result: artifact:d57dc402ba1cb121/shader.glsl
-// build: slang-2026.19
 float4 mainImage(float2 p) {
     float2 uv = (2.0 * p - iResolution.xy) / iResolution.y;
     float3 ro = float3(0.0, 0.0, -3.0);
@@ -54,9 +50,8 @@ float4 mainImage(float2 p) {
 }
 ```
 
-```slang
+```slang variant=slang
 // result: artifact:39bd40ed46f6a2d4/shader.glsl
-// build: slang-2026.19
 interface IShape { float sdf(float2 p); }
 struct Circle : IShape {
     float r;
@@ -70,9 +65,8 @@ float4 mainImage(float2 p) {
 }
 ```
 
-```slang
+```slang variant=slang
 // result: artifact:8472d924d781c6ee/shader.glsl
-// build: slang-2026.19
 [Differentiable]
 float wave(float x) { return sin(x) * x; }
 float4 mainImage(float2 p) {

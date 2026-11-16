@@ -11,10 +11,9 @@
 
 ## Контекст: читатель и учитель
 
-```structurizr
+```structurizr variant=standard
 # result: artifact:8d889961808ad1ba/SystemContextReaders.svg
 # view: SystemContextReaders
-# build: structurizr-2025.11.09
 workspace "Spiridus" "Комнаты людей и моделей вокруг документов" {
   model {
     user = person "Ученик" "читает документы\nи задаёт\nвопросы"
@@ -73,10 +72,9 @@ workspace "Spiridus" "Комнаты людей и моделей вокруг �
 
 ## Контекст: модель
 
-```structurizr
+```structurizr variant=standard
 # result: artifact:8d889961808ad1ba/SystemContextReaders.svg
 # view: SystemContextLLM
-# build: structurizr-2025.11.09
 workspace "Spiridus" "Комнаты людей и моделей вокруг документов" {
   model {
     user = person "Ученик" "читает документы\nи задаёт\nвопросы"
@@ -135,10 +133,9 @@ workspace "Spiridus" "Комнаты людей и моделей вокруг �
 
 ## Контейнеры: документы
 
-```structurizr
+```structurizr variant=standard
 # result: artifact:8d889961808ad1ba/SystemContextReaders.svg
 # view: ReaderContainers
-# build: structurizr-2025.11.09
 workspace "Spiridus" "Комнаты людей и моделей вокруг документов" {
   model {
     user = person "Ученик" "читает документы\nи задаёт\nвопросы"
@@ -197,10 +194,9 @@ workspace "Spiridus" "Комнаты людей и моделей вокруг �
 
 ## Контейнеры: инструменты
 
-```structurizr
+```structurizr variant=standard
 # result: artifact:8d889961808ad1ba/SystemContextReaders.svg
 # view: ModelContainers
-# build: structurizr-2025.11.09
 workspace "Spiridus" "Комнаты людей и моделей вокруг документов" {
   model {
     user = person "Ученик" "читает документы\nи задаёт\nвопросы"

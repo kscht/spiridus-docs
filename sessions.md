@@ -15,9 +15,9 @@
 | Ядро | Открыть | Шаг | Сохранить | Вернуться позже | Сборка и статус |
 |---|---|---|---|---|---|
 | Python | `session_open` | `session_call` или `code_run` с `session`, Python | `session_save` → `ref` пакета | `session_open {from: ref}` | `python-3.13.7-code`, `stable` |
-| FreeCAD | `cad_session_open` | `cad_exec`, `cad_inspect`, `cad_view` | `cad_session_save` (пакет и модель), `session_save` | `cad_session_open {from}` или `session_open {from}` | `freecad-1.1.4-timashkovy`, `default` |
+| FreeCAD | `cad_session_open` | `cad_exec`, `cad_inspect`, `cad_view` | `cad_session_save` (пакет и модель), `session_save` | `cad_session_open {from}` или `session_open {from}` | `freecad-1.1.4-timashkovy-r2`, `default` |
 | Lean | `lean_session_open` | `lean_session_command`, `lean_session_tactic`, `lean_session_goals` | `lean_session_save` → пакет | `lean_session_open {from}` или `session_open {from}` | `lean-4.34.0-widgets`, `default` |
-| Blender | `blender_session_open` | `blender_exec`, `blender_inspect`, `blender_view` | `blender_session_save` → пакет и модель, `session_save` | `blender_session_open {from}` или `session_open {from}` | `blender-5.2.2-session`, `next` |
+| Blender | `blender_session_open` | `blender_exec`, `blender_inspect`, `blender_view` | `blender_session_save` → пакет и модель, `session_save` | `blender_session_open {from}` или `session_open {from}` | `blender-5.2.2-r2`, `default` |
 | Modelica | `modelica_session_open` | `modelica_simulate` | `modelica_session_save` → пакет, `session_save` | `modelica_session_open {from}` или `session_open {from}` | `openmodelica-1.27.1-session`, `next` |
 | QET | `qet_call` → `workspace` | `qet_tools`, `qet_call` | `qet_save {workspace}` → пакет папки; с `files` ещё блок | `session_open {from}` → новый `id`, передать как `workspace` | `qelectrotech-0.200.1-dev-f4dcbcc-kernel`, `default` |
 

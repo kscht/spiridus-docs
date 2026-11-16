@@ -2,6 +2,11 @@
 
 # Lean 4: доказательства с проверкой
 
+Вариант без версии задаётся атрибутом строки ограждения `variant=<имя>` или аргументом MCP `variant`.
+Допустимо: `widgets`. По умолчанию — `widgets`.
+Выбирается последняя не deprecated сборка варианта; точный `build` имеет приоритет.
+Старую строку `build:` уберите, если переходите на `variant=`.
+
 Блок `lean` содержит программу **Lean 4.34.0** с **Mathlib v4.34.0**.
 `lean_check` проверяет её в одноразовой песочнице без сети и возвращает сообщения,
 цели до и после тактик, дерево доказательства, зависимости и аксиомы объявлений.
@@ -80,9 +85,8 @@ Lean 3 не поддерживается: `begin … end` заменяется �
 
 ### Индукция по натуральным
 
-```lean tree=boxes
+```lean tree=boxes variant=widgets
 -- result: artifact:91700277dceaec0e/result.json
--- build: lean-4.34.0-widgets
 import Mathlib.Tactic
 
 theorem add_zero_right (n : ℕ) : n + 0 = n := by
@@ -93,9 +97,8 @@ theorem add_zero_right (n : ℕ) : n + 0 = n := by
 
 ### Неравенство
 
-```lean
+```lean variant=widgets
 -- result: artifact:58a8f60ae9e78978/result.json
--- build: lean-4.34.0-widgets
 import Mathlib.Tactic
 
 theorem square_nonnegative (x : ℝ) : 0 ≤ x ^ 2 := by
@@ -104,9 +107,8 @@ theorem square_nonnegative (x : ℝ) : 0 ≤ x ^ 2 := by
 
 ### Функция и вычисление
 
-```lean
+```lean variant=widgets
 -- result: artifact:49794bc7cdb1d7aa/result.json
--- build: lean-4.34.0-widgets
 import Mathlib.Tactic
 
 def squares (n : ℕ) := (List.range n).map (fun x => x ^ 2)
@@ -115,9 +117,8 @@ def squares (n : ℕ) := (List.range n).map (fun x => x ^ 2)
 
 ### Теорема о списках
 
-```lean
+```lean variant=widgets
 -- result: artifact:d305a9a4eb914b91/result.json
--- build: lean-4.34.0-widgets
 import Mathlib.Data.List.Basic
 
 theorem append_nil_right (xs : List ℕ) : xs ++ [] = xs := by
@@ -126,9 +127,8 @@ theorem append_nil_right (xs : List ℕ) : xs ++ [] = xs := by
 
 ### Конечная сумма
 
-```lean tree=tree deps=block
+```lean tree=tree deps=block variant=widgets
 -- result: artifact:79b20e16e81ab889/result.json
--- build: lean-4.34.0-widgets
 import Mathlib.Tactic
 
 theorem sum_constant (n : ℕ) : ∑ _k ∈ Finset.range n, (1 : ℕ) = n := by
@@ -137,9 +137,8 @@ theorem sum_constant (n : ℕ) : ∑ _k ∈ Finset.range n, (1 : ℕ) = n := by
 
 ### Литературная цепочка
 
-```lean
+```lean variant=widgets
 -- result: artifact:71c1efa0ee004c98/result.json
--- build: lean-4.34.0-widgets
 import Mathlib.Tactic
 
 def twice (n : ℕ) := n + n
@@ -147,9 +146,8 @@ def twice (n : ℕ) := n + n
 
 Определение остаётся доступно в следующем блоке:
 
-```lean continue deps=document
+```lean continue deps=document variant=widgets
 -- result: artifact:785a1b306a7dc86a/result.json
--- build: lean-4.34.0-widgets
 lemma twice_eq (n : ℕ) : twice n = 2 * n := by
   simp [twice, two_mul]
 ```
@@ -217,9 +215,8 @@ Penrose принимает `dsl`, `sty`, `sub`, `embeds` и `maxOptSteps`; вс�
 
 ## Коммутативный квадрат
 
-```lean build=lean-4.34.0-widgets
+```lean variant=widgets
 -- result: artifact:b0ea20a8c599ea13/result.json
--- build: lean-4.34.0-widgets
 import ProofWidgets.Component.HtmlDisplay
 import ProofWidgets.Component.PenroseDiagram
 import Mathlib.CategoryTheory.CommSq
@@ -278,9 +275,8 @@ arrows {
 
 ## Строковая диаграмма
 
-```lean build=lean-4.34.0-widgets
+```lean variant=widgets
 -- result: artifact:e04c47d3b464f9c8/result.json
--- build: lean-4.34.0-widgets
 import ProofWidgets.Component.HtmlDisplay
 import ProofWidgets.Component.PenroseDiagram
 def tensorStep (p : Nat × Nat) := (p.1 + 1, p.2 + 1)

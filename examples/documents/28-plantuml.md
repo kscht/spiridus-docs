@@ -10,9 +10,8 @@ Azure, Font Awesome, логотипы) — внутри PlantUML; интерне
 
 ## Последовательность
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:cde6602206eba345/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 !theme plain
 actor Ученик
@@ -29,9 +28,8 @@ M --> Ученик: подсказка, не ответ
 
 Подсети полосами; адреса узлов — в подписи узла (`description`), а не полем `address`: его nwdiag пишет поверх линии подключения.
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:1af5ae8c6eaa2af2/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startnwdiag
 nwdiag {
   network dmz {
@@ -58,9 +56,8 @@ nwdiag {
 
 Внешние участники и их обращения к рендеру:
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:065d0643c0ad017a/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 !include <C4/C4_Context>
@@ -75,9 +72,8 @@ Rel_D(teacher, s, "правит\nи утверждает")
 
 Внутренние контейнеры Spiridus:
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:e2aaa7e09142c3ba/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -99,9 +95,8 @@ Rel_D(web, db, " берёт")
 
 Внешние участники и их обращения к шлюзу MCP:
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:ea9c2d5abfc56f13/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 !include <C4/C4_Context>
@@ -115,9 +110,8 @@ Rel_D(llm, s, "​        вызывает\n​        инструменты п
 
 Внутренние контейнеры Spiridus:
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:7992218a122b0955/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -137,9 +131,8 @@ Rel_D(mcp, sb, " задания")
 @enduml
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:20f25b277ef3cb8b/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -161,9 +154,8 @@ Rel_D(mcp, db, "​        пишет\n​        результат")
 
 ## Состояния документа
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:e740a7eb07322bd3/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -184,9 +176,8 @@ skinparam ranksep 40
 
 ## Классы
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:49c5d1dc9f8b4831/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -210,9 +201,8 @@ abstract class Блок {
 
 Реализации одного абстрактного контракта; повторённый «Блок» — тот же класс.
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:98450800ef3694c8/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -229,9 +219,8 @@ class Схема extends Блок
 @enduml
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:d50810cf68700f1a/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -248,9 +237,8 @@ class Формула extends Блок
 @enduml
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:19886c3bf8fdadc5/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -272,9 +260,8 @@ note bottom of Модель3D : считается в песочнице,\nст�
 
 Четыре ветви одной карты «Силы в механике»:
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:c67e82fbf38c53a7/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startmindmap
 skinparam defaultFontSize 18
 * Силы\nв механике
@@ -283,9 +270,8 @@ skinparam defaultFontSize 18
 @endmindmap
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:6ed2a9cc64e61f1b/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startmindmap
 skinparam defaultFontSize 18
 * Силы\nв механике
@@ -294,9 +280,8 @@ skinparam defaultFontSize 18
 @endmindmap
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:397c75b20f6890d0/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startmindmap
 skinparam defaultFontSize 18
 * Силы\nв механике
@@ -306,9 +291,8 @@ skinparam defaultFontSize 18
 @endmindmap
 ```
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:4457bf49d3851170/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startmindmap
 skinparam defaultFontSize 18
 * Силы\nв механике

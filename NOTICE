@@ -16,4 +16,33 @@
 
 «Сердце в разрезе» (Heart diagram-en) — ZooFari — CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)
   https://commons.wikimedia.org/wiki/File:Heart_diagram-en.svg
-  examples/documents/08-media.md
+  examples/documents/08-media.md, examples/documents/03-shapes-maps.md
+  В контуре «сердце» убраны подписи и выноски, части размечены.
+
+Контуры из пакета shapes. Исходные рисунки обработаны для раскраски и подписей ECharts;
+автор, лицензия и обработка также указаны под диаграммой.
+
+«Клетка растительная» (Plant cell structure svg labels) — Mariana Ruiz (LadyofHats), буквы — Dake — общественное достояние
+  https://commons.wikimedia.org/wiki/File:Plant_cell_structure_svg_labels.svg
+  examples/documents/21-chem-bio.md
+  Убраны подписи и выноски, части размечены.
+
+«Лист» (Leaf anatomy ru) — H McKenna, перевод — Chan — CC BY 3.0 (https://creativecommons.org/licenses/by/3.0)
+  https://commons.wikimedia.org/wiki/File:Leaf_anatomy_ru.svg
+  examples/documents/21-chem-bio.md
+  Убраны подписи и выноски, части размечены.
+
+«Глаз» (Schematic diagram of the human eye en) — Rhcastilhos, Jmarchn — CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)
+  https://commons.wikimedia.org/wiki/File:Schematic_diagram_of_the_human_eye_en.svg
+  examples/documents/21-chem-bio.md
+  Убраны подписи и выноски, части размечены.
+
+«Утка: разделка» (Duck Silhouette, NIH BioArt 135 — 629476) — Ryan Kissinger, NIAID (NIH BioArt) — общественное достояние
+  https://commons.wikimedia.org/wiki/File:Duck_Silhouette_(NIH_BioArt_135_-_629476).svg
+  examples/documents/03-shapes-maps.md
+  Добавлены контуры частей по российской разделке.
+
+«Материки» — Natural Earth 5.1.2, вариант «с точки зрения России» — общественное достояние (public domain)
+  https://www.naturalearthdata.com/
+  examples/documents/03-shapes-maps.md
+  Упрощено, части объединены, русские названия.

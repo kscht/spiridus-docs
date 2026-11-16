@@ -9,20 +9,7 @@
 `/mcp` показывает ядро: документный цикл, файлы и публикацию, учётную запись, `code_run` и `projects`.
 Прямые вызовы инструментов нотаций доступны в пресетах ([подключение](mcp.md)):
 
-| Адрес | Инструменты сверх ядра |
-|---|---|
-| `/mcp/p/cad-steps` | `cad_session_open`, `cad_exec`, `cad_inspect`, `cad_view`, `cad_session_save`, `session_list`, `session_close`, `sandbox_builds` |
-| `/mcp/p/cad` | `cad_run`, `cad_recompute`, `sandbox_builds` |
-| `/mcp/p/diagrams` | `plantuml_run`, `structurizr_run`, `render_shapes`, `render_icons`, `render_media`, `render_recipes`, `fonts_list` |
-| `/mcp/p/docs` | документный цикл, как `/mcp/lite` |
-| `/mcp/p/electric` | `qet_run`, `qet_symbols`, `qet_tools`, `qet_call`, `qet_save`, `sandbox_builds` |
-| `/mcp/p/electronics` | `hdl_synth`, `hdl_sim`, `sandbox_builds` |
-| `/mcp/p/graphics` | `comfy_generate`, `blender_run`, `ffmpeg_run`, `hlsl_compile`, `blender_session_open`, `blender_exec`, `blender_inspect`, `blender_view`, `blender_session_save`, `session_list`, `session_close`, `sandbox_builds`, `image_view` |
-| `/mcp/p/jobs` | `job_status`, `job_cancel`, `image_view` |
-| `/mcp/p/modelica` | `modelica_run`, `modelica_session_open`, `modelica_simulate`, `modelica_session_save`, `session_list`, `session_close`, `sandbox_builds` |
-| `/mcp/p/projects` | `project_read`, `project_search` (при включении), `project_write`, `project_import`, `project_git_import`, `project_hide`, `project_members`, `invitations`, `project_admin` |
-| `/mcp/p/proofs` | `lean_check`, `lean_session_open`, `lean_session_command`, `lean_session_tactic`, `lean_session_goals`, `lean_session_close`, `lean_session_save`, `sandbox_builds` |
-| `/mcp/p/quantum` | `quantum_run`, `sandbox_builds` |
+Точный состав начальных каталогов — [генерируемая таблица профилей и пресетов](public-catalog.md#профили-и-пресеты).
 
 Нужный инструмент можно добавить через `tools({add:"session_call"})` в MCP-сессию либо вызвать
 через Code Mode (`/mcp/code`, `code_run`), если он разрешён из кода. `session_call` и `search`
@@ -59,6 +46,15 @@ REST-каталог и `/api/v1/openapi.json` описывают все REST-и�
 | `render_shapes` | готовые анатомические контуры и карты для диаграмм ECharts | названия карт и их частей, автор и лицензия |
 | `render_media` | картинки, которые можно вставить в документ | список с автором, лицензией и строкой для вставки |
 
+<!-- public-entity tool:render_block_docs -->
+<!-- public-entity tool:render_blocks -->
+<!-- public-entity tool:render_examples -->
+<!-- public-entity tool:render_icons -->
+<!-- public-entity tool:render_media -->
+<!-- public-entity tool:render_recipes -->
+<!-- public-entity tool:render_shapes -->
+<!-- public-entity tool:spiridus_feedback -->
+
 ## Проверка
 
 | Инструмент | Зачем | Что в ответе |
@@ -73,6 +69,11 @@ REST-каталог и `/api/v1/openapi.json` описывают все REST-и�
 Документ передаётся целиком, одной строкой, в поле `markdown`. Можно проверить и поведение живых блоков:
 нажать кнопку, щёлкнуть по входу схемы — и посмотреть, что изменилось ([сценарии и статьи проектов](check.md)).
 
+<!-- public-entity tool:lint_check -->
+<!-- public-entity tool:render_check -->
+<!-- public-entity tool:lean_check -->
+
+
 ## Рисование на сервере
 
 `comfy_generate` (пресет graphics, нотация comfy) явно создаёт PNG по шаблону SDXL/FLUX
@@ -84,6 +85,13 @@ REST-каталог и `/api/v1/openapi.json` описывают все REST-и�
 и английский текст выбранной моделью и голосом, возвращает аудио и разметку фраз
 для сохранения набором ресурсов проекта. Читатель только проигрывает готовую запись.
 Синтаксис и лицензии моделей — `render_block_docs tts`; для закрытого текста обязателен `project`.
+
+Офлайн-прототип `cloud` выключен профилем установки. `cloud_plan` (цена/квоты),
+`cloud_apply` (создание), `cloud_check` (именованные проверки) и `cloud_destroy`
+(полная уборка) пока возвращают отказ: подключение облака — следующий выпуск.
+Даже явное включение профиля не создаёт ресурсы. Формат spec/state и офлайн-договор
+описаны в `render_block_docs cloud` при включённом профиле; live-действия требуют
+актуального владельца и отдельного разрешения проекта, Code Mode закрыт.
 
 Эти блоки собираются на сервере, потому что для них нужна полноценная программа. Ответ — рисунок или
 результат расчёта и готовая строка, которую вставляют в блок документа. Одинаковый запрос второй раз
@@ -128,8 +136,27 @@ REST-каталог и `/api/v1/openapi.json` описывают все REST-и�
 явно в `blender_run`; помощник `render()` использует CUDA, `params.gpu_backend`
 может выбрать `OPTIX`. Список доступных образов — `sandbox_builds`.
 
-
 Долгие (секунды–минуты) удобнее звать асинхронно — [api.md](api.md#асинхронные-вызовы).
+
+<!-- public-entity tool:blender_run -->
+<!-- public-entity tool:cad_recompute -->
+<!-- public-entity tool:cad_run -->
+<!-- public-entity tool:comfy_generate -->
+<!-- public-entity tool:ffmpeg_run -->
+<!-- public-entity tool:hdl_sim -->
+<!-- public-entity tool:hdl_synth -->
+<!-- public-entity tool:hlsl_compile -->
+<!-- public-entity tool:modelica_run -->
+<!-- public-entity tool:plantuml_run -->
+<!-- public-entity tool:qet_call -->
+<!-- public-entity tool:qet_run -->
+<!-- public-entity tool:qet_save -->
+<!-- public-entity tool:qet_symbols -->
+<!-- public-entity tool:qet_tools -->
+<!-- public-entity tool:quantum_run -->
+<!-- public-entity tool:structurizr_run -->
+<!-- public-entity tool:text_parse -->
+<!-- public-entity tool:tts_run -->
 
 ## Сценарии (Code Mode)
 
@@ -138,6 +165,9 @@ REST-каталог и `/api/v1/openapi.json` описывают все REST-и�
 | `search` | только `/mcp/code`: `{}` — пространства имён, `{query, ns?, limit?}` — поиск, `{describe: [имена]}` — до восьми сигнатур | `structuredContent` с совпадениями или сигнатурами и примерами; большой текст явно усечён |
 | `execute` | то же, что `code_run`, под коротким именем профиля `/mcp/code`; в коде доступны `tools.search`, `tools.describe` и выборочное `tools.read` | только явно возвращённый итог и обрезанный лог; промежуточные ответы больше 16 КиБ — через `private:` владельца или затронутого проекта; для браузера — [временная подпись](code.md#выборочное-чтение-больших-ответов) |
 | `code_run` | связать несколько вызовов кодом на JavaScript или Python: построить деталь → проверить объём → пересчитать → проверить документ; посчитать по результату (numpy, scipy, sympy, pandas) — без промежуточных ответов в контексте модели ([code.md](code.md)) | `value` — то, что вернул `return`, и последние строки лога |
+
+<!-- public-entity tool:code_run -->
+<!-- public-entity tool:search -->
 
 ## Долгие сеансы
 
@@ -158,6 +188,31 @@ REST-каталог и `/api/v1/openapi.json` описывают все REST-и�
 который открывается через `session_open {from}`. Blender/Modelica — сборки `next`;
 [сборки и способ восстановления](contracts.md#пакеты-сеансов),
 [предметные команды](sessions.md#выбрать-ядро).
+
+<!-- public-entity tool:blender_exec -->
+<!-- public-entity tool:blender_inspect -->
+<!-- public-entity tool:blender_session_open -->
+<!-- public-entity tool:blender_session_save -->
+<!-- public-entity tool:blender_view -->
+<!-- public-entity tool:cad_exec -->
+<!-- public-entity tool:cad_inspect -->
+<!-- public-entity tool:cad_session_open -->
+<!-- public-entity tool:cad_session_save -->
+<!-- public-entity tool:cad_view -->
+<!-- public-entity tool:lean_session_close -->
+<!-- public-entity tool:lean_session_command -->
+<!-- public-entity tool:lean_session_goals -->
+<!-- public-entity tool:lean_session_open -->
+<!-- public-entity tool:lean_session_save -->
+<!-- public-entity tool:lean_session_tactic -->
+<!-- public-entity tool:modelica_session_open -->
+<!-- public-entity tool:modelica_session_save -->
+<!-- public-entity tool:modelica_simulate -->
+<!-- public-entity tool:session_call -->
+<!-- public-entity tool:session_close -->
+<!-- public-entity tool:session_list -->
+<!-- public-entity tool:session_open -->
+<!-- public-entity tool:session_save -->
 
 ## Свои файлы
 
@@ -192,6 +247,12 @@ QET принимает `upload:…/My circuit.qet` в `qet_run` (`qet_project` �
 `blender_session_open`, `cad_session_open`, `lean_session_open`, `modelica_session_open`)
 по-прежнему принимают только `upload:…/session.json`, выданный сохранением сеанса.
 
+<!-- public-entity tool:files_delete -->
+<!-- public-entity tool:files_list -->
+<!-- public-entity tool:files_publish -->
+<!-- public-entity tool:files_unpublish -->
+<!-- public-entity tool:files_upload -->
+
 ## Поделиться документом
 
 | Инструмент | Зачем | Что в ответе |
@@ -203,7 +264,23 @@ QET принимает `upload:…/My circuit.qet` в `qet_run` (`qet_project` �
 
 Подробнее — [api.md](api.md#поделиться-документом).
 
+<!-- public-entity tool:document_delete -->
+<!-- public-entity tool:document_share -->
+<!-- public-entity tool:documents_catalog -->
+<!-- public-entity tool:documents_list -->
+
 ## Проекты
+
+`project_stats` — дневные агрегаты публичного сайта без идентификаторов читателей:
+`project`, `action:"read"`, необязательные `from`/`to` (дни UTC последних 90 дней),
+`offset` и `limit` 1–1000 (по умолчанию 500). Ответ: `days` со статьёй, днём,
+битом `robot` и числом запросов, `siteOpens` за весь период, `rowCount`, `nextOffset`.
+Детализация — только текущему владельцу проекта, с повторной проверкой роли.
+`action:"settings", enabled:true|false` — выключатель просмотров своего проекта;
+по умолчанию сбор выключен. Общий флаг задаёт оператор. При выключении история
+остаётся до срока, стирание статьи/проекта по 0049 удаляет её вклад и отчёты.
+`action:"collect", project:"stat"` — только настроенному `stat-bot`: дневной
+сборщик и обновление закрытых системных отчётов. Из Code Mode инструмент недоступен.
 
 [Модель, матрица ролей, приглашения и конфликт записи](projects.md). `rename` доступен owner/admin;
 `transfer`, `cancel_transfer`, `delete`, `cancel_delete`, `erase`, `delete_versions` — только owner;
@@ -221,15 +298,17 @@ REST-обёртка возвращает HTTP 422. Недоступность �
 | Инструмент | Зачем | Что в ответе |
 |---|---|---|
 | `projects` | свои проекты с ролями, ожидающие приглашения и передачи владения; `action: "create"` — новый проект со `slug` и `title` (нужно право создавать проекты от владельца системы, до 10 своих проектов) | списки `projects`, `invitations`, `transfers` или созданный проект |
+| `project_suggestions` | при включении: список CriticMarkup, принять/отклонить одно или все, отозвать своё; `finalize` завершает правки. Editor+, `path`, `base`, для одного `start/end/raw`; [подробнее](projects.md#предложения-и-чистая-выгрузка) | `suggestions`, `commit`; финализация одним коммитом, `unchanged` без разницы |
+| `project_comments` | при включении: `list` по статье/проекту и `status`; `add`, `reply`, `resolve`/`reopen`; запись с `path`, `base`; цитата `anchor` или `line`, ответ по `id` либо `source` ручной пометки. Reader читает, editor+ пишет, без гостей/публичного сайта/Code Mode; [подробнее](projects.md#комментарии-к-выделенному-тексту) | `comments`, `count`, `truncated`, `commit`; запись — комментарий и commit; `project_read` головы сообщает `openComments` |
 | `project_search` | при включении оператором: `project`, `query`, только `scope:self`, `mode:text`; видимые статьи/кодовые блоки головы main, reader+ и ключ `docs`, без гостей/истории/Code Mode. `pathPrefix`, `kind`, `limit` 1–20; [подробнее](projects.md#поиск-по-своему-проекту) | `hits` с точными `excerpt`, `locator`, commit, `citationRef` и `untrusted:true`; версии/поколение индекса и `coverage` с пропусками; без запросов/цитат/task в журнале |
 | `project_read` | дерево (`op: "tree"`, ресурсы — `resource: true`), статья или ресурс (`"read"`, `path`), раздел/блок статьи (`"read"`, `path`, `fragment`), исходящие и обратные ссылки (`"links"`, `path`, только голова), история (`"history"`) или версии ресурса (`"versions"`, `path`); `version` — старая версия, читателю — только голова `main` | `commit` — `base` для записи, `files`, `content` или `commits` с текущими никами; у статьи — `url`, при чтении фрагмента — `heading`/`block`, `method`, `warnings`; у links — `links`, `backlinks`, `dangling`, `count`, `truncated`, `warnings`; у ресурса — `url` (подписанная ссылка, не дольше 15 минут, не отзывается; из Code Mode её нет), `size`, `type`, `version` |
 | `project_write` | один коммит: `put` — `files [{path, content}]` или один ресурс `{path, base64}` / `{path, ref}` (до 12 000 000 байт; `ref` — своя загрузка `upload:`, своя публикация `artifact:` из `files_publish` или `private:` результата этого проекта при праве чтения его версии и правах ключа из метки результата; личный `private:` и результат другого проекта — отказ), `move` — `from` → `to` (ссылки статей на перемещаемый путь правятся тем же коммитом; у статьи её ссылки пересчитываются от нового места), `restore` — `paths` статей из `version` (до 50), `delete` — один ресурс в `paths` (на него не должны ссылаться статьи), `copy` — ресурс `from` из проекта `source` (по умолчанию этот) и `version` в `to`; `base` обязателен; после него изменились пути записи или исчезли цели ссылок статьи (перемещены, скрыты, удалены) — 409 с текущим `commit`, прежним `base`, `reason` и `paths`: перечитать и слить правки. Правка содержимого цели не мешает. Новый путь, неотличимый на вид от существующего (`сах.md` кириллицей рядом с `cax.md`), — 409 | `commit`, `base`, автор, `url`, `urls` по путям; у put — `warnings` о пропавших якорях и смене цели; `articles` — статьи, где поправлены или мешают ссылки |
 | `project_import` | последняя версия своего `/d/<id>` в новую статью: `project`, `id`, `path` (`.md`); один коммит от тени вызывающего, занятый путь — 409. Любой публичный `artifact:` из своего `/d`, включая файл другого автора, копируется ресурсом `media/<имя>` (у `project_write put` — только свой `artifact:` из `files_publish`) (при совпадении — суффикс), ссылки переписываются относительно статьи; `/d` не меняется. Разрешён из Code Mode | `commit`, `base`, `path`, `url`, `urls`, `files` (пути и размеры), `unavailable` (`{ref, reason}`: ссылки, оставленные в тексте) |
-| `project_git_import` | настройка git-источника (`configure`: url, branch, subdir; пустая subdir — явно корень), своего read-only токена (`token`), отзыв (`revoke`), закрытый план без записи (`plan`, `read_plan`). Editor+, docs и files; из Code Mode закрыт. Требует включения владельцем установки. Неподтверждённые права отклоняются; сейчас поддержан проверяемый project access token GitLab, GitHub PAT получает отказ | настройка без секрета (`settings`), поколения, source commit, base, операции и блокеры; `applicable:false`, применение ещё недоступно |
+| `project_git_import` | ручной импорт Git: `configure` (url, branch, subdir, mode: public для публичного GitHub без токена или token для GitLab), `token`, `public_access`, `revoke`, закрытые `plan`/`read_plan`, `select`, отдельные `apply`/`reconcile`/`cancel`. Editor+, docs и files; из Code Mode закрыт; требует включения владельцем установки. GitHub PAT запрещён | настройки без секрета, source commit, base, версия, операции, предупреждения и блокеры; `apply` пишет статьи и ресурсы одним коммитом, повтор возвращает тот же commit; локальные правки блокируют весь план |
 | `project_hide` | убрать статьи из `main` (`base`, `paths`); в истории остаются, вернуть — `restore` | `commit`, `brokenLinks` (группы входящих из оставшихся статей; скрытие не блокируют) |
 | `project_members` | участники и роли; `role`, `remove` — админ и владелец (админов назначает только владелец); `leave` — выйти; `journal` — приглашения, роли, передачи | `members` или `events` |
 | `invitations` | свои приглашения: `list`, `accept`, `decline` по `id`; с `project` — приглашения проекта, `invite` по email с ролью, `revoke`. Письмо одно и то же, есть ли такой адрес | список или `status` |
-| `project_publish` | при `PUBLIC_SITES_ENABLED`: admin/owner; `publish/update` (`path`, необязательная `version`), `unpublish`, `settings` (`name`, `mode:all|link`, `expires` ISO/null), `rotate`, `status`; [публичный сайт](projects.md#публичный-сайт-проекта) | закреплённые коммиты и `behind`; при rotate новая ссылка один раз, в status токена нет |
+| `project_publish` | за `PUBLIC_SITES_ENABLED`: admin/owner; `visibility` с `base` — inherit/private/public и access all\|link; `status` — источник наследования и состояние снимка; `plan` — полный состав; `publish/update/unpublish` подтверждают id плана; `rotate/revoke` — отдельные source/generation; `settings` — имя сайта; [подробнее](projects.md#публичный-сайт-проекта) | новые статьи папки входят при update по плану; версии снаружи сохраняются; снятие не меняет YAML; токен возвращается один раз. Миграция прежних сайтов и включение production — отдельно |
 | `project_admin` | `rename`, передача владения (`transfer`, `cancel_transfer`, `accept_transfer`), `delete` и `cancel_delete`, `erase` (стереть `paths` со всей историей), `delete_versions` (старая версия ресурса: `path`, `version`; только владелец); в `confirm` — slug проекта, без него ничего не меняется | итог действия |
 
 При включённом администратором гостевом просмотре владелец/админ также использует
@@ -240,7 +319,6 @@ REST-обёртка возвращает HTTP 422. Недоступность �
 но нет доступа к MCP, записи, истории, загрузкам и пересчёту. Ссылка должна передаваться
 только адресату; её получение даёт чтение до срока/отзыва. Готовые подписанные ссылки на
 ресурсы могут действовать ещё до 15 минут после отзыва.
-
 
 При устаревшем `base` `structuredContent.error` (MCP) / `data.error` (REST) содержит
 `code: 409`, `message`, текущий `commit`, прежний `base`, `reason`. Для `paths-changed`
@@ -286,6 +364,33 @@ Front matter, `%%` и код не участвуют в навигации; не
 503, статьи работают. Журнал вызовов проектов —
 только служебные поля ([data.md](data.md#журнал-вызовов-и-проекты)).
 
+В справке `project_write` независимо включаются два раздела. При `PROJECT_THEMES_ENABLED=1`
+темы `spiridus/theme.json` и `spiridus/theme.public.json` записываются как JSON в корне или папке;
+каркас `/p/` и публичного читателя подготовлен за тем же выключенным флагом: фиксированные
+шапка, оглавление, статья и подвал, светлая/тёмная палитры; системные действия сохраняют
+своё оформление. Публичный каркас пока использует только встроенную тему: закрепление
+публичной темы, редактор и включение ещё не реализованы. Это не изменение production;
+`convert-theme` явно преобразует прежние ресурсы после проверки их байтов. При `PROJECTS_SHARED=1`
+новые ссылки `project:<slug>/<путь>` закрепляются в `@sha256`, входной `@commit` нормализуется
+в хеш ресурса, а `?update=auto` следует последней разрешённой версии. Отзыв метки источника
+и стирание закрывают обе формы. Общие ресурсы — возможность за флагом, по умолчанию он выключен;
+этот раздел справки не означает включение возможности в production.
+
+<!-- public-entity tool:invitations -->
+<!-- public-entity tool:project_admin -->
+<!-- public-entity tool:project_comments -->
+<!-- public-entity tool:project_git_import -->
+<!-- public-entity tool:project_hide -->
+<!-- public-entity tool:project_import -->
+<!-- public-entity tool:project_members -->
+<!-- public-entity tool:project_publish -->
+<!-- public-entity tool:project_read -->
+<!-- public-entity tool:project_search -->
+<!-- public-entity tool:project_stats -->
+<!-- public-entity tool:project_suggestions -->
+<!-- public-entity tool:project_write -->
+<!-- public-entity tool:projects -->
+
 ## Сборки песочниц: версии программ
 
 Всё, что считает сервер, — в **сборке**: версия программы с набором модулей. У программы может быть
@@ -312,6 +417,9 @@ curl -sS https://v2.spiridus.ru/api/v1/tools/sandbox_builds \
 `build:` и дальше считается в своей сборке, пока она не отключена; об устаревшей сборке ответ
 предупреждает заранее, с датой.
 
+<!-- public-entity tool:fonts_list -->
+<!-- public-entity tool:sandbox_builds -->
+
 ## Для чатов: укороченное описание
 
 Модели в чате (Open WebUI и т. п.) проще выбирать из меньшего числа операций. Для них —
@@ -334,3 +442,133 @@ MCP prompt `diagram_review` — готовая инструкция для ци�
 Один браузер обслуживает пакет одного вызова и владельца; каждому документу даётся новый
 изолированный контекст. Ответ: `documents` в исходном порядке и `summary`; ошибка документа
 не останавливает соседей. Пределы, квота и кеш — [пакет документов](check.md#пакет-документов).
+
+### `project_datasource`
+
+Пилот локальных источников проекта за `DATASOURCE_PILOT=1`: SQLite и JSONL,
+именованные/прямые запросы по матрице ролей, снимки обычными ресурсами.
+`DATASOURCE_REST=1` добавляет REST через отдельную службу: allowlist оператора,
+проектный write-only ключ, именованные запросы, пагинация, кеш, снимок JSONL.zst.
+Параметры, пределы и пример USDA — [источники данных](datasources.md).
+
+<!-- public-entity tool:project_datasource -->
+
+### source_*
+
+Единые источники проекта — только при включении оператором, пресет `/mcp/p/sources`:
+`source_catalog` (источники и действия вашей роли), `source_describe`, `source_browse`
+(папки снимка головы main с `cursor`), `source_read` (до 50 статей одного снимка),
+`source_search` и `source_cite` (тот же поиск, что `project_search`, и проверка цитаты),
+`source_query` и `source_snapshot` (тот же пилот, что `project_datasource`), `source_write`
+(для проекта — тот же `project_write`), `source_attach` и `source_manage`. Прежние имена
+работают с прежним контрактом. `source_cache` управляет свежестью, прогревом и вытеснением
+кеша. Code Mode, гостям и публичному сайту группа недоступна; ключу нужен scope `docs`.
+
+При включённом хранении каталог также показывает сохранённые Source и их
+`storageMode`, `revision`, `pin`. `source_attach connect` с `storageMode`, `name`,
+`type`, `path` (существующий anchor проекта), точной `scope`, `license` и
+`acknowledge:true` создаёт подключение. `license` содержит `copy` и `termsHash`
+(SHA-256 принятых условий); это утверждение подключающего, а не проверка лицензии платформой.
+Без `storageMode` подключается прежний файловый пилот SQLite/JSONL.
+
+`source_cache warm` принимает ожидаемые `objects:[{path,oid,size}]` (SHA-256/байты).
+Платформа получает их только из ресурсов своего проекта, без URL, ключей и команд
+из аргументов. HTTP/git-коннекторы поставляются отдельно. `status` показывает свежесть,
+`evict` удаляет кеш (по умолчанию только просроченный; `expiredOnly:false` — весь).
+Управление требует admin+ по матрице и текущую `revision` из описания; чужая ревизия — 409.
+
+`source_snapshot materialize` фиксирует выбранные `paths` (либо `objects`, либо всю
+`scope`) новым pin; пропуски перечислены в снимке. External требует явного копирования
+и разрешающей лицензии. `refresh` допустим для полного mirrored: создаёт новую версию,
+сохраняя прежний pin. `source_manage pin` явно выбирает существующий `snapshotId`
+с `revision` и `expectedPin` (прежний id либо null); устаревший pin даёт 409. Старые снимки и цитаты переживают refresh и вытеснение кеша.
+`source_manage mode` меняет режим с ожидаемой ревизией; `policy` меняет матрицу,
+сохраняя остальные настройки. `source_attach detach` требует ревизию сохранённого Source.
+Hosted-write сохранённых Source — отдельный шаг 9 и отвечает 501; запись ProjectSource
+продолжает вызывать прежний `project_write`.
+
+`source_read` читает до 50 текстовых объектов закреплённого снимка; `snapshotId`
+выбирает разрешённый снимок (reader — текущий pin или снимок цитаты).
+Бинарный объект помечается `binary`, слишком большой — `too-large`, без подписанной ссылки.
+`source_browse` перечисляет Manifest с пагинацией. `source_cite` для сохранённых байтов:
+`citationRef:{kind:"source",sourceId,snapshotId,path,oid,locator:{utf16Start,utf16End}}`;
+цитата ограничена 2000 знаками UTF-16 и содержит происхождение/лицензию.
+Для external без копии передаются `upstreamVersion` и `observedAt`: текущая версия
+проверяется, изменение даёт 409 без подстановки текста.
+Поиск и запросы остаются доступны тем источникам, у которых есть соответствующий обработчик;
+новое подключение сохранённых объектов само по себе не включает индекс или query.
+
+На странице проекта ссылка «Источники проекта» открывает `/p/<slug>/?sources=`;
+`sourceId`, `path`, `snapshotId` и JSON `citation` передаются query-параметрами.
+Данные читаются через GET `/api/v1/projects/<slug>/sources[/<sourceId>]` теми же
+обработчиками каталога/обзора/чтения/цитат. Открытие не выполняет query или прогрев;
+схема файлового пилота показывается без исполнения. Ответы `private, no-store`.
+Статьи с путём `sources/…` продолжают открываться по прежним адресам.
+
+Пример последовательности MCP/REST (технические значения берутся из реальных ответов):
+
+```json
+{"tool":"source_cache","args":{"project":"atlas","sourceId":"<из каталога>","action":"status","revision":1}}
+```
+
+```json
+{"tool":"source_snapshot","args":{"project":"atlas","sourceId":"<из каталога>","kind":"materialize","revision":1}}
+```
+
+Во втором примере кеш уже прогрет; снимок создаётся только из проверенных свежих байтов.
+
+<!-- public-entity tool:source_catalog -->
+<!-- public-entity tool:source_describe -->
+<!-- public-entity tool:source_browse -->
+<!-- public-entity tool:source_read -->
+<!-- public-entity tool:source_search -->
+<!-- public-entity tool:source_cite -->
+<!-- public-entity tool:source_query -->
+<!-- public-entity tool:source_snapshot -->
+<!-- public-entity tool:source_write -->
+<!-- public-entity tool:source_attach -->
+<!-- public-entity tool:source_manage -->
+<!-- public-entity tool:source_cache -->
+
+## Учётная запись и ключи
+
+`account_register` отправляет письмо подтверждения с обязательными email и nickname.
+Ключ получает человек на странице подтверждения. `account_delete` удаляет свою учётную запись
+только по явной просьбе человека, с подтверждением почты и основным ключом.
+
+`keys_list` показывает свои ключи без секретов: имя, начало, права, срок и последнее использование;
+`current` отмечает ключ клиента. Чужие `lastIp` видны только основным ключом.
+`key_revoke` отзывает свой ключ по `which`: id из списка, `others` или `all`.
+Узкий ключ может отозвать только себя; остальные варианты требуют основного ключа.
+Отзыв действует сразу, включая открытые этим ключом сеансы ядер. Новый ключ создаёт человек
+на странице ключей. Подробности — [ключи](api.md#ключи).
+
+<!-- public-entity tool:account_delete -->
+<!-- public-entity tool:account_register -->
+<!-- public-entity tool:key_revoke -->
+<!-- public-entity tool:keys_list -->
+
+## Фоновые задания
+
+`job_status` получает состояние и результат своего задания; `wait` позволяет подождать завершения.
+Инструмент включён в пресеты `projects` и `jobs`: квитанцию пакетного `render_check`
+можно опросить в том же разговоре. При отказе проверки до первой статьи статус
+показывает подготовленную службой причину; неизвестные исключения проекта скрыты.
+`job_cancel` отменяет своё фоновое задание. Повторный запрос состояния не запускает расчёт заново.
+`image_view` показывает изображение из доступного результата, чтобы проверить его перед вставкой
+в документ. Все операции проверяют владельца и права ключа. Подробности —
+[асинхронные вызовы](api.md#асинхронные-вызовы) и [фоновые задания MCP](mcp.md#фоновые-задания).
+
+<!-- public-entity tool:image_view -->
+<!-- public-entity tool:job_cancel -->
+<!-- public-entity tool:job_status -->
+
+## Набор инструментов MCP
+
+`tools` управляет набором текущего разговора: `list` показывает пресеты, `use` подключает
+готовый набор, `add` и `remove` меняют отдельные инструменты, `current` показывает подключённые.
+`save`, `delete` и `default` управляют своими сохранёнными наборами. Инструмент доступен через
+MCP; в REST его нет. Клиент обновляет каталог после уведомления о смене списка.
+Подробности — [набор инструментов в разговоре](mcp.md#набор-инструментов-в-разговоре).
+
+<!-- public-entity tool:tools -->

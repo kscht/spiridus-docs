@@ -10,6 +10,7 @@
 | [00-overview.md](00-overview.md) | Обзор: всё вместе |
 | [01-tikz.md](01-tikz.md) | TikZ: рисунки на настоящем TeX |
 | [02-echarts.md](02-echarts.md) | ECharts: диаграммы |
+| [03-shapes-maps.md](03-shapes-maps.md) | Контуры и карты |
 | [04-chemistry.md](04-chemistry.md) | Химия: формулы и молекулы |
 | [05-music.md](05-music.md) | Ноты |
 | [06-razbor.md](06-razbor.md) | Разбор слова и предложения |
@@ -27,6 +28,7 @@
 | [18-primary-school.md](18-primary-school.md) | Начальная школа: 1–4 класс |
 | [19-math.md](19-math.md) | Математика: 5–11 класс |
 | [20-physics.md](20-physics.md) | Физика и астрономия: 7–11 класс |
+| [21-chem-bio.md](21-chem-bio.md) | Химия и биология: 5–11 класс |
 | [22-geo-history.md](22-geo-history.md) | География, история, обществознание: 5–11 класс |
 | [23-informatics.md](23-informatics.md) | Информатика: 7–11 класс |
 | [24-languages.md](24-languages.md) | Русский язык, литература, английский: 5–11 класс |
@@ -56,3 +58,5 @@
 | [61-argdown.md](61-argdown.md) | Карты аргументации |
 | [62-lean.md](62-lean.md) | Доказательства Lean 4 и Mathlib |
 | [63-lean-widgets.md](63-lean-widgets.md) | Lean: виджеты ProofWidgets и Penrose |
+| [64-markdown-alerts.md](64-markdown-alerts.md) | Плашки Markdown |
+| [constructions-basic.md](constructions-basic.md) | Построения циркулем и линейкой |

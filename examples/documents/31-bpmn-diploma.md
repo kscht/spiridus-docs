@@ -5,11 +5,10 @@
 
 Шуточный процесс: один пул «Выбор темы диплома» и четыре дорожки — студент, чат @ntwrk, научный
 руководитель-собачник и вуз. Цвета дорожек и подписи заданы в схеме `bpmndi`: вопрос шлюза
-вынесен в подписи ветвей. Дорожки идут одна под другой, внутри шаги расположены вертикально;
-подписи событий стоят сбоку от потока, длинные переходы обходят дорожки справа.
+вынесен в подписи ветвей. Дорожки идут одна под другой, шаги — слева направо. Явный ромб перед одобрением
+сливает альтернативные ветки. Готовые координаты сохранены режимом `di=exact`.
 
-```bpmn
-<?xml version="1.0" encoding="UTF-8"?>
+```bpmn di=exact
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Defs_diploma" targetNamespace="spiridus">
   <collaboration id="Collab_diploma">
     <participant id="P_diploma" name="Выбор темы диплома" processRef="Proc_diploma" />
@@ -31,6 +30,7 @@
         <flowNodeRef>t4</flowNodeRef>
         <flowNodeRef>g</flowNodeRef>
         <flowNodeRef>t5</flowNodeRef>
+        <flowNodeRef>Join_approval</flowNodeRef>
         <flowNodeRef>t8</flowNodeRef>
       </lane>
       <lane id="L_uni" name="Вуз">
@@ -46,6 +46,7 @@
     <task id="t5" name="Рассказать про своего корги 40 минут" />
     <task id="t6" name="Добавить в тему собак" />
     <task id="t7" name="Ответить «норм, но есть нюанс»" />
+    <exclusiveGateway id="Join_approval" />
     <task id="t8" name="Одобрить с улыбкой" />
     <task id="t9" name="Утвердить приказом через полгода" />
     <endEvent id="e" name="Тема: «Мониторинг сети собачьих приютов на EVPN»" />
@@ -55,141 +56,158 @@
     <sequenceFlow id="F_t3_t4" sourceRef="t3" targetRef="t4" />
     <sequenceFlow id="F_t4_g" sourceRef="t4" targetRef="g" />
     <sequenceFlow id="F_g_t5" sourceRef="g" targetRef="t5" name="собак нет" />
-    <sequenceFlow id="F_g_t8" sourceRef="g" targetRef="t8" name="про собак" />
+    <sequenceFlow id="F_g_t8" sourceRef="g" targetRef="Join_approval" name="про собак" />
     <sequenceFlow id="F_t5_t6" sourceRef="t5" targetRef="t6" />
     <sequenceFlow id="F_t6_t7" sourceRef="t6" targetRef="t7" />
-    <sequenceFlow id="F_t7_t8" sourceRef="t7" targetRef="t8" />
+    <sequenceFlow id="F_t7_t8" sourceRef="t7" targetRef="Join_approval" />
+    <sequenceFlow id="F_join_t8" sourceRef="Join_approval" targetRef="t8" />
     <sequenceFlow id="F_t8_t9" sourceRef="t8" targetRef="t9" />
     <sequenceFlow id="F_t9_e" sourceRef="t9" targetRef="e" />
   </process>
   <bpmndi:BPMNDiagram id="Diagram_Defs_diploma">
     <bpmndi:BPMNPlane id="Plane_Defs_diploma" bpmnElement="Collab_diploma">
       <bpmndi:BPMNShape id="Shape_P_diploma" bpmnElement="P_diploma" isHorizontal="true">
-        <dc:Bounds x="20" y="20" width="290" height="2048" />
+        <dc:Bounds x="40" y="80" width="3800" height="1280" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_L_st" bpmnElement="L_st" bioc:fill="#dbe9ff" bioc:stroke="#2f6fde" color:background-color="#dbe9ff" color:border-color="#2f6fde" isHorizontal="true">
-        <dc:Bounds x="50" y="20" width="260" height="807" />
+        <dc:Bounds x="100" y="80" width="3740" height="320" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_L_chat" bpmnElement="L_chat" bioc:fill="#efe3ff" bioc:stroke="#7b3fbf" color:background-color="#efe3ff" color:border-color="#7b3fbf" isHorizontal="true">
-        <dc:Bounds x="50" y="827" width="260" height="366" />
+        <dc:Bounds x="100" y="400" width="3740" height="320" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_L_sup" bpmnElement="L_sup" bioc:fill="#fff1dc" bioc:stroke="#b45309" color:background-color="#fff1dc" color:border-color="#b45309" isHorizontal="true">
-        <dc:Bounds x="50" y="1193" width="260" height="692" />
+        <dc:Bounds x="100" y="720" width="3740" height="320" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_L_uni" bpmnElement="L_uni" bioc:fill="#dff5e6" bioc:stroke="#2e8b57" color:background-color="#dff5e6" color:border-color="#2e8b57" isHorizontal="true">
-        <dc:Bounds x="50" y="1885" width="260" height="183" />
+        <dc:Bounds x="100" y="1040" width="3740" height="320" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_s" bpmnElement="s" bioc:fill="#e3fcec" bioc:stroke="#1f8f4e" color:background-color="#e3fcec" color:border-color="#1f8f4e">
-        <dc:Bounds x="170.0" y="58" width="36" height="36" />
+        <dc:Bounds x="262" y="182" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="55" y="54" width="100" height="55" />
+          <dc:Bounds x="224.041015625" y="234" width="111.91796875" height="42.0" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_t1" bpmnElement="t1" bioc:fill="#ffffff" bioc:stroke="#2f6fde" color:background-color="#ffffff" color:border-color="#2f6fde">
-        <dc:Bounds x="123.0" y="187" width="130" height="90" />
+        <dc:Bounds x="495" y="155" width="130" height="90" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_t3" bpmnElement="t3" bioc:fill="#ffffff" bioc:stroke="#2f6fde" color:background-color="#ffffff" color:border-color="#2f6fde">
-        <dc:Bounds x="123.0" y="370" width="130" height="90" />
+        <dc:Bounds x="1055" y="155" width="130" height="90" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_t6" bpmnElement="t6" bioc:fill="#ffffff" bioc:stroke="#2f6fde" color:background-color="#ffffff" color:border-color="#2f6fde">
-        <dc:Bounds x="123.0" y="553" width="130" height="90" />
+        <dc:Bounds x="2175" y="155" width="130" height="90" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_e" bpmnElement="e" bioc:fill="#ffe1e1" bioc:stroke="#c0392b" color:background-color="#ffe1e1" color:border-color="#c0392b">
-        <dc:Bounds x="170.0" y="736" width="36" height="36" />
+        <dc:Bounds x="3622" y="182" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="55" y="732" width="100" height="55" />
+          <dc:Bounds x="3587.3017578125" y="234" width="105.396484375" height="96.0" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_t2" bpmnElement="t2" bioc:fill="#ffffff" bioc:stroke="#7b3fbf" color:background-color="#ffffff" color:border-color="#7b3fbf">
-        <dc:Bounds x="123.0" y="865" width="130" height="90" />
+        <dc:Bounds x="775" y="468" width="130" height="112.0" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_t7" bpmnElement="t7" bioc:fill="#ffffff" bioc:stroke="#7b3fbf" color:background-color="#ffffff" color:border-color="#7b3fbf">
-        <dc:Bounds x="123.0" y="1048" width="130" height="90" />
+        <dc:Bounds x="2455" y="475" width="130" height="90" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_t4" bpmnElement="t4" bioc:fill="#ffffff" bioc:stroke="#b45309" color:background-color="#ffffff" color:border-color="#b45309">
-        <dc:Bounds x="123.0" y="1231" width="130" height="90" />
+        <dc:Bounds x="1335" y="795" width="130" height="90" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_g" bpmnElement="g" bioc:fill="#fff3bf" bioc:stroke="#b8860b" color:background-color="#fff3bf" color:border-color="#b8860b">
-        <dc:Bounds x="163.0" y="1414" width="50" height="50" />
+        <dc:Bounds x="1655" y="815" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_t5" bpmnElement="t5" bioc:fill="#ffffff" bioc:stroke="#b45309" color:background-color="#ffffff" color:border-color="#b45309">
-        <dc:Bounds x="123.0" y="1557" width="130" height="90" />
+        <dc:Bounds x="1895" y="795" width="130" height="90" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Join_approval" bpmnElement="Join_approval">
+        <dc:Bounds x="2775" y="815" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Edge_F_join_t8" bpmnElement="F_join_t8">
+        <di:waypoint x="2825" y="840" />
+        <di:waypoint x="3015" y="840" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Shape_t8" bpmnElement="t8" bioc:fill="#ffffff" bioc:stroke="#b45309" color:background-color="#ffffff" color:border-color="#b45309">
-        <dc:Bounds x="123.0" y="1740" width="130" height="90" />
+        <dc:Bounds x="3015" y="795" width="130" height="90" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_t9" bpmnElement="t9" bioc:fill="#ffffff" bioc:stroke="#2e8b57" color:background-color="#ffffff" color:border-color="#2e8b57">
-        <dc:Bounds x="123.0" y="1923" width="130" height="90" />
+        <dc:Bounds x="3295" y="1115" width="130" height="90" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Edge_F_s_t1" bpmnElement="F_s_t1" bioc:stroke="#2f6fde" color:border-color="#2f6fde">
-        <di:waypoint x="188.0" y="94" />
-        <di:waypoint x="188.0" y="187" />
+        <di:waypoint x="298" y="200" />
+        <di:waypoint x="495" y="200" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_F_t1_t2" bpmnElement="F_t1_t2" bioc:stroke="#2f6fde" color:border-color="#2f6fde">
-        <di:waypoint x="253.0" y="232.0" />
-        <di:waypoint x="342" y="232.0" />
-        <di:waypoint x="342" y="910.0" />
-        <di:waypoint x="253.0" y="910.0" />
+        <di:waypoint x="625" y="200" />
+        <di:waypoint x="738" y="200" />
+        <di:waypoint x="738" y="520" />
+        <di:waypoint x="775" y="520" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_F_t2_t3" bpmnElement="F_t2_t3" bioc:stroke="#7b3fbf" color:border-color="#7b3fbf">
-        <di:waypoint x="253.0" y="910.0" />
-        <di:waypoint x="354" y="910.0" />
-        <di:waypoint x="354" y="415.0" />
-        <di:waypoint x="253.0" y="415.0" />
+        <di:waypoint x="905" y="520" />
+        <di:waypoint x="1018" y="520" />
+        <di:waypoint x="1018" y="200" />
+        <di:waypoint x="1055" y="200" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_F_t3_t4" bpmnElement="F_t3_t4" bioc:stroke="#2f6fde" color:border-color="#2f6fde">
-        <di:waypoint x="253.0" y="415.0" />
-        <di:waypoint x="330" y="415.0" />
-        <di:waypoint x="330" y="1276.0" />
-        <di:waypoint x="253.0" y="1276.0" />
+        <di:waypoint x="1185" y="200" />
+        <di:waypoint x="1298" y="200" />
+        <di:waypoint x="1298" y="840" />
+        <di:waypoint x="1335" y="840" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_F_t4_g" bpmnElement="F_t4_g" bioc:stroke="#b45309" color:border-color="#b45309">
-        <di:waypoint x="188.0" y="1321" />
-        <di:waypoint x="188.0" y="1414" />
+        <di:waypoint x="1465" y="840" />
+        <di:waypoint x="1655" y="840" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_F_g_t5" bpmnElement="F_g_t5" bioc:stroke="#b45309" color:border-color="#b45309">
-        <di:waypoint x="188.0" y="1464" />
-        <di:waypoint x="188.0" y="1557" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="218" y="1476.0" width="100" height="30" />
+          <dc:Bounds x="1765.84814453125" y="784" width="72.3037109375" height="24.0" />
         </bpmndi:BPMNLabel>
+        <di:waypoint x="1705" y="840" />
+        <di:waypoint x="1725" y="840" />
+        <di:waypoint x="1725" y="824" />
+        <di:waypoint x="1879" y="824" />
+        <di:waypoint x="1879" y="775" />
+        <di:waypoint x="1960" y="775" />
+        <di:waypoint x="1960" y="795" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_F_g_t8" bpmnElement="F_g_t8" bioc:stroke="#b45309" color:border-color="#b45309">
-        <di:waypoint x="213.0" y="1439.0" />
-        <di:waypoint x="330" y="1439.0" />
-        <di:waypoint x="330" y="1785.0" />
-        <di:waypoint x="253.0" y="1785.0" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="218" y="1510.0" width="100" height="30" />
+          <dc:Bounds x="2203.50634765625" y="861" width="72.9873046875" height="24.0" />
         </bpmndi:BPMNLabel>
+        <di:waypoint x="1705" y="840" />
+        <di:waypoint x="1725" y="840" />
+        <di:waypoint x="1725" y="901" />
+        <di:waypoint x="2755" y="901" />
+        <di:waypoint x="2755" y="840" />
+        <di:waypoint x="2775" y="840" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_F_t5_t6" bpmnElement="F_t5_t6" bioc:stroke="#b45309" color:border-color="#b45309">
-        <di:waypoint x="253.0" y="1602.0" />
-        <di:waypoint x="342" y="1602.0" />
-        <di:waypoint x="342" y="598.0" />
-        <di:waypoint x="253.0" y="598.0" />
+        <di:waypoint x="2025" y="840" />
+        <di:waypoint x="2138" y="840" />
+        <di:waypoint x="2138" y="200" />
+        <di:waypoint x="2175" y="200" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_F_t6_t7" bpmnElement="F_t6_t7" bioc:stroke="#2f6fde" color:border-color="#2f6fde">
-        <di:waypoint x="253.0" y="598.0" />
-        <di:waypoint x="354" y="598.0" />
-        <di:waypoint x="354" y="1093.0" />
-        <di:waypoint x="253.0" y="1093.0" />
+        <di:waypoint x="2305" y="200" />
+        <di:waypoint x="2418" y="200" />
+        <di:waypoint x="2418" y="520" />
+        <di:waypoint x="2455" y="520" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_F_t7_t8" bpmnElement="F_t7_t8" bioc:stroke="#7b3fbf" color:border-color="#7b3fbf">
-        <di:waypoint x="253.0" y="1093.0" />
-        <di:waypoint x="330" y="1093.0" />
-        <di:waypoint x="330" y="1785.0" />
-        <di:waypoint x="253.0" y="1785.0" />
+        <di:waypoint x="2585" y="520" />
+        <di:waypoint x="2698" y="520" />
+        <di:waypoint x="2698" y="840" />
+        <di:waypoint x="2775" y="840" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_F_t8_t9" bpmnElement="F_t8_t9" bioc:stroke="#b45309" color:border-color="#b45309">
-        <di:waypoint x="188.0" y="1830" />
-        <di:waypoint x="188.0" y="1923" />
+        <di:waypoint x="3145" y="840" />
+        <di:waypoint x="3258" y="840" />
+        <di:waypoint x="3258" y="1160" />
+        <di:waypoint x="3295" y="1160" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_F_t9_e" bpmnElement="F_t9_e" bioc:stroke="#2e8b57" color:border-color="#2e8b57">
-        <di:waypoint x="253.0" y="1968.0" />
-        <di:waypoint x="354" y="1968.0" />
-        <di:waypoint x="354" y="754.0" />
-        <di:waypoint x="206.0" y="754.0" />
+        <di:waypoint x="3425" y="1160" />
+        <di:waypoint x="3538" y="1160" />
+        <di:waypoint x="3538" y="200" />
+        <di:waypoint x="3622" y="200" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

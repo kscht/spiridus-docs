@@ -2,13 +2,18 @@
 
 # tts — сохранённая синтезированная речь
 
+Вариант без версии задаётся атрибутом строки ограждения `variant=<имя>` или аргументом MCP `variant`.
+Допустимо: `chatterbox`, `mms`, `piper`, `qwen`, `silero`, `xtts`, `yandex`. По умолчанию — `qwen`.
+Выбирается последняя не deprecated сборка варианта; точный `build` имеет приоритет.
+Старую строку `build:` уберите, если переходите на `variant=`.
+
 Автор явно вызывает `tts_run`, затем передаёт возвращённый блок в `project_write` вместе
 с контекстом проекта. Читатель получает готовое аудио: Play/Pause, перемотку, текст,
 подсветку фразы и локальную скорость 0,5–2×. Автозапуска и синтеза при чтении нет.
 Нотация экспериментальная (`next`), включается профилем сервера.
 
 ````text
-```tts
+```tts variant=qwen
 model: qwen
 voice: Ryan
 language: ru
@@ -35,19 +40,18 @@ Piper работает на CPU, остальные локальные моде�
 
 ## Модели и лицензии
 
-| model | Семейство, автор | Голоса | Лицензия весов | build по умолчанию |
+| model | Семейство, автор | Голоса | Лицензия весов | variant |
 |---|---|---|---|---|
-| `qwen` | Qwen3-TTS 12Hz 0.6B CustomVoice, Alibaba Qwen | Ryan, Aiden, Vivian, Serena, Dylan, Eric, Uncle_Fu, Ono_Anna, Sohee | Apache-2.0 | `tts-1.1.0-qwen3-0.6b` |
-| `chatterbox` | Chatterbox Multilingual V2, Resemble AI | builtin, штатный `conds.pt`; PerTh сохранён | MIT | `tts-1.1.0-chatterbox-0.1.7` |
-| `xtts` | XTTS-v2, Coqui | Ana Florence, Daisy Studious, Gracie Wise | CPML, **некоммерческая**, ограничения распространяются и на выходы | `tts-1.1.0-xtts-v2` |
-| `silero` | Silero v4 ru / v3 en, Silero Team / snakers4 | ru: aidar, baya, kseniya, xenia, eugene; en: en_0, en_1 | CC BY-NC-SA 4.0 | `tts-1.1.0-silero-v4ru-v3en` |
-| `mms` | MMS-TTS rus / eng, Meta AI | builtin, отдельный голос/веса на язык | CC BY-NC 4.0 | `tts-1.1.0-mms-ru-en` |
-| `piper` (CPU, `version: 2`) | Piper 1.2.0, rhasspy | ru: ruslan; en: ljspeech | ru: CC BY-NC-SA 4.0 + Lessac/Blizzard 2013 Research Licence; en: public domain | `tts-2.1.0-piper-1.2.0` |
+| `qwen` | Qwen3-TTS 12Hz 0.6B CustomVoice, Alibaba Qwen | Ryan, Aiden, Vivian, Serena, Dylan, Eric, Uncle_Fu, Ono_Anna, Sohee | Apache-2.0 | `qwen` |
+| `chatterbox` | Chatterbox Multilingual V2, Resemble AI | builtin, штатный `conds.pt`; PerTh сохранён | MIT | `chatterbox` |
+| `xtts` | XTTS-v2, Coqui | Ana Florence, Daisy Studious, Gracie Wise | CPML, **некоммерческая**, ограничения распространяются и на выходы | `xtts` |
+| `silero` | Silero v4 ru / v3 en, Silero Team / snakers4 | ru: aidar, baya, kseniya, xenia, eugene; en: en_0, en_1 | CC BY-NC-SA 4.0 | `silero` |
+| `mms` | MMS-TTS rus / eng, Meta AI | builtin, отдельный голос/веса на язык | CC BY-NC 4.0 | `mms` |
+| `piper` (CPU, `version: 2`) | Piper 1.2.0, rhasspy | ru: ruslan; en: ljspeech | ru: CC BY-NC-SA 4.0 + Lessac/Blizzard 2013 Research Licence; en: public domain | `piper` |
 
 Некоммерческие модели разрешены владельцем 30.10.2026; выбираются явным `model`.
-Без аргумента `build` и заголовка `# build:` выбирается сжатая сборка выбранной модели:
-`tts-1.1.0-*` без `version`, `tts-2.1.0-*` с `version: 2`; Piper —
-`tts-2.1.0-piper-1.2.0` (только `version: 2`). `# build:` в возвращённом блоке
+Без точного `build` выбирается последняя сжатая сборка движка из `variant` (либо `model`):
+`tts-2.1.0-*` принимает прежний формат и `version: 2`; Piper требует `version: 2`. `# build:` в возвращённом блоке
 сохраняет выбор для пересчёта. Явный `build` и заголовок должны совпадать.
 Модели/языки не подменяются при недоступности. Внешние референсы, voice cloning,
 эмбеддинги, URL и пользовательские checkpoints не принимаются.
@@ -147,10 +151,11 @@ librosa без намеренного изменения высоты; при б
 ## Этап 2: ударения, произношения, числа и время слов
 
 Новые параметры включаются **`version: 2`**. Без `version` действуют первая версия
-и её канонический рецепт; без `build` выбирается `tts-1.1.0-*` выбранной модели.
+и её канонический рецепт; без `build` выбирается `tts-2.1.0-*` выбранной модели.
 С `version: 2` по умолчанию выбирается `tts-2.1.0-*`, включая CPU
-`tts-2.1.0-piper-1.2.0`. Прежние `tts-1.0.0-*` и `tts-2.0.0-*` доступны по явному
-`build` или сохранённому `# build:`; существующие результаты не меняются.
+`tts-2.1.0-piper-1.2.0`. Прежние `tts-1.0.0-*`, `tts-1.1.0-*` и `tts-2.0.0-*` удалены. Явный старый
+`build` получает `410` с подсказкой, без подмены и чтения кеша. Для пересчёта уберите
+старый `# build:`; модель уже выбрана полем `model`. Сохранённые результаты доступны для чтения.
 
 ````text
 ```tts
@@ -328,22 +333,21 @@ text: |-
 
 ## Сжатые копии для плеера
 
-Без `build` в `tts_run` выбирается сжатая сборка модели и версии формата
-из таблицы. Явный аргумент или сохранённый `# build:` имеют приоритет над умолчанием:
+Без `build` в `tts_run` выбирается последняя сжатая сборка движка; `variant` задаёт движок без версии. Явный аргумент или сохранённый `# build:` имеют приоритет над умолчанием:
 
 | Модель | Без `version` | С `version: 2` |
 |---|---|---|
-| Qwen | `tts-1.1.0-qwen3-0.6b` | `tts-2.1.0-qwen3-0.6b` |
-| Chatterbox | `tts-1.1.0-chatterbox-0.1.7` | `tts-2.1.0-chatterbox-0.1.7` |
-| XTTS | `tts-1.1.0-xtts-v2` | `tts-2.1.0-xtts-v2` |
-| Silero | `tts-1.1.0-silero-v4ru-v3en` | `tts-2.1.0-silero-v4ru-v3en` |
-| MMS | `tts-1.1.0-mms-ru-en` | `tts-2.1.0-mms-ru-en` |
+| Qwen | `tts-2.1.0-qwen3-0.6b` | `tts-2.1.0-qwen3-0.6b` |
+| Chatterbox | `tts-2.1.0-chatterbox-0.1.7` | `tts-2.1.0-chatterbox-0.1.7` |
+| XTTS | `tts-2.1.0-xtts-v2` | `tts-2.1.0-xtts-v2` |
+| Silero | `tts-2.1.0-silero-v4ru-v3en` | `tts-2.1.0-silero-v4ru-v3en` |
+| MMS | `tts-2.1.0-mms-ru-en` | `tts-2.1.0-mms-ru-en` |
 | Piper (CPU) | — | `tts-2.1.0-piper-1.2.0` |
 
-Прежние `1.0.0`/`2.0.0`, их образы и сохранённые результаты остаются доступны.
+Прежние образы `1.0.0`/`1.1.0`/`2.0.0` удалены; сохранённые результаты доступны для чтения.
 Старый набор показывает сохранённый текст и только **«скачать: WAV»**.
 Чтобы получить воспроизведение в документе, автор пересчитывает сжатой сборкой:
-удаляет старый `# build:` и не передаёт `build` либо указывает новую сборку в обоих местах.
+удаляет старый `# build:` и не передаёт `build`: используется актуальная сборка выбранной модели.
 Чтение, Play и скачивание синтез не запускают.
 
 Новый набор состоит из шести файлов: прежний мастер `audio.wav` (24 кГц mono PCM16),

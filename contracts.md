@@ -11,6 +11,7 @@
 
 | Язык | Поля результата | Входы, где допустима временная ссылка | Главный файл |
 |---|---|---|---|
+| `bpmn` | `result` | — | `snapshot.json` |
 | `comfy` | `result` | — | `image.png` |
 | `digitaljs` | `result` | — | `circuit.json` |
 | `font` | `file`, `compare` | `file`, `compare` | `font.ttf` |
@@ -46,19 +47,15 @@ ComfyUI допускает сохранённый результат, но **п�
 | Вид ядра | Сборка с пакетом | Статус | Восстановление |
 |---|---|---|---|
 | `python` | `python-3.13.7-code` | `stable` | Проигрывание шагов |
-| `freecad` | `freecad-1.1.4` | `deprecated` | Точка сохранения; иначе проигрывание шагов |
-| `freecad` | `freecad-1.1.4-timashkovy` | `default` | Точка сохранения; иначе проигрывание шагов |
-| `freecad` | `freecad-1.1.4-fem-elmer-26.2.1-r1` | `next` | Точка сохранения; иначе проигрывание шагов |
-| `freecad` | `freecad-1.1.4-mechanical-r1` | `next` | Точка сохранения; иначе проигрывание шагов |
-| `freecad` | `freecad-1.1.4-apt-r1` | `next` | Точка сохранения; иначе проигрывание шагов |
-| `freecad` | `freecad-1.1.4-timashkovy-apt-r1` | `next` | Точка сохранения; иначе проигрывание шагов |
-| `freecad` | `freecad-1.1.4-fem-elmer-26.2.1-batch-r1` | `next` | Точка сохранения; иначе проигрывание шагов |
-| `lean` | `lean-4.34.0` | `deprecated` | Проигрывание шагов |
+| `freecad` | `freecad-1.1.4-timashkovy-r2` | `default` | Точка сохранения; иначе проигрывание шагов |
+| `freecad` | `freecad-1.1.4-fem-elmer-26.2.1-r2` | `stable` | Точка сохранения; иначе проигрывание шагов |
+| `freecad` | `freecad-1.1.4-mechanical-r2` | `stable` | Точка сохранения; иначе проигрывание шагов |
+| `freecad` | `freecad-1.1.4-fem-elmer-26.2.1-batch-r2` | `stable` | Точка сохранения; иначе проигрывание шагов |
+| `freecad` | `freecad-1.1.4-apt-r2` | `next` | Точка сохранения; иначе проигрывание шагов |
 | `lean` | `lean-4.34.0-widgets` | `default` | Проигрывание шагов |
 | `modelica` | `openmodelica-1.27.1-session` | `next` | Точка сохранения; иначе проигрывание шагов |
 | `qet` | `qelectrotech-0.200.1-dev-f4dcbcc-kernel` | `default` | Полная папка точки сохранения |
-| `blender` | `blender-5.2.2-session` | `next` | Точка сохранения; иначе проигрывание шагов |
-| `blender` | `blender-5.2.2-provenance-r1` | `next` | Точка сохранения; иначе проигрывание шагов |
+| `blender` | `blender-5.2.2-r2` | `default` | Точка сохранения; иначе проигрывание шагов |
 
 Предметные команды открытия/сохранения и сроки — [сеансы](sessions.md).
 

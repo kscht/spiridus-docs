@@ -49,9 +49,8 @@ flowchart TD
 <details>
 <summary>То же на PlantUML — диаграмма активности</summary>
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:b9dcc0b86abba748/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140

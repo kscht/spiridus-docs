@@ -23,9 +23,8 @@
 открытый, который можно показать всем, и закрытый, который хранят в секрете. Им договариваются
 о симметричном ключе и ставят электронные подписи.
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:1e9636e2a83efb9d/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -228,9 +227,8 @@ $2^{k/2}$ шагов. Это не взлом, а «ослабление вдво
 медицинских, государственных и банковских тайн, которые важны десятилетиями, это угроза уже
 сейчас.
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:6ae7e097b91e0521/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140
@@ -283,9 +281,8 @@ stop
 запрещают измерить состояние, не изменив его, — поэтому подслушивание оставляет следы, и
 Алиса с Бобом это замечают:
 
-```plantuml
+```plantuml variant=asl
 ' result: artifact:45a504b61f7ed1ee/diagram.svg
-' build: plantuml-1.2026.9-asl
 @startuml
 skinparam defaultFontSize 16
 skinparam wrapWidth 140

@@ -110,9 +110,8 @@ end Pendulum;
 
 Сопротивление стало 2 кОм. С прежним результатом от 1 кОм блок предупредил бы о несовпадении. Ниже — пересчитанный результат: постоянная времени теперь 2 с.
 
-```modelica
+```modelica variant=standard
 // result: artifact:21d4b96bb6493a30/result.csv
-// build: openmodelica-1.27.1
 // plot: C.v
 model RC "Заряд конденсатора через резистор"
   import Modelica.Electrical.Analog.Basic;
